@@ -2,6 +2,7 @@ import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import React, {useState, useEffect, useRef} from 'react';
+// import  {SanityProductPage} from '~/lib/sanity';
 
 import {Image, Money} from '@shopify/hydrogen';
 import {json} from '@shopify/remix-oxygen';
