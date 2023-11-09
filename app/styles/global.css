@@ -1,0 +1,430 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html {
+  font-size: 62.5%;
+font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*{
+  --black:#161615;
+  --white:#f4f4f4
+}
+/* @font-face {
+    font-family: 'thunder';
+    src: url('/fonts/thunder.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+   */
+/* Define a @font-face rule for the TTF format */
+@font-face {
+  font-family: 'thunder';
+  src: url('/fonts/Thunder-VF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Use the variable font in your CSS declarations */
+body {
+  font-family: 'thunder', sans-serif;
+  font-variation-settings: 'wght' 400, 'wdth' 600, 'ital' 1, 'opsz' 200;
+  background-color: var(--black);
+  color: #f4f4f4;
+  overflow-x: hidden;
+}
+
+video {
+  height: 100%;
+  object-fit: cover;
+}
+.blackOverlay {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  background-color: #1a1a19;
+  position: absolute;
+  top: 0;
+}
+
+
+.container3D div {
+  height: 100%;
+  width: 100%;
+}
+/* Our mixin positions a copy of our text
+directly on our existing text, while
+also setting content to the appropriate
+text set in the data-text attribute. */
+
+h1 {
+  font-size: calc(12rem + 0.1vw);
+  text-shadow: 3px 2px 2px #fb0c0c, 0px -1px 3px rgba(12, 79, 251, 0.5),
+    -3px 0px 2px #34fb0c;
+  /* -webkit-animation: chromaticMove 4500ms ease infinite, pulse ease 200ms infinite; */
+  /* animation: chromaticMove 4500ms ease infinite, pulse ease 200ms infinite; */
+  padding: 0;
+  margin: 0;
+  line-height: 90%;
+  max-width: 15ch;
+  opacity: 0.8;
+}
+h2{
+  font-size: 12.8rem;
+  line-height: 100%;
+}
+.bigText {
+  font-size: calc(18rem + 0.1vw);
+
+  color: #1a1a19;
+text-stroke: 1px white; /* For Webkit-based browsers like Chrome and Safari */
+  text-stroke: 1px white; /* For browsers that support the standard text-stroke property */
+  text-shadow: 1px 1px 0 white; /* Fallback using text-shadow */
+}
+.h-120{
+  height: 90vh;
+}
+
+h3 {
+  font-size: calc(4.8rem);
+  line-height: 110%;
+  /*x-width: 45ch;
+  line-height: 120%; */
+}
+.bigSubText{
+
+    font-size:  6.8rem;
+    line-height: 85%;
+    /*x-width: 45ch;
+    line-height: 120%; */
+  
+}
+.maxCH{
+  max-width: 37ch;
+}
+h4 {
+  font-size: 3.6rem;
+
+  line-height: 100%;
+}
+
+.bulle{
+  color: var(--black);
+  background-color: var(--white);
+  height: 9rem;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  width: 9rem;
+  min-width: 9rem;
+
+}
+.bulle h3{
+  /* padding: 0 4rem; */
+  margin-top: 0.5rem;
+  position: relative;
+  top: 0.1rem;
+}
+.myButton.filled {
+  border: 1px solid #f4f4f4;
+  border-radius: 6px;
+  background-color: var(--white);
+  color: var(--black);
+  /* font-size: calc(rem + 0.1vw); */
+  line-height: 100%;
+  padding: 10px 1.2rem 2px;
+  transition: 0.45s ease all;
+  font-variation-settings: 'wght' 400, 'wdth' 600, 'ital' 1, 'opsz' 200;
+}
+.myButton.filled:hover {
+  font-variation-settings: 'wght' 500, 'wdth' 600, 'ital' 10, 'opsz' 200;
+  padding: 10px 4.5rem 2px 1.2rem;
+  background-color: var(--black);
+  color: var(--white);
+  transition: 0.45s ease padding  0.2s ease background-color;
+}
+
+.myButton:hover .arrow {
+  transform: translateX(-0.3rem);
+  opacity: 1;
+  transition: 0.45s ease all;
+  fill: var(--white);
+}
+.lineDotted{
+   left: 4.5rem;
+   z-index: -1;
+    position: absolute;
+    top: 0; /* Aligns the line to the top of the container */
+    bottom: 0; /* Aligns the line to the bottom of the container */
+    width: 2px; /* Sets the width of the line */
+    background: linear-gradient(to bottom, transparent 50%, var(--white) 50%);
+    background-size: 2px 16px; /* Changes the direction of the gradient to vertical */
+  }
+  .mxCh53{
+    max-width: 53ch;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+li {
+  font-size: calc(3rem + 0.1vw);
+  max-width: 45ch;
+  line-height: 120%;
+  font-variation-settings: 'wght' 200, 'wdth' 600, 'ital' 1, 'opsz' 200;
+}
+/* h2 {
+  font-size: calc(8rem + 0.1vw);
+  line-height: 100%;
+} */
+.myButton {
+  border: 1px solid #f4f4f4;
+  border-radius: 6px;
+  /* font-size: calc(rem + 0.1vw); */
+  line-height: 100%;
+  padding: 8px 1.2rem 4px;
+  transition: 0.45s ease all;
+  font-variation-settings: 'wght' 400, 'wdth' 600, 'ital' 1, 'opsz' 200;
+}
+.timer{
+  color: #1a1a19;
+}
+.title3D {
+  max-width: 12ch;
+}
+.myButton.herobutton {
+  border: 1px solid #f4f4f4;
+  border-radius: 6px;
+  font-size: 6.8rem;
+  line-height: 100%;
+  padding: 6rem 20% 2px 2rem;
+  transition: .45s ease all;
+  font-variation-settings: "wght" 400, "wdth" 600, "ital" 1, "opsz" 200;
+}
+.myButton:hover {
+  font-variation-settings: 'wght' 500, 'wdth' 600, 'ital' 10, 'opsz' 200;
+  padding: 8px 3.5rem 4px 1.2rem;
+}
+
+.arrow {
+  transform: translateX(0rem);
+  transition: 0.3s ease all;
+}
+.myButton:hover .arrow {
+  transform: translateX(-0.3rem);
+  opacity: 1;
+  transition: 0.45s ease all;
+}
+.borderTop {
+  border-top: 1px solid #f4f4f4;
+}
+
+.roundCircle {
+  border: 1px solid #f4f4f4;
+  border-radius: 50%;
+  height: 8rem;
+  width: 8rem;
+}
+.font2rem {
+  font-size: calc(2rem + 0.1vw);
+}
+
+
+
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem; /* This sets both row and column gaps to 2rem */
+}
+
+section {
+
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: var(--black);
+}
+.heightBanner{
+  height: 13vw;
+}
+
+.glitch {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 15vw;
+  width: 100%;
+
+}
+.borderRadius{
+  border-radius: 6px;
+}
+.glitch .text {
+animation: jerkwhole 2.5s infinite;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+.glitch span {
+  position: absolute;
+  color: white;
+
+  font-size: 10.5vw;
+  text-align: center;
+filter: blur(1px);
+animation: blur 30ms infinite, jerk 50ms infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+}
+
+.glitch span:nth-child(1) {
+  color: red;
+  margin-left: 8px;
+  margin-top: -2px;
+filter: blur(2px);
+}
+
+.glitch span:nth-child(2) {
+  color: green;
+  margin-left: 7px;
+filter: blur(2px);
+}
+
+.glitch span:nth-child(3) {
+  color: blue;
+  margin-left: -7px;
+  margin-top: 4px;
+filter: blur(2px);
+animation: jerkblue 0.5s infinite;
+}
+
+.glitch span:nth-child(4) {
+  color: white;
+filter: blur(1px);
+  text-shadow: 0 0 50px rgba(255, 255, 255, 0.4);
+}
+
+.glitch span:nth-child(5) {
+  color: rgba(255, 255, 255, 0.4);
+filter: blur(15px);
+}
+
+@keyframes blur {
+  0% {
+  filter: blur(1px);
+    opacity: 0.8;
+  }
+  50% {
+  filter: blur(1px);
+    opacity: 1;
+  }
+  100% {
+  filter: blur(1px);
+    opacity: 0.6;
+  }
+}
+@keyframes  jerk {
+  50% {
+    left: 2px;
+  }
+  51% {
+    left: 0;
+  }
+}
+@keyframes jerkup {
+  50% {
+    top: 2px;
+  }
+  51% {
+    top: 0;
+  }
+}
+@keyframes jerkblue {
+  0% {
+    left: 0;
+  }
+  30% {
+    left: 0;
+  }
+  31% {
+    left: -10px;
+  }
+  32% {
+    left: 0;
+  }
+  98% {
+    left: 0;
+  }
+  100% {
+    left: 10px;
+  }
+}
+@keyframes jerkgreen {
+  0% {
+    left: 0;
+  }
+  30% {
+    left: 0;
+  }
+  31% {
+    left: -20px;
+  }
+  32% {
+    left: 0;
+  }
+  98% {
+    left: 0;
+  }
+  100% {
+    left: 15px;
+  }
+}
+@keyframes jerkwhole {
+  40% {
+    opacity: 1;
+    top: 0;
+    left: 0px;
+  transform: scale(1, 1);
+  transform: skew(0, 0);
+  }
+  41% {
+    opacity: 0.8;
+    top: 0px;
+    left: -100px;
+  transform: scale(1, 1.2);
+  transform: skew(20deg, 0);
+  }
+  42% {
+    opacity: 0.8;
+    top: 0px;
+    left: 50px;
+  transform: scale(1, 1.2);
+  transform: skew(-40deg, 0);
+  }
+  43% {
+    opacity: 1;
+    top: 0;
+    left: 0;
+  transform: scale(1, 1);
+  transform: skew(0, 0);
+  }
+}
+

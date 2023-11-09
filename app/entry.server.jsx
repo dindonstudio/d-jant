@@ -15,7 +15,27 @@ export default async function handleRequest(
   responseHeaders,
   remixContext,
 ) {
-  const {nonce, header, NonceProvider} = createContentSecurityPolicy();
+  const {nonce, header, NonceProvider} = createContentSecurityPolicy({
+    styleSrc: [
+      "'self'",
+      'https://cdn.shopify.com',
+      'https://cdn.sanity.io',
+    ],
+    connectSrc: [
+      "'self'",
+      'blob:',
+      'https://cdn.sanity.io',
+      // ... any other URLs or sources you want to allow connections to
+    ],
+    imgSrc: [
+      "'self'",
+      'https://cdn.shopify.com',
+      'https://cdn.sanity.io', // Add this line
+      // ... any other image sources
+    ],
+  });
+  
+  
 
   const body = await renderToReadableStream(
     <NonceProvider>

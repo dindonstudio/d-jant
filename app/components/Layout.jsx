@@ -4,11 +4,15 @@ import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/Cart';
+import { tailwind } from 'remix.config';
+import studio from "@theatre/studio";
+import extension from "@theatre/r3f/dist/extension";
 import {
   PredictiveSearchForm,
   PredictiveSearchResults,
 } from '~/components/Search';
-
+// studio.extend(extension);
+// studio.initialize();
 /**
  * @param {LayoutProps}
  */
@@ -20,11 +24,11 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
       <MobileMenuAside menu={header.menu} shop={header.shop} />
       <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
       <main>{children}</main>
-      <Suspense>
+      {/* <Suspense>
         <Await resolve={footer}>
           {(footer) => <Footer menu={footer.menu} shop={header.shop} />}
         </Await>
-      </Suspense>
+      </Suspense> */}
     </>
   );
 }

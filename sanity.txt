@@ -1,0 +1,2 @@
+cd /Users/dindon/Desktop/dejante/shopify---72573b-2
+npm run dev

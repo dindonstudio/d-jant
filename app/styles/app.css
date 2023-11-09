@@ -127,7 +127,7 @@ aside li {
 * components/Header
 * --------------------------------------------------
 */
-.header {
+/* .header {
   align-items: center;
   background: #fff;
   display: flex;
@@ -136,7 +136,7 @@ aside li {
   position: sticky;
   top: 0;
   z-index: 1;
-}
+} */
 
 .header-menu-mobile-toggle {
   @media (min-width: 48em) {
