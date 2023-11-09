@@ -20,7 +20,7 @@ font-smoothing: antialiased;
 /* Define a @font-face rule for the TTF format */
 @font-face {
   font-family: 'thunder';
-  src: url('/fonts/Thunder-VF.ttf') format('truetype');
+  src: url('../../public/fonts/Thunder-VF.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
