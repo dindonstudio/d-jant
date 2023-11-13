@@ -114,10 +114,10 @@ function SearchToggle() {
  */
 function CartBadge({count}) {
   return (
-    <h4 className='mt-1'>
+    <h5 className='mt-1'>
       {' '}
       <a href="#cart-aside">Panier {count}</a>
-    </h4>
+    </h5>
   );
 }
 

@@ -3,22 +3,39 @@ import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import React, {useState, useEffect, useRef} from 'react';
 // import  {SanityProductPage} from '~/lib/sanity';
-
 import {Image, Money} from '@shopify/hydrogen';
 import {json} from '@shopify/remix-oxygen';
 import MarqueeBanner from '~/components/hero/Marquee';
 // import  {SanityProductPage} from '~/lib/sanity';
+import ProductOptions from '../components/ProductOptions';
 import sanityClient, {createClient} from '@sanity/client';
 import VideoPlayer from '~/components/VideoPlayer';
 import VideoWithButtonOverlay from '~/components/VideoHero';
+import {VariantSelector} from '@shopify/hydrogen';
 import Etapes from '../components/Etapes';
 import Decouvertes from '../components/Decouverte';
 import CloseUp from '../components/CloseUp';
 import Collection from '../components/Shop';
-
-const query = `*[_type == 'home' ]`;
+import ProgressBar from '~/components/ProgressBar';
+import DragSlider from '~/components/DragSlider';
+import CustomButton from '~/components/CustomButton';
+import VideoPresentation from '~/components/VideoPresentation';
+import FAQ from '~/components/FAQ';
+import {CartForm} from '@shopify/hydrogen';
+const query = `*[_type == 'home' ]
+{
+ ...,
+  "gallery": gallery[]{
+    "url": image.asset->url
+  }
+}`;
 const params = {slug: 'about'};
-const queryProduct = `*[_type == 'product' && slug.current == pack-3-tickets]`;
+const queryimage = `*[_type == "home" ]{
+  "gallery": gallery[]{
+    "url": image.asset->url
+  }
+}
+`;
 
 // Configure Sanity client
 const client = createClient({
@@ -41,22 +58,22 @@ export const meta = () => {
 
 export async function loader({context}) {
   const {storefront} = context;
-  const variables = { handle: 'product' };
+  const variables = {handle: 'product'};
   const {collections} = await storefront.query(FEATURED_COLLECTION_QUERY);
   const featuredCollection = collections.nodes[0];
   const sanityData = await client.fetch(query);
+  const galleryData = await client.fetch(queryimage);
   const recommendedProducts = storefront.query(RECOMMENDED_PRODUCTS_QUERY);
-console.log(recommendedProducts)
   // Log the fetched data
   // console.log(sanityData);
 
-  return defer({sanityData, featuredCollection, recommendedProducts});
+  return defer({sanityData, featuredCollection, recommendedProducts,galleryData});
 }
 
-export default function Homepage(sanityData) {
+export default function Homepage(sanityData, galleryData) {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
-  console.log(data)
+  console.log(data);
   const sanity = data?.sanityData?.[0];
 
   return (
@@ -64,68 +81,126 @@ export default function Homepage(sanityData) {
       <div className="hero h-screen flex  flex-col z-20 relative overflow-hidden ">
         {/* <MarqueeBanner/> */}
         <VideoWithButtonOverlay sanity={sanity} />
-    
       </div>
-      <div className='md:pt-64'>
-      <Etapes />
+      <div className="md:pt-64">
+        <Etapes />
       </div>
-      <div className='md:pt-96'>
-      <Decouvertes />
+      <div className="md:pt-96">
+        <Decouvertes />
       </div>
-      <div className='md:pt-96'>
-      <CloseUp />
+      <div className="md:pt-96">
+        <CloseUp />
       </div>
-      {/* <div className='md:pt-96'>
-      <Collection handle={"product"} />
-      </div> */}
-             <RecommendedProducts products={data.recommendedProducts} />
+  
+      <div id="shop" className="md:pt-96">
+        <RecommendedProducts products={data.recommendedProducts} />
+      </div>
+      <div  className="md:pt-96">
+        <DragSlider galleryData={sanity.gallery}   />
+      </div>
+      <div  className="md:pt-96">
+        <CustomButton   />
+      </div>
+      <div  className="md:pt-96">
+        <VideoPresentation   />
+      </div>
+      <div  className="md:pt-96">
+        <FAQ   />
+      </div>
 
     </div>
   );
 }
-function FeaturedCollection({collection })
-  {
-  if (!collection) return null;
-  const image = collection?.image;
-  return (
-    <Link
-      className="featured-collection"
-      to={`/collections/${collection.handle}`}
-    >
-      {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
-        </div>
-      )}
-      <h1>{collection.title}</h1>
-    </Link>
-  );
-}
-function RecommendedProducts({ products,}) {
+
+function RecommendedProducts({products}) {
+  const [selectedVariants, setSelectedVariants] = useState({});
+  const [currentImageIndex, setCurrentImageIndex] = useState({});
+
+  const handleVariantChange = (productId, variantId) => {
+    setSelectedVariants((prev) => ({...prev, [productId]: variantId}));
+  };
+
+  // Function to handle image navigation
+  const navigateImage = (productId, direction) => {
+    setCurrentImageIndex((prev) => {
+      const currentIndex = prev[productId] || 0;
+      const newIndex =
+        direction === 'next' ? currentIndex + 1 : currentIndex - 1;
+      return {...prev, [productId]: newIndex};
+    });
+  };
+
   return (
     <div className="recommended-products">
-      <h2>Recommended Products</h2>
+      <h2 className="text-center ">CHOPE TON TICKET</h2>
+      <h4 className='text-center'>Accélérez, les places sont comptées !</h4>
+      <div className='w-full'>
+        <ProgressBar/>
+      </div>
       <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={products}>
           {({products}) => (
-            <div className="recommended-products-grid">
-              {products.nodes.map((product) => (
-                <Link
-                  key={product.id}
-                  className="recommended-product"
-                  to={`/products/${product.handle}`}
-                >
-                  <Image
-                    data={product.images.nodes[0]}
-                    aspectRatio="1/1"
-                    sizes="(min-width: 45em) 20vw, 50vw"
-                  />
-                  <h4>{product.title}</h4>
-                  <small>
-                    <Money data={product.priceRange.minVariantPrice} />
-                  </small>
-                </Link>
-              ))}
+            <div className="grid paddingGrid px-8 pt-56">
+              {products.nodes.map((product) => {
+                const imageIndex = currentImageIndex[product.id] || 0;
+                const images = product.images?.nodes || [];
+                const hasNext = imageIndex < images.length - 1;
+                const hasPrev = imageIndex > 0;
+
+                return (
+                  <div key={product.id} className="col-span-4 ">
+                    <div className="relative productLink">
+                      <Link
+                        className="relative "
+                        to={`/products/${product.handle}`}
+                      >
+                        <div className="relative  h-5/6">
+                          <Image
+                            data={images[imageIndex]}
+                            aspectRatio="0.70"
+                            className="w-full h-full object-cover"
+                            sizes="(min-width: 45em) 20vw, 50vw"
+                          />
+                        </div>
+                        <div className="flex justify-between absolute left-4 bottom-4"></div>
+                      </Link>
+                      <div className="hoverInfo md:opacity-0">
+                        <div className="absolute top-0 h-full left-4 flex items-center">
+                          {hasPrev && (
+                            <h4
+                              className="        w-full px-4 text-semiDark bg-semiWhite uppercase hover:bg-semiDark hover:text-semiWhite transition-colors duration-150"
+                              onClick={() => navigateImage(product.id, 'prev')}
+                            >
+                              {'<'}
+                            </h4>
+                          )}
+                        </div>
+                        <div>
+                          <div className="absolute top-0 h-full right-4 flex items-center">
+                            {hasNext && (
+                              <h4
+                                className="        w-full px-4  text-semiDark bg-semiWhite uppercase hover:bg-semiDark hover:text-semiWhite transition-colors duration-150"
+                                onClick={() =>
+                                  navigateImage(product.id, 'next')
+                                }
+                              >
+                                {'>'}
+                              </h4>
+                            )}
+                          </div>
+                        </div>
+                        <ProductForm product={product} />
+                      </div>
+                    </div>
+                    <div className="flex justify-between md:mt-4">
+                      <h4 className="capitalize">{product.title}</h4>
+                      <h4>
+                        <Money data={product.priceRange.minVariantPrice} />
+                      </h4>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
         </Await>
@@ -134,9 +209,101 @@ function RecommendedProducts({ products,}) {
     </div>
   );
 }
+function ProductForm({product}) {
+  console.log(product);
+
+  return (
+    <VariantSelector
+      handle={product.handle}
+      options={product.options}
+      variants={product.variants}
+    >
+      {({option}) => (
+        <>
+          {/* <div>{option.name}</div> */}
+          <div className="flex justify-center items-end w-full absolute bottom-12 z-10 ">
+            <div className="flex gap-8 bg-semiWhite">
+              {option.values.map((value, index) => {
+                const variant = product.variants.nodes[index]; // Match variant by index
+                return (
+                  <div
+                    key={value.id} // Assuming each value has a unique ID
+                    prefetch="intent"
+                    className={
+                      value.isActive
+                        ? 'active'
+                        : value.isAvailable
+                        ? ''
+                        : 'opacity-80'
+                    }
+                  >
+                    <CartForm
+                      action="CustomEditInPlace"
+                      inputs={{
+                        addLines: [
+                          {
+                            merchandiseId: variant.id,
+                            quantity: 1,
+                          },
+                        ],
+                      }}
+                    >
+                      <button
+                        type="submit"
+                        onClick={() => {
+                          console.log('Add to cart clicked');
+                          window.location.href = '#cart-aside';
+                        }}
+                        className="  rounded-sm w-full px-4 pt-3 pb-2 text-semiDark bg-semiWhite uppercase hover:bg-semiDark hover:text-semiWhite transition-colors duration-150"
+                      >
+                        <h5>{value.value}</h5>
+                      </button>
+                    </CartForm>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
+    </VariantSelector>
+  );
+}
 
 /**
+ * @param {{option: VariantOption}}
+ */
 
+/**
+ * @param {{
+ *   analytics?: unknown;
+ *   children: React.ReactNode;
+ *   disabled?: boolean;
+ *   lines: CartLineInput[];
+ *   onClick?: () => void;
+ * }}
+ */
+
+export async function action({request, context}) {
+  const {cart} = context;
+
+  const formData = await request.formData();
+  const {action, inputs} = CartForm.getFormInput(formData);
+
+  let status = 200;
+  let result;
+
+  if (action === 'CustomEditInPlace') {
+    result = await cart.addLines(inputs.addLines);
+    // result = await cart.removeLines(inputs.removeLines);
+  } else {
+    invariant(false, `${action} cart action is not defined`);
+  }
+
+  const headers = cart.setCartId(result.cart.id);
+
+  return json(result, {status, headers});
+}
 
 /**
  * @param {{
@@ -170,8 +337,66 @@ const FEATURED_COLLECTION_QUERY = `#graphql
       }
     }
   }
-` 
+`;
+
+const PRODUCT_VARIANT_FRAGMENT = `#graphql
+  fragment ProductVariant on ProductVariant {
+    availableForSale
+    compareAtPrice {
+      amount
+      currencyCode
+    }
+    id
+    image {
+      __typename
+      id
+      url
+      altText
+      width
+      height
+    }
+    price {
+      amount
+      currencyCode
+    }
+    product {
+      title
+      handle
+    }
+    selectedOptions {
+      name
+      value
+    }
+    sku
+    title
+    unitPrice {
+      amount
+      currencyCode
+    }
+  }
+`;
 const RECOMMENDED_PRODUCTS_QUERY = `#graphql
+  fragment RecommendedProductVariant on ProductVariant {
+    id
+    title
+    availableForSale
+    price {
+      amount
+      currencyCode
+    }
+    image {
+      id
+      url
+      altText
+      width
+      height
+    }
+    selectedOptions {
+      name
+      value
+    }
+  }
+
   fragment RecommendedProduct on Product {
     id
     title
@@ -182,7 +407,12 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
         currencyCode
       }
     }
-    images(first: 1) {
+    options {
+      name
+      values
+    }
+    
+    images(first: 3) {
       nodes {
         id
         url
@@ -191,13 +421,19 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
         height
       }
     }
+    variants(first: 250) {
+      nodes {
+        ...RecommendedProductVariant
+      }
+    }
   }
-  query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    products(first: 4, sortKey: UPDATED_AT,) {
+
+  query RecommendedProducts($country: CountryCode, $language: LanguageCode)
+  @inContext(country: $country, language: $language) {
+    products(first: 3, sortKey: CREATED_AT) {
       nodes {
         ...RecommendedProduct
       }
     }
   }
-`
+`;

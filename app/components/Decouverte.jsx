@@ -6,7 +6,7 @@ function Decouvertes(props) {
   const {sanity} = props;
 
   return (
-    <div className="px-8  ">
+    <div  className="px-8  ">
       <div className="w-full flex flex-col justify-center items-center gap-10 pb-72">
         <h2 className="text-center uppercase">Découverte de l'Abarth 595</h2>
         <div className="flex justify-center">

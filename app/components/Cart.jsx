@@ -31,7 +31,7 @@ function CartDetails({layout, cart}) {
       <CartLines lines={cart?.lines} layout={layout} />
       {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
-          <CartDiscounts discountCodes={cart.discountCodes} />
+          {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
           <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
         </CartSummary>
       )}
@@ -71,11 +71,12 @@ function CartLineItem({layout, line}) {
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
   return (
-    <li key={id} className="cart-line">
+    <li key={id} className="cart-line gap-6 md:pt-12 md:pl-4">
       {image && (
         <Image
           alt={title}
-          aspectRatio="1/1"
+          // aspectRatio="1/1"
+          className='w-2/5'
           data={image}
           height={100}
           loading="lazy"
@@ -94,18 +95,18 @@ function CartLineItem({layout, line}) {
             }
           }}
         >
-          <p>
+          <h5>
             <strong>{product.title}</strong>
-          </p>
+          </h5>
         </Link>
-        <CartLinePrice line={line} as="span" />
-        <ul>
+        <CartLinePrice line={line} as="h5" />
+        <ul className='pt-8'>
           {selectedOptions.map((option) => (
-            <li key={option.name}>
-              <small>
+            <div className='smallH5' key={option.name}>
+      
                 {option.name}: {option.value}
-              </small>
-            </li>
+              
+            </div>
           ))}
         </ul>
         <CartLineQuantity line={line} />
@@ -122,8 +123,10 @@ function CartCheckoutActions({checkoutUrl}) {
 
   return (
     <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+      <a className='' href={checkoutUrl} target="_self">
+        <h4                         className=" text-center borderblack  rounded-sm w-full px-4 pt-7 pb-6 hover:text-semiDark hover:bg-semiWhite uppercase bg-semiDark text-semiWhite transition-colors duration-150"
+
+        >Proceder au paiement </h4>
       </a>
       <br />
     </div>
@@ -143,17 +146,15 @@ export function CartSummary({cost, layout, children = null}) {
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
-      <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
-        <dd>
-          {cost?.subtotalAmount?.amount ? (
-            <Money data={cost?.subtotalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd>
-      </dl>
+      <div className='flex justify-between py-8 px-4'>
+      <h4>Total</h4>
+      <h4>
+      <Money data={cost?.subtotalAmount} />
+      </h4>
+
+      </div>
+  
+  
       {children}
     </div>
   );
@@ -169,7 +170,7 @@ function CartLineRemoveButton({lineIds}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button type="submit">Remove</button>
+      <button className='md:pl-4' type="submit"><div className='smallH5'>Supprimer</div></button>
     </CartForm>
   );
 }
@@ -185,7 +186,7 @@ function CartLineQuantity({line}) {
 
   return (
     <div className="cart-line-quantiy">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
+      <div className='smallH5'>Quantité: {quantity} &nbsp;&nbsp;</div>
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"
@@ -193,7 +194,7 @@ function CartLineQuantity({line}) {
           name="decrease-quantity"
           value={prevQuantity}
         >
-          <span>&#8722; </span>
+          <h5>&#8722; </h5>
         </button>
       </CartLineUpdateButton>
       &nbsp;
@@ -203,7 +204,7 @@ function CartLineQuantity({line}) {
           name="increase-quantity"
           value={nextQuantity}
         >
-          <span>&#43;</span>
+          <h5>&#43;</h5>
         </button>
       </CartLineUpdateButton>
       &nbsp;

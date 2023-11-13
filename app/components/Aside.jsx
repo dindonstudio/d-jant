@@ -15,17 +15,17 @@
  */
 export function Aside({children, heading, id = 'aside'}) {
   return (
-    <div aria-modal className="overlay" id={id} role="dialog">
+    <div aria-modal className="overlay " id={id} role="dialog">
       <button
         className="close-outside"
         onClick={() => {
-          history.go(-1);
+    
           window.location.hash = '';
         }}
       />
-      <aside>
-        <header>
-          <h3>{heading}</h3>
+      <aside className="md:pt-8">
+        <header className="">
+          <h4>Panier</h4>
           <CloseAside />
         </header>
         <main>{children}</main>
@@ -37,8 +37,11 @@ export function Aside({children, heading, id = 'aside'}) {
 function CloseAside() {
   return (
     /* eslint-disable-next-line jsx-a11y/anchor-is-valid */
-    <a className="close" href="#" onChange={() => history.go(-1)}>
+    <a className="close" href="" >
+      <h4>
       &times;
+      </h4>
+    
     </a>
   );
 }
