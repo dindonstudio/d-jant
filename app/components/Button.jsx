@@ -4,7 +4,7 @@ function MyButton(props) {
   const { text, onClick } = props;
 
   return (
-    <h4 className='myButton flex relative cursor-pointer' onClick={onClick}>
+    <h5 className='myButton flex relative cursor-pointer' onClick={onClick}>
   
       {text}
       <div className='  arrow absolute right-0 opacity-0 '>
@@ -12,7 +12,7 @@ function MyButton(props) {
 
       </div>
 
-    </h4>
+    </h5>
   );
 }
 

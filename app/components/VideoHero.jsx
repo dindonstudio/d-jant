@@ -17,11 +17,15 @@ function VideoWithButtonOverlay(props) {
             {/* <div className="blackOverlay"></div> */}
    
                 <div className="grid absolute w-full top-0 left-0 px-10 z-20 h-full">
-                    <div className='flex flex-col gap-8 items-center col-span-12 pl-8  justify-center  '>
+                    <div className='flex flex-col gap-4 items-center col-span-12 pl-8  justify-center  '>
+                        <h5>Gagner une Abarth 595</h5>
                     <h3 className='maxCH text-center'>
                     Participez au concours pour un changement de vitesse dans votre quotidien.
                     </h3>
-        <MyButtonHero text={"DÉCOUVRIR"}/>
+                    <div className='mt-4'>
+                    <MyButtonHero text={"DÉCOUVRIR"}/>
+                    </div>
+
                     </div>
         
 
