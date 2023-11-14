@@ -1,10 +1,23 @@
 import React from 'react';
-
+import { useRef, useEffect } from 'react';
 function FilledButton(props) {
-  const { text, onClick } = props;
+  const { text } = props;
+  const shopRef = useRef(null);
+
+  useEffect(() => {
+    shopRef.current = document.getElementById('shop');
+  }, []);
+
+  const scrollToShop = () => {
+    if (shopRef.current) {
+      const yOffset = +100; // 2 rem above the element
+      const y = shopRef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
 
   return (
-    <h3 className='myButton filled flex relative cursor-pointer' onClick={onClick}>
+    <h3 className='myButton filled flex relative cursor-pointer' onClick={scrollToShop}>
   
     {text}
     <div className='  arrow absolute right-0 opacity-0 '>
