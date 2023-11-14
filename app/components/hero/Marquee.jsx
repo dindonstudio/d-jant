@@ -13,13 +13,13 @@ const Marquee = () => {
   }, []);
 
   return (
-    <section className='heightBanner blackBg z-30 relative'>
+
       <div className="glitch">
-        <div className="text">
-          <span>DÉJANTÉ AVEC OU SANS PERMIS<br/></span>
+        <div className="text"><span>Gagner une Abarth 595</span>
+  
         </div>
       </div>
-    </section>
+
   );
 };
 

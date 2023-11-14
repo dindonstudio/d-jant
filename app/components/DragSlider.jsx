@@ -78,9 +78,12 @@ export default function DragSlider({ galleryData }) {
     }, [isDragging, startX, scrollLeft]);
   
   return (
-    <div id="Magazine" className="px-8">
-        <h2 className="uppercase">Capturez l'essence <br /> de Déjanté</h2>
+    <div id="Magazine" className="px-8 h-screen flex flex-col justify-between">
+      <div>
+      <h2 className="uppercase">Capturez l'essence <br /> de Déjanté</h2>
         <h4>Chaque image est une invitation  à rejoindre  la course.</h4>
+      </div>
+
       <div id="gallery__container" className="md:w-screen">
         <div className="md:pt-40 md:pb-14 h-full flex justify-end flex-col">
           <div

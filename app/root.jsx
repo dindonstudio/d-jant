@@ -15,6 +15,7 @@ import {
 import favicon from '../public/favicon.svg';
 import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
+import anim from './styles/anim.css'
 import globalStyles from './styles/global.css'
 import {Layout} from '~/components/Layout';
 
@@ -40,6 +41,7 @@ export function links() {
   return [
     {rel: 'stylesheet', href: resetStyles},
     {rel: 'stylesheet', href: appStyles},
+    {rel: 'stylesheet', href: anim},
     {rel: 'stylesheet', href: globalStyles},
     {
       rel: 'preconnect',

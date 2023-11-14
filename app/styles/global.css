@@ -14,6 +14,8 @@ html {
   --black: #161615;
   --white: #f4f4f4;
   --red:#DB202E;
+  --blue:#0909FF;
+  --yellow:#E7E749;
 }
 @layer components {
   .bg-semiWhite {
@@ -32,8 +34,15 @@ html {
   .borderblack{
     border-top: 1px solid black;
   }
-  
-
+  .blue{
+    color: var(--blue);
+  }
+  .yellow{
+    color: var(--yellow);
+  }
+.red{
+  color: var(--red);
+}
 }
 .data-\[state\=closed\]\:animate-accordion-up[data-state=closed] {
   animation: accordion-up .2s ease-out;
@@ -112,8 +121,8 @@ text set in the data-text attribute. */
 
 .chroma {
   /* font-size: calc(12rem + 0.1vw); */
-  text-shadow: 3px 2px 2px #fb0c0c, 0px -1px 3px rgba(12, 79, 251, 0.5),
-    -3px 0px 2px #34fb0c;
+  text-shadow: 3px 2px 2px var(--red), 0px -1px 3px rgba(12, 79, 251, 0.5),
+    -3px 0px 2px var(--blue);
   /* -webkit-animation: chromaticMove 4500ms ease infinite, pulse ease 200ms infinite; */
   /* animation: chromaticMove 4500ms ease infinite, pulse ease 200ms infinite; */
   padding: 0;
@@ -152,6 +161,9 @@ h3 {
 }
 .maxCH {
   max-width: 37ch;
+}
+.maxch30{
+  max-width: 30ch;
 }
 h4, #accordion h3 {
   font-size: 3.6rem;
@@ -195,26 +207,26 @@ h5, #accordion div {
   position: relative;
   top: 0.1rem;
 }
-.myButton.filled {
+.myButton.filled, .addToCart {
   border: 1px solid #f4f4f4;
   border-radius: 6px;
   background-color: var(--white);
   color: var(--black);
   /* font-size: calc(rem + 0.1vw); */
   line-height: 100%;
-  padding: 10px 1.2rem 2px;
+  padding: 10px 1.2rem 4px;
   transition: 0.45s ease all;
   font-variation-settings: 'wght' 400, 'wdth' 600, 'ital' 1, 'opsz' 200;
 }
-.myButton.filled:hover {
+.myButton.filled:hover, .addToCart:hover {
   font-variation-settings: 'wght' 500, 'wdth' 600, 'ital' 10, 'opsz' 200;
-  padding: 10px 4.5rem 2px 1.2rem;
+  padding: 10px 4.5rem 4px 1.2rem;
   background-color: var(--black);
   color: var(--white);
   transition: 0.45s ease padding 0.2s ease background-color;
 }
 
-.myButton:hover .arrow {
+.myButton:hover .arrow, .addToCart:hover {
   transform: translateX(-0.3rem);
   opacity: 1;
   transition: 0.45s ease all;
@@ -312,8 +324,8 @@ h5, #accordion div {
 .button {
   position: relative;
   padding: 0;
-  width: 320px;
-  height: 320px;
+  width: 15vw;
+  height: 15vw;
   border: 4px solid #3b3939;
   outline: none;
   background-color: #222222;
@@ -426,7 +438,12 @@ transition: 0.4s ease all;
 }
 .myButton.hero:hover {
 
-  padding: 8px 4.5rem 4px 1.2rem;
+  padding: 8px 4rem 4px 1.2rem;
+
+}
+.myButton.buttonHeader:hover {
+
+  padding: 8px 3rem 4px 1.2rem;
 
 }
 .myButton:hover {
@@ -446,7 +463,11 @@ transition: 0.4s ease all;
 .borderTop {
   border-top: 1px solid #f4f4f4;
 }
+.blueOverlay{
+  background: rgba(9, 9, 255, 0.49);
 
+background-blend-mode: color;
+}
 .roundCircle {
   border: 1px solid #f4f4f4;
   border-radius: 50%;
@@ -469,7 +490,10 @@ transition: 0.4s ease all;
   row-gap: 3rem;
 }
 .paddingGrid{
-  padding: 0rem 8.83vw 0;
+  padding: 8rem 10rem 0;
+}
+.backgroundImage img{
+filter: contrast(0.3) grayscale(1);
 }
 section {
   width: 100%;
@@ -503,7 +527,7 @@ section {
   position: absolute;
   color: white;
 
-  font-size: 10.5vw;
+
   text-align: center;
   filter: blur(1px);
   animation: blur 30ms infinite, jerk 50ms infinite;
@@ -537,7 +561,7 @@ section {
 .glitch span:nth-child(4) {
   color: white;
   filter: blur(1px);
-  text-shadow: 0 0 50px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
 }
 
 .glitch span:nth-child(5) {
@@ -645,3 +669,53 @@ section {
     transform: skew(0, 0);
   }
 }
+
+
+
+
+.perspective-card-wrap {
+  perspective: 1000px;
+  perspective-origin: top center;
+  display: inline-block;
+}
+.perspective-card__content {
+  position:absolute;
+  z-index: 40;
+  top:2rem;
+  left: 0;
+  width: 100%;
+  transform: translateZ(40px);
+  text-align: center;
+}
+.perspective-card {
+width: 100px;
+height: 150px;
+
+color: white;
+padding: 1rem;
+text-transform: uppercase;
+font-family: 'open sans';
+text-align: center;
+transition: transform 0.4s ease;
+transform: rotateX(0) rotateY(0);
+
+
+/* necessary for effect */
+position: relative;
+transform-style: preserve-3d;
+will-change: transform;}
+
+.perspective-card:hover{
+  transition: transform 0.1s ease;
+}
+
+.perspective-card__content  svg:nth-child(2) {
+  position: relative;
+  top: -1rem;
+} /* Selects the second SVG element */
+.perspective-card__content  svg:nth-child(3) {
+  position: relative;
+  top: -2rem;
+} /* Selects the second SVG element */
+
+

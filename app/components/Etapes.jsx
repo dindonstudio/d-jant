@@ -2,12 +2,14 @@ import React from 'react';
 
 import FilledButton from './FilledButton';
 
+import VideoHeroReveal from '~/components/RevealAnim/VideoHeroReveal';
 function Etapes(props) {
   const {sanity} = props;
 
   return (
     <div id='decouverte' className="px-8 ">
       <div className="grid">
+        
         <h2 className="col-start-2 col-end-9">
           RENTRER DANS LA COURSE EN 4 ÉTAPES
         </h2>

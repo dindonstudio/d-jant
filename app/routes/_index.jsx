@@ -20,6 +20,8 @@ import ProgressBar from '~/components/ProgressBar';
 import DragSlider from '~/components/DragSlider';
 import CustomButton from '~/components/CustomButton';
 import VideoPresentation from '~/components/VideoPresentation';
+import PerspectiveCard from '~/components/PerspectiveCard';
+import CustomAnimation from  '~/components/Test';
 import FAQ from '~/components/FAQ';
 import {CartForm} from '@shopify/hydrogen';
 const query = `*[_type == 'home' ]
@@ -98,12 +100,13 @@ export default function Homepage(sanityData, galleryData) {
       <div  className="md:pt-96">
         <DragSlider galleryData={sanity.gallery}   />
       </div>
-      <div  className="md:pt-96">
+      <div  className="md:pt-48">
         <CustomButton   />
       </div>
       <div  className="md:pt-96">
         <VideoPresentation   />
       </div>
+
       <div  className="md:pt-96">
         <FAQ   />
       </div>
@@ -134,18 +137,19 @@ function RecommendedProducts({products}) {
     <div className="recommended-products">
       <h2 className="text-center ">CHOPE TON TICKET</h2>
       <h4 className='text-center'>Accélérez, les places sont comptées !</h4>
-      <div className='w-full'>
+      {/* <div className='w-full'>
         <ProgressBar/>
-      </div>
+      </div> */}
       <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={products}>
           {({products}) => (
             <div className="grid paddingGrid px-8 pt-56">
-              {products.nodes.map((product) => {
+              {products.nodes.map((product, index) => {
                 const imageIndex = currentImageIndex[product.id] || 0;
                 const images = product.images?.nodes || [];
                 const hasNext = imageIndex < images.length - 1;
                 const hasPrev = imageIndex > 0;
+                const shouldDisplayProductForm = index !== 2;
 
                 return (
                   <div key={product.id} className="col-span-4 ">
@@ -161,11 +165,12 @@ function RecommendedProducts({products}) {
                             className="w-full h-full object-cover"
                             sizes="(min-width: 45em) 20vw, 50vw"
                           />
+                          <PerspectiveCard number={index +1}/>
                         </div>
                         <div className="flex justify-between absolute left-4 bottom-4"></div>
                       </Link>
                       <div className="hoverInfo md:opacity-0">
-                        <div className="absolute top-0 h-full left-4 flex items-center">
+                        <div className="absolute top-0 h-full left-4 flex items-center z-10-">
                           {hasPrev && (
                             <h4
                               className="        w-full px-4 text-semiDark bg-semiWhite uppercase hover:bg-semiDark hover:text-semiWhite transition-colors duration-150"
@@ -176,7 +181,7 @@ function RecommendedProducts({products}) {
                           )}
                         </div>
                         <div>
-                          <div className="absolute top-0 h-full right-4 flex items-center">
+                          <div className="absolute top-0 h-full right-4 flex items-center z-10">
                             {hasNext && (
                               <h4
                                 className="        w-full px-4  text-semiDark bg-semiWhite uppercase hover:bg-semiDark hover:text-semiWhite transition-colors duration-150"
@@ -189,14 +194,14 @@ function RecommendedProducts({products}) {
                             )}
                           </div>
                         </div>
-                        <ProductForm product={product} />
+                        {shouldDisplayProductForm && <ProductForm product={product} />}
                       </div>
                     </div>
-                    <div className="flex justify-between md:mt-4">
-                      <h4 className="capitalize">{product.title}</h4>
-                      <h4>
+                    <div className="flex justify-between md:mt-6">
+                      <h5 className="capitalize">{product.title}</h5>
+                      <h5>
                         <Money data={product.priceRange.minVariantPrice} />
-                      </h4>
+                      </h5>
                     </div>
                   </div>
                 );

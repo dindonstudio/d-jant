@@ -1,7 +1,7 @@
 import {Await, NavLink} from '@remix-run/react';
 import {Suspense} from 'react';
 import {useRootLoaderData} from '~/root';
-import MyButton from './Button';
+import MyButtonHeader from './ButtonHeader';
 import {Image} from '@shopify/hydrogen';
 import {logo} from '../../public/DEJANTE_LOGO.RED.svg';
 /**
@@ -11,14 +11,19 @@ export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   const logoUrl = '../../public/DEJANTE_LOGO.RED.svg';
   return (
-    <header className="header pt-4 justify-between md:h-40 w-full flex fixed items-center gap-8 z-50 md:px-8">
-      <div className='flex-1'></div>
+    <header className="header fadeInDown pt-4 justify-between md:h-40 w-full flex fixed items-center gap-8 z-50 md:px-8">
+      <div className='flex-1'>
+        <div className='flex relative -top-2'>
+        <MyButtonHeader text="PARTICIPER" />
+        </div>
+
+      </div>
       <div className="w-56 ">
         <SvgComponent />
       </div>
-      <div className='flex-1 relative -top-2'>
+      <div className='flex-1 relative -top-4'>
         <div className='flex justify-end gap-8 '>
-        <MyButton text="PARTICIPER" />
+  
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
         </div>
 

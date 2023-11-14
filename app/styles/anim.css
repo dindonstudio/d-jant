@@ -1,0 +1,81 @@
+
+.fadeInUp{
+    animation-name: fadeInUp ;
+    animation-duration: 1000ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+    opacity: 0;
+    animation-delay: 0.7s;
+  
+  }
+  .fadeInUp2{
+    animation-name: fadeInUp ;
+    animation-delay: 0.8s !important;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+    opacity: 0;
+    animation-duration: 1000ms;
+  
+  }
+  .fadeInUp3{
+    animation-name: fadeInUp ;
+ animation-fill-mode: forwards;
+    animation-delay: 0.9s !important;
+    animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+    opacity: 0;
+    animation-duration: 1000ms;
+  }
+  .fadeInDown{
+    animation-name: fadeInDown ;
+ animation-fill-mode: forwards;
+ animation-delay: 1.3s !important;
+    animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+    animation-duration: 1000ms;
+    transform: translate3d(0,-100%,0);
+  }
+
+  .scaleDown{
+  
+    height: 100%;
+    animation-name: scaleDown ;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+
+    
+
+    animation-duration: 1000ms;
+  }
+
+  @keyframes fadeInUp{
+    0% {
+      opacity: 0;
+    
+      transform: translate3d(0,30px,0);
+  }
+  100% {
+      opacity: 1;
+  
+      transform: translateZ(0);
+  }
+  }
+  @keyframes fadeInDown{
+    0% {
+      opacity: 0;
+    
+      transform: translate3d(0,-100%,0);
+  }
+  100% {
+      opacity: 1;
+  
+      transform: translate3d(0,0%,0);
+  }
+  }
+    
+  @keyframes scaleDown{
+    0% {
+transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+  }

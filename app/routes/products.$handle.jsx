@@ -1,7 +1,6 @@
 import {Suspense} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData} from '@remix-run/react';
-
 import {
   Image,
   Money,
@@ -75,8 +74,18 @@ export async function loader({params, request, context}) {
   const variants = storefront.query(VARIANTS_QUERY, {
     variables: {handle},
   });
+  const referencedProductGID = product.metafield.value;
 
-  return defer({product, variants});
+  let referencedProduct = null;
+  const referencedProductResponse = await storefront.query(REFERENCED_PRODUCT_QUERY, {
+    variables: { id: referencedProductGID },
+  });
+
+    referencedProduct = referencedProductResponse;
+
+
+  
+  return defer({product, variants,referencedProduct});
 }
 
 /**
@@ -104,12 +113,15 @@ function redirectToFirstVariant({product, request}) {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, variants} = useLoaderData();
+  const {product, variants,referencedProduct} = useLoaderData();
   const {selectedVariant} = product;
+
+  console.log(referencedProduct);
   return (
     <div className="product">
-      <ProductImage image={selectedVariant?.image} />
+      <ProductImage image={product.images.nodes} />
       <ProductMain
+      referencedProduct={referencedProduct}
         selectedVariant={selectedVariant}
         product={product}
         variants={variants}
@@ -126,18 +138,21 @@ function ProductImage({image}) {
     return <div className="product-image" />;
   }
   return (
-    <div className="product-image">
-      <Image
-        alt={image.altText || 'Product Image'}
-        aspectRatio="1/1"
-        data={image}
-        key={image.id}
-        sizes="(min-width: 45em) 50vw, 100vw"
-      />
+    <div className="product-image-container">
+      {image.map((image) => (
+        <div className="product-image" key={image.id}>
+          <Image
+            alt={image.altText || 'Product Image'}
+            src={image.url} // Use the src attribute for the image URL
+            aspectRatio="1/1"
+            key={image.id}
+            sizes="(min-width: 45em) 50vw, 100vw"
+          />
+        </div>
+      ))}
     </div>
   );
 }
-
 /**
  * @param {{
  *   product: ProductFragment;
@@ -145,13 +160,23 @@ function ProductImage({image}) {
  *   variants: Promise<ProductVariantsQuery>;
  * }}
  */
-function ProductMain({selectedVariant, product, variants}) {
+function ProductMain({selectedVariant, product, variants,referencedProduct}) {
   const {title, descriptionHtml} = product;
   return (
-    <div className="product-main">
-      <h1>{title}</h1>
-      <ProductPrice selectedVariant={selectedVariant} />
+    <div className="product-main h-screen flex flex-col justify-between">
+      <div className='w-4/5 '>
+      <div className="flex flex-col md:pb-12">
+        {' '}
+        <h3>{title}</h3>
+        <ProductPrice selectedVariant={selectedVariant} />
+      </div>
+
+      <h5>
+        <strong>Description</strong>
+      </h5>
+
       <br />
+      <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
       <Suspense
         fallback={
           <ProductForm
@@ -176,12 +201,13 @@ function ProductMain({selectedVariant, product, variants}) {
       </Suspense>
       <br />
       <br />
-      <p>
-        <strong>Description</strong>
-      </p>
+
       <br />
-      <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-      <br />
+      </div>
+   <div className='sticky bottom-8 w-full flex justify-end pr-8' >
+   <a href={`/products/${referencedProduct.node.handle}`}>
+      <h4>Découvrez aussi le {referencedProduct.node.title} →</h4></a>
+   </div>
     </div>
   );
 }
@@ -193,22 +219,22 @@ function ProductMain({selectedVariant, product, variants}) {
  */
 function ProductPrice({selectedVariant}) {
   return (
-    <div className="product-price">
+    <h3 className="product-price">
       {selectedVariant?.compareAtPrice ? (
         <>
           <p>Sale</p>
           <br />
-          <div className="product-price-on-sale">
+          <h3 className="product-price-on-sale">
             {selectedVariant ? <Money data={selectedVariant.price} /> : null}
             <s>
               <Money data={selectedVariant.compareAtPrice} />
             </s>
-          </div>
+          </h3>
         </>
       ) : (
         selectedVariant?.price && <Money data={selectedVariant?.price} />
       )}
-    </div>
+    </h3>
   );
 }
 
@@ -257,25 +283,29 @@ function ProductForm({product, selectedVariant, variants}) {
  */
 function ProductOptions({option}) {
   return (
-    <div className="product-options" key={option.name}>
-      <h5>{option.name}</h5>
-      <div className="product-options-grid">
+    <div className="product-options pt-8" key={option.name}>
+      <h5 className='pb-4'>{option.name}</h5>
+      <div className=" flex gap-4 ">
         {option.values.map(({value, isAvailable, isActive, to}) => {
           return (
             <Link
-              className="product-options-item"
+            className="  rounded-sm  px-4 pt-3 pb-2 text-semiWhite bg-semiBlack uppercase  hover:text-semiWhite transition-colors duration-150"
+
               key={option.name + value}
               prefetch="intent"
               preventScrollReset
               replace
               to={to}
               style={{
-                border: isActive ? '1px solid black' : '1px solid transparent',
+                border: isActive ? '1px solid white' : '1px solid transparent',
                 opacity: isAvailable ? 1 : 0.3,
               }}
             >
-              {value}
+              <h5 className={isActive ? 'transition-all' : 'hover:opacity-60 transition-all'}> {value}</h5>
+
+            
             </Link>
+       
           );
         })}
       </div>
@@ -305,10 +335,24 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
           />
           <button
             type="submit"
+            className=" relative"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
           >
-            {children}
+            <h4 className="uppercase myButton filled flex relative cursor-pointer">Ajouter au Panier
+            <div className="  arrow absolute right-0 opacity-0 ">
+              <svg
+                className="w-10 h-12"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="#f4f4f4"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+              >
+                <path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z" />
+              </svg>
+            </div></h4>
+            
           </button>
         </>
       )}
@@ -361,6 +405,15 @@ const PRODUCT_FRAGMENT = `#graphql
     handle
     descriptionHtml
     description
+    images(first: 5) {
+      nodes {
+        id
+        url
+        altText
+        width
+        height
+      }
+    }
     options {
       name
       values
@@ -376,6 +429,9 @@ const PRODUCT_FRAGMENT = `#graphql
     seo {
       description
       title
+    }
+    metafield(namespace: "custom", key: "link") {
+      value
     }
   }
   ${PRODUCT_VARIANT_FRAGMENT}
@@ -415,6 +471,16 @@ const VARIANTS_QUERY = `#graphql
   ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
       ...ProductVariants
+    }
+  }
+`;
+const REFERENCED_PRODUCT_QUERY = `#graphql
+  query ReferencedProduct($id: ID!) {
+    node(id: $id) {
+      ... on Product {
+        title
+        handle
+      }
     }
   }
 `;
