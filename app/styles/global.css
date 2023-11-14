@@ -82,7 +82,10 @@ html {
 /* Define a @font-face rule for the TTF format */
 @font-face {
   font-family: 'thunder';
+
   src: url('https://cdn.shopify.com/s/files/1/0786/5417/7611/files/thunder.ttf?v=1699868202') format('truetype');
+
+
   font-weight: normal;
   font-style: normal;
 }
