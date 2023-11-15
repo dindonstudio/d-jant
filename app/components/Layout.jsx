@@ -7,6 +7,7 @@ import {CartMain} from '~/components/Cart';
 import { tailwind } from 'remix.config';
 import studio from "@theatre/studio";
 import extension from "@theatre/r3f/dist/extension";
+import { useEffect } from 'react';
 import {
   PredictiveSearchForm,
   PredictiveSearchResults,
@@ -17,6 +18,30 @@ import {
  * @param {LayoutProps}
  */
 export function Layout({cart, children = null, footer, header, isLoggedIn}) {
+  useEffect(() => {
+    // Triggering a reflow
+    const resizer = document.getElementById('rezized')
+    const triggerReflow = () => {
+        // You can access any DOM element. Here, document.body is used as an example.
+        setTimeout(() => {
+          resizer.style.width = '99%' ; // Trigger reflow
+      }, 1500);
+        setTimeout(() => {
+          resizer.style.width = '100%' ; // Trigger reflow
+      }, 1800);
+
+
+    };
+
+
+  triggerReflow();
+
+
+
+    // Cleanup
+    return () => {
+    };
+}, []);
   return (
     <>
       <CartAside cart={cart} />

@@ -15,6 +15,7 @@ import {VariantSelector} from '@shopify/hydrogen';
 import Etapes from '../components/Etapes';
 import Decouvertes from '../components/Decouverte';
 import CloseUp from '../components/CloseUp';
+import TicketBar from '../components/TicketBar'
 import Collection from '../components/Shop';
 import ProgressBar from '~/components/ProgressBar';
 import DragSlider from '~/components/DragSlider';
@@ -23,6 +24,10 @@ import VideoPresentation from '~/components/VideoPresentation';
 import PerspectiveCard from '~/components/PerspectiveCard';
 import CustomAnimation from  '~/components/Test';
 import FAQ from '~/components/FAQ';
+import RevealTitle from '~/components/RevealTitleWrapper';
+import RevealListWrapper from '~/components/RevealListWrapper';
+import RevealOpacity from '~/components/RevealOpacity';
+
 import {CartForm} from '@shopify/hydrogen';
 const query = `*[_type == 'home' ]
 {
@@ -58,6 +63,8 @@ export const meta = () => {
  * @param {LoaderFunctionArgs}
  */
 
+
+
 export async function loader({context}) {
   const {storefront} = context;
   const variables = {handle: 'product'};
@@ -73,17 +80,19 @@ export async function loader({context}) {
 }
 
 export default function Homepage(sanityData, galleryData) {
+  
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
   console.log(data);
   const sanity = data?.sanityData?.[0];
-
+  
   return (
     <div className="home">
       <div className="hero h-screen flex  flex-col z-20 relative overflow-hidden ">
         {/* <MarqueeBanner/> */}
         <VideoWithButtonOverlay sanity={sanity} />
       </div>
+      <div id="rezized">
       <div className="md:pt-64">
         <Etapes />
       </div>
@@ -110,6 +119,8 @@ export default function Homepage(sanityData, galleryData) {
       <div  className="md:pt-96">
         <FAQ   />
       </div>
+      </div>
+      
 
     </div>
   );
@@ -135,15 +146,23 @@ function RecommendedProducts({products}) {
 
   return (
     <div className="recommended-products">
-      <h2 className="text-center ">CHOPE TON TICKET</h2>
-      <h4 className='text-center'>Accélérez, les places sont comptées !</h4>
+                
+      <h2 className="text-center ">
+      <RevealOpacity delay={200}>
+                CHOPE TON TICKET
+                </RevealOpacity>
+      </h2>
+      <TicketBar remainingTickets={4596} />
+      {/* <h4 className='text-center'>Accélérez, les places sont comptées !</h4> */}
       {/* <div className='w-full'>
         <ProgressBar/>
       </div> */}
       <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={products}>
           {({products}) => (
-            <div className="grid paddingGrid px-8 pt-56">
+                    <RevealListWrapper reset={false} classname={'grid paddingGrid px-8 pt-56'}>
+
+          
               {products.nodes.map((product, index) => {
                 const imageIndex = currentImageIndex[product.id] || 0;
                 const images = product.images?.nodes || [];
@@ -206,7 +225,7 @@ function RecommendedProducts({products}) {
                   </div>
                 );
               })}
-            </div>
+                    </RevealListWrapper>
           )}
         </Await>
       </Suspense>
