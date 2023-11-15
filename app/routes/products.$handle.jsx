@@ -144,7 +144,7 @@ function ProductImage({image}) {
           <Image
             alt={image.altText || 'Product Image'}
             src={image.url} // Use the src attribute for the image URL
-            aspectRatio="1/1"
+         
             key={image.id}
             sizes="(min-width: 45em) 50vw, 100vw"
           />

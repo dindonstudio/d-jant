@@ -20,18 +20,16 @@ function VideoPresentation(props) {
             'https://cdn.shopify.com/videos/c/o/v/4fd141f5e89b4be1925cef0f25f1d09a.mp4'
           }
           controls
-          autoplay
+          
         />
       </div>
       <div className='col-start-3 col-end-9 md:pt-96'>
         <h4>
-          On espère vous en avoir mis plein les yeux avec notre Abarth et que
-          l'étincelle a été allumée pour donner vie à notre concours ! Si le
-          ronronnement de son moteur et son design vous ont séduit, pourquoi ne
-          pas transformer cette admiration en action ? Participez à notre
-          jeu-concours et cette Abarth pourrait bien finir dans votre garage.
-          Pour toutes questions sur le déroulement ou les détails, plongez dans
-          notre FAQ ci-dessous.
+        Chez Déjanté, notre projet est né d’un rêve partagé : marier l’amour de l’automobile à l’art du textile. 
+De fil en aiguille, virage par virage ; l’idée s’est progressivement tisser. 
+Notre objectif commun ; partager l’histoire de cet alliage haut en couleurs avec d’autres passionnés. Vous offrir et s’offrir à nous mêmes une chance de transformer nos quotidiens. 
+À l’image de notre Abarth iconique : en puissance et avec un grain de magie. <br />
+Bienvenue chez Déjanté.
         </h4>
       </div>
     </div>

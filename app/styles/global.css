@@ -135,6 +135,7 @@ text set in the data-text attribute. */
   opacity: 0.9;
 }
 h2 {
+  font-variation-settings: "wght" 500,"wdth" 600,"ital" 0,"opsz" 200;
   font-size: 12.8rem;
   line-height: 100%;
 }
@@ -153,14 +154,21 @@ h2 {
 h3 {
   font-size: calc(4.8rem);
   line-height: 110%;
+  font-variation-settings: "wght" 500,"wdth" 600,"ital" 0,"opsz" 200;
   /*x-width: 45ch;
   line-height: 120%; */
 }
 .bigSubText {
   font-size: 6.8rem;
   line-height: 85%;
+  font-variation-settings: "wght" 450,"wdth" 600,"ital" 0,"opsz" 200;
+
   /*x-width: 45ch;
     line-height: 120%; */
+}
+.overIt{
+  background-color: var(--black);
+  z-index: 10;
 }
 .maxCH {
   max-width: 37ch;
@@ -170,7 +178,7 @@ h3 {
 }
 h4, #accordion h3 {
   font-size: 3.6rem;
-
+  font-variation-settings: "wght" 450,"wdth" 600,"ital" 0,"opsz" 200;
   line-height: 100%;
 }
 #accordion h3 button {
@@ -239,16 +247,115 @@ h5, #accordion div {
   left: 4.5rem;
   z-index: -1;
   position: absolute;
-  top: 0; /* Aligns the line to the top of the container */
-  bottom: 0; /* Aligns the line to the bottom of the container */
-  width: 2px; /* Sets the width of the line */
+  top: 0;
+  width: 2px;
+  height: 0%; /* Set the initial height to 0% */
   background: linear-gradient(to bottom, transparent 50%, var(--white) 50%);
   background-size: 2px 16px; /* Changes the direction of the gradient to vertical */
+}
+.roundPoint{
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+
+}
+.firstLine{
+  width: 4px;
+}
+.one .dotContainer{
+  top: 26%;
+  right: 38%;
+}
+.one .roundPoint{
+  background-color: var(--blue);
+  /* position: absolute;
+  right: 38%;
+  top: 25%; */
+}
+.one .firstLine{
+  background-color: var(--blue);
+  position: absolute;
+  right: 43%;
+  top: -100%;
+  height: 42px;
+}
+.one .secondLine{
+  background-color: var(--blue);
+  position: absolute;
+  right: 44%;
+  width: 19vw;
+  top: -100%;
+  height: 4px;
+  z-index: -1;
+}
+
+.two .dotContainer{
+  top: 54%;
+  right: 42%;
+}
+.two .roundPoint{
+  background-color: var(--blue);
+}
+.two .secondLine{
+  background-color: var(--blue);
+  position: absolute;
+  width: 15vw;
+  height: 4px;
+  /* z-index: -1; */
+  left: 15%;
+  top: 41%;
+}
+.three .dotContainer{
+  top: 57%;
+  right: 48%;
+}
+.three .roundPoint{
+  background-color: var(--yellow);
+}
+.three .secondLine{
+  background-color: var(--yellow);
+  position: absolute;
+  width: 4px;
+  height: 20vh;
+  /* z-index: -1; */
+  left: 46%;
+  top: 40%;
+}
+.four .dotContainer{
+  top: 57%;
+  right: 46%;
+}
+.four .roundPoint{
+  background-color: var(--red);
+}
+.four .secondLine{
+  background-color: var(--red);
+  position: absolute;
+  width: 4px;
+  height: 300px;
+  /* z-index: -1; */
+  left: 46%;
+  top: 40%;
+}
+.four .firstLine{
+  background-color: var(--red);
+  position: absolute;
+
+  top: 789%;
+  width: 273px;
+  height: 4px;
+  right: -630%;
+}
+.firstLineContainer{
+  background-color: var(--black);
 }
 .mxCh53 {
   max-width: 53ch;
 }
-
+/* .lineHorizontalReveal .secondLine{
+  width: 30vw;
+  transition: 800ms ease all;
+} */
 .quickAdd {
   background-color: rgb(205, 205, 205);
   border-radius: 4px;
@@ -307,12 +414,26 @@ h5, #accordion div {
 
 
 
-.progress-bar-container{
-  display: flex;
-  /* height: 200px; */
-  justify-content: center;
-  transform: scale(0.2);
-  width: 100vw;
+.progress-bar {
+  height: 100%;
+  background-color: var(--red);
+  position: absolute; 
+  left: 0;
+  top: 0;
+  width: 0%;
+  transform: skew(-30deg);
+  transition: width 1s ease-in-out;
+}
+.progress-bar::after {
+  height: 100%;
+  content: "";
+  background-color: var(--red);
+  position: absolute;
+  left: -3rem;
+  top: 0;
+  /* width: 0%; */
+  width: 31px;
+  transition: width 1s ease-in-out;
 }
 
 .Mix{
