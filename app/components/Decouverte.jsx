@@ -33,12 +33,12 @@ function Decouvertes(props) {
       <div className="grid content-baseline md:mt-13 relative one">
         <div className="col-start-2 col-end-6 ">
           <div className="text-right uppercase bigSubText overIt relative -right-12 pr-12">
-          <RevealOpacity delay={800}>
+          <RevealOpacity delay={600}>
             Quand l’italie rencontre la performance
             </RevealOpacity>
           </div>
           <h4 className="text-right">
-          <RevealOpacity delay={800}>
+          <RevealOpacity delay={700}>
             Libérez l'enthuastif qui sommeille en vous avec l'Abart 565 Turismo,
             un chef-d'œuvre de l'ingénierie automobile.
             </RevealOpacity>
@@ -92,11 +92,11 @@ function Decouvertes(props) {
           </RevealOpacity>
           <div className='absolute dotContainer'>
             <div className='relative'>
-            <RevealOpacity delay={800}>
+            <RevealOpacity delay={600}>
             <div className="roundPoint"></div>
             </RevealOpacity>
       
-          <RevealLine delay={800} classname={'lineHorizontalReveal'}>
+          <RevealLine delay={600} classname={'lineHorizontalReveal'}>
           <div className="secondLine "></div>
           </RevealLine>
             </div>
@@ -126,12 +126,12 @@ function Decouvertes(props) {
         <div className="col-start-2 col-end-8 relative ">
           <div className=' overIt pt-12 relative -top-12'>
             <div className="uppercase yellow text-center bigSubText pb-2">
-            <RevealOpacity delay={800}>
+            <RevealOpacity delay={600}>
               REVETEMENT au soleil
               </RevealOpacity>
             </div>
             <h4 className="text-left maxch30">
-            <RevealOpacity delay={800}>
+            <RevealOpacity delay={600}>
 
               Libérez l'enthuastif qui sommeille en vous avec l'Abart 565
               Turismo, rajouter le vrai text

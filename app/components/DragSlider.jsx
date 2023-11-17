@@ -1,90 +1,49 @@
+import React, {useRef, useEffect, useState} from 'react';
+import {Image} from '@shopify/hydrogen';
+import Marquee from 'react-fast-marquee';
+import RevealSide from '~/components/RevealSide';
+export default function DragSlider({galleryData, galleryData2}) {
+  const defaultSpeed = 50; // Default marquee speed
+  const scrollingSpeed = 65; // Marquee speed when scrolling
+  const [marqueeSpeed, setMarqueeSpeed] = useState(defaultSpeed);
 
-import React, { useRef, useEffect, useState } from "react";
-import { Image } from "@shopify/hydrogen";
+  // useEffect(() => {
+  //   let scrollTimeout;
 
-export default function DragSlider({ galleryData }) {
+  //   const handleScrollStart = () => {
+  //     clearTimeout(scrollTimeout);
+  //     setMarqueeSpeed(scrollingSpeed);
+  //   };
 
-  
-  
-    const galleryContainerRef = useRef(null);
-    const [isDragging, setIsDragging] = useState(false);
-    const [startX, setStartX] = useState(0);
-    const [scrollLeft, setScrollLeft] = useState(0);
-  
-    const handleMouseDown = (e) => {
-      setIsDragging(true);
-      setStartX(e.pageX - galleryContainerRef.current.offsetLeft);
-      setScrollLeft(galleryContainerRef.current.scrollLeft);
-    };
-  
-    const handleMouseLeave = () => {
-      setIsDragging(false);
-    };
-    let lastX = 0;
-    let lastTime = 0;
-    let velocity = 0;
-    const friction = 0.95;  // Adjust this for stronger/weaker deceleration
-    
-    const handleMouseMove = (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-    
-      const x = e.pageX - galleryContainerRef.current.offsetLeft;
-      const now = Date.now();
-      const elapsed = now - lastTime;
-    
-      if (elapsed > 0) { // avoid division by zero
-        velocity = (x - lastX) / elapsed;
-      }
-    
-      const walk = x - startX;
-      galleryContainerRef.current.scrollLeft = scrollLeft - walk;
-    
-      lastX = x;
-      lastTime = now;
-    };
-    
-    const animate = () => {
-      if (Math.abs(velocity) > 0.1) {
-        galleryContainerRef.current.scrollLeft -= velocity * 10;  // the * 10 is arbitrary, adjust for stronger/weaker momentum
-        velocity *= friction;
-    
-        requestAnimationFrame(animate);
-      }
-    }
-    
-    const handleMouseUp = () => {
-      setIsDragging(false);
-      if (Math.abs(velocity) > 0.1) {
-        requestAnimationFrame(animate);
-      }
-    };
-    
-    
-    useEffect(() => {
-      const galleryElement = galleryContainerRef.current;
-  
-      galleryElement.addEventListener("mousedown", handleMouseDown);
-      galleryElement.addEventListener("mouseleave", handleMouseLeave);
-      galleryElement.addEventListener("mouseup", handleMouseUp);
-      galleryElement.addEventListener("mousemove", handleMouseMove);
-  
-      return () => {
-        galleryElement.removeEventListener("mousedown", handleMouseDown);
-        galleryElement.removeEventListener("mouseleave", handleMouseLeave);
-        galleryElement.removeEventListener("mouseup", handleMouseUp);
-        galleryElement.removeEventListener("mousemove", handleMouseMove);
-      };
-    }, [isDragging, startX, scrollLeft]);
-  
+  //   const handleScrollStop = () => {
+  //     scrollTimeout = setTimeout(() => {
+  //       setMarqueeSpeed(defaultSpeed);
+  //     }, 100); // Adjust this delay as needed
+  //   };
+
+  //   window.addEventListener('scroll', handleScrollStart);
+  //   window.addEventListener('scroll', handleScrollStop);
+
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScrollStart);
+  //     window.removeEventListener('scroll', handleScrollStop);
+  //     clearTimeout(scrollTimeout);
+  //   };
+  // }, []);
+
   return (
-    <div id="Magazine" className="px-8 h-screen flex flex-col justify-between">
-      <div>
-      <h2 className="uppercase">Capturez l'essence <br /> de Déjanté</h2>
-        <h4>Chaque image est une invitation  à rejoindre  la course.</h4>
+    <div
+      id="Magazine"
+      className=" py-12 "
+    >
+      <div className="px-8 pb-52">
+        <h2 className="uppercase">
+          Capturez l'essence <br /> de Déjanté
+        </h2>
+        <h4>Chaque image est une invitation à rejoindre la course.</h4>
       </div>
 
-      <div id="gallery__container" className="md:w-screen">
+      {/* <div id="gallery__container" className="md:w-screen">
         <div className="md:pt-40 md:pb-14 h-full flex justify-end flex-col">
           <div
             ref={galleryContainerRef}
@@ -104,6 +63,34 @@ export default function DragSlider({ galleryData }) {
             ))}
           </div>
         </div>
+      </div> */}
+      <div className='flex flex-col gap-56'>
+        <RevealSide origin={'left'} distance={'-50'} delay={300}>
+          <Marquee autoFill={true} className="marquee1" pauseOnHover={true}>
+            {galleryData2.map((img, index) => (
+              <div key={index} className="">
+                <Image
+                  src={img.url}
+                  className="w-full  object-cover"
+                  sizes="(min-width: 45em) 20vw, 50vw"
+                />
+              </div>
+            ))}
+          </Marquee>
+        </RevealSide>
+        <RevealSide origin={'right'} distance={'50'} delay={300}>
+          <Marquee autoFill={true} pauseOnHover={true} direction="right">
+            {galleryData.map((img, index) => (
+              <div key={index} className="marquee2">
+                <Image
+                  src={img.url}
+                  className="w-full  object-cover"
+                  sizes="(min-width: 45em) 20vw, 50vw"
+                />
+              </div>
+            ))}
+          </Marquee>
+        </RevealSide>
       </div>
     </div>
   );

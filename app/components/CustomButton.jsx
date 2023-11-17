@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { Image } from '@shopify/hydrogen';
+import RevealOpacity from '~/components/RevealOpacity';
+import RevealTitle from '~/components/RevealTitleWrapper';
+import RevealButton from '~/components/RevealButton';
 const CustomButton = ({buttonText = 'Command'}) => {
   const [fillColor, setFillColor] = useState('black');
   const [clicked, setClicked] = useState(false); // New state to track if the button was clicked
@@ -22,11 +25,17 @@ const CustomButton = ({buttonText = 'Command'}) => {
   };
 
   return (
-    <div className="flex justify-center relative flex-col items-center h-screen">
-      <h2 className="text-center">ALLUME LE MOTEUR</h2>
-      <h3 className="text-center md:pb-40">
+    <div className={`flex motorBlock justify-center relative flex-col items-center h-screen ${clicked ? 'active' : ''}`}>
+        <h2 className="text-center"><RevealTitle>
+      ALLUME LE MOTEUR
+      </RevealTitle>
+   </h2>
+      <h3 className="text-center md:pb-32">
+      <RevealTitle>
         Mmmh faites ronronner les mécaniques
+        </RevealTitle>
       </h3>
+      <RevealButton delay={600}>
       <button className="button" onClick={handleClick}>
         <div className="button__content">
           <div className="button__icon">
@@ -46,14 +55,19 @@ const CustomButton = ({buttonText = 'Command'}) => {
           </div>
         </div>
       </button>
+      </RevealButton>
       <div className='backgroundImage h-full w-full top-0 left-0 flex absolute justify-center items-center -z-10 opacity-10'>
         <div className='w-1/2'>
-        <Image
+          <RevealOpacity delay={600}>
+          <Image
           src="https://cdn.sanity.io/images/m5ok1ygs/production/991766b39f196b747c35901117a8fe02832ad5a4-2007x1768.png"
           width={1000}
           height={1000}
           className="w-full"
+          aspectRatio='auto'
         />
+          </RevealOpacity>
+  
         </div>  
       
       </div>

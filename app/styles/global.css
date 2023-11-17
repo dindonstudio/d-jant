@@ -5,6 +5,7 @@
 
 html {
   font-size: 62.5%;
+  
   font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
@@ -24,7 +25,9 @@ html {
   .bg-semiDark{
     background-color: var(--black);
   }
-
+.bg-yellow{
+  background-color: var(--yellow);
+}
   .text-semiWhite{
     color: var(--white);
   }
@@ -43,6 +46,15 @@ html {
 .red{
   color: var(--red);
 }
+.IsActive{
+  border: 1px solid white;
+}
+}
+.descriptionProduct h4:nth-child(2){
+font-size: 3rem;
+}
+.descriptionProduct h5{
+  padding-top: 1rem;
 }
 .data-\[state\=closed\]\:animate-accordion-up[data-state=closed] {
   animation: accordion-up .2s ease-out;
@@ -93,7 +105,7 @@ html {
 /* Use the variable font in your CSS declarations */
 body {
   font-family: 'thunder', sans-serif;
-  font-variation-settings: 'wght' 400, 'wdth' 600, 'ital' 0, 'opsz' 200;
+  font-variation-settings: 'wght' 400, 'wdth' 600, 'ital' 0;
   background-color: var(--black);
   color: #f4f4f4;
   overflow-x: hidden;
@@ -157,6 +169,12 @@ h3 {
   font-variation-settings: "wght" 500,"wdth" 600,"ital" 0,"opsz" 200;
   /*x-width: 45ch;
   line-height: 120%; */
+}
+footer h3, footer h5 {
+  font-variation-settings: "wght" 700,"wdth" 600,"ital" 0,"opsz" 200;
+}
+ footer h5 {
+font-size: 2.8rem;
 }
 .bigSubText {
   font-size: 6.8rem;
@@ -229,16 +247,40 @@ h5, #accordion div {
   transition: 0.45s ease all;
   font-variation-settings: 'wght' 400, 'wdth' 600, 'ital' 1, 'opsz' 200;
 }
-.myButton.filled:hover, .addToCart:hover {
-  font-variation-settings: 'wght' 500, 'wdth' 600, 'ital' 10, 'opsz' 200;
-  padding: 10px 4.5rem 4px 1.2rem;
+.myButton.filled.productPage {
+  border: 1px solid #f4f4f4;
+  border-radius: 6px;
+  background-color: var(--white);
+  color: var(--black);
+  /* font-size: calc(rem + 0.1vw); */
+  line-height: 100%;
+  padding: 18px 3.2rem 12px;
+  transition: 0.45s ease all;
+  font-variation-settings: 'wght' 400, 'wdth' 600, 'ital' 0, 'opsz' 200;
+}
+.myButton.filled.productPage:hover {
   background-color: var(--black);
   color: var(--white);
+  font-variation-settings: 'wght' 400, 'wdth' 600, 'ital' 0, 'opsz' 200;
+transform: none;
+  padding: 18px 3.2rem 12px;
+}
+.myButton.filled:hover, .addToCart:hover {
+  font-variation-settings: 'wght' 500, 'wdth' 600, 'ital' 0, 'opsz' 200;
+  background-color: var(--black);
+  color: var(--white);
+  padding: 10px 1.2rem 4px;
   transition: 0.45s ease padding 0.2s ease background-color;
 }
 
 .myButton:hover .arrow, .addToCart:hover {
   transform: translateX(-0.3rem);
+  opacity: 1;
+  transition: 0.45s ease all;
+  fill: var(--white);
+}
+.myButton.filled:hover  {
+  transform: translateX(-0.5rem);
   opacity: 1;
   transition: 0.45s ease all;
   fill: var(--white);
@@ -429,10 +471,9 @@ h5, #accordion div {
   content: "";
   background-color: var(--red);
   position: absolute;
-  left: -3rem;
+  left: -4rem;
   top: 0;
-  /* width: 0%; */
-  width: 31px;
+  width: 60px;
   transition: width 1s ease-in-out;
 }
 
@@ -444,12 +485,15 @@ h5, #accordion div {
 
 }
 
+.maxCh21{
+  max-width: 21ch;
 
+}
 .button {
   position: relative;
   padding: 0;
-  width: 15vw;
-  height: 15vw;
+  width: 13vw;
+  height: 13vw;
   border: 4px solid #3b3939;
   outline: none;
   background-color: #222222;
@@ -520,16 +564,38 @@ transition: 0.4s ease all;
 }
 
 
+.hide-header header .participate{
+  visibility: hidden;
+}
+.hide-header header .svgLogo{
+  visibility: hidden;
+}
 
 
 
 
 
 
+.policy h1{
+  font-size: 5rem;
+  text-transform: uppercase;
+  padding-bottom: 3rem;
+}
 
-
-
-
+.policy .container{
+  max-width: 900px;
+  padding: 0 2rem 4rem;
+  font-size: 2rem;
+  margin: 0;
+}
+.policy{
+  width: 100%;
+  padding-top: 12rem;
+  display: flex;
+  justify-content: flex-start;
+  background-color: var(--black);
+  z-index: 50;
+}
 
 
 
@@ -574,6 +640,10 @@ transition: 0.4s ease all;
   font-variation-settings: 'wght' 500, 'wdth' 600, 'ital' 10, 'opsz' 200;
   padding: 8px 3.5rem 4px 1.2rem;
 }
+.myButton.filled:hover {
+  font-variation-settings: 'wght' 500, 'wdth' 600, 'ital' 10, 'opsz' 200;
+  padding: 8px 4.5rem 4px 1.2rem;
+}
 
 .arrow {
   transform: translateX(0rem);
@@ -607,7 +677,7 @@ background-blend-mode: color;
   grid-template-columns: repeat(12, 1fr);
   gap: 2rem; /* This sets both row and column gaps to 2rem */
 }
- #accordion > div {
+ #accordion > div  > div {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 8rem;
@@ -618,6 +688,10 @@ background-blend-mode: color;
 }
 .backgroundImage img{
 filter: contrast(0.3) grayscale(1);
+
+}
+.backgroundImage{
+  transform: scale(0.9);
 }
 section {
   width: 100%;
