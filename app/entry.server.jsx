@@ -19,7 +19,8 @@ export default async function handleRequest(
     styleSrc: [
       "'self'",
       "'unsafe-inline'",
-  
+      'https://cdn.shopify.com',
+
     ],
     connectSrc: [
       "'self'",
