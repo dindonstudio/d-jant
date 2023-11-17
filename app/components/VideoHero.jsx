@@ -14,6 +14,7 @@ function VideoWithButtonOverlay(props) {
 
   return (
     <div className="w-full h-full relative  z-0 borderRadius overflow-hidden ">
+      <div className='BlackReveal' ></div>
       <div className='scaleDown'>
       <VideoPlayer url={sanity.videoUrl} loop mute autoplay />
 

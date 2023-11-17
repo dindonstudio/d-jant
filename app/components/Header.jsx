@@ -11,17 +11,17 @@ export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   const logoUrl = '../../public/DEJANTE_LOGO.RED.svg';
   return (
-    <header className="header fadeInDown pt-4 justify-between md:h-40 w-full flex fixed items-center gap-8 z-50 md:px-8">
-      <div className='flex-1'>
-        <div className='flex relative -top-2'>
+    <header className="header fadeInDown pt-0 justify-between md:h-40 w-full flex fixed items-center gap-8 z-40 md:px-8">
+      <div className='flex-1 participate'>
+        <div className='flex relative -top-4'>
         <MyButtonHeader text="PARTICIPER" />
         </div>
 
       </div>
-      <div className="w-56 ">
+      <div className="w-64 svgLogo ">
         <SvgComponent />
       </div>
-      <div className='flex-1 relative -top-4'>
+      <div className='flex-1 relative -top-6'>
         <div className='flex justify-end gap-8 '>
   
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />

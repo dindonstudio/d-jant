@@ -5,7 +5,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import RevealTitle from '~/components/RevealTitleWrapper';
+import RevealOpacity from '~/components/RevealOpacity';
 
+import RevealListWrapper from '~/components/RevealListWrapper';
 function FAQ() {
   const faqData = [
     {
@@ -55,24 +58,35 @@ function FAQ() {
 
   return (
     <div>
-      <h2 className="uppercase text-center">Foire aux questions</h2>
+      <h2 className="uppercase text-center">
+        <RevealOpacity delay={500}>
+        Foire aux questions
+        </RevealOpacity>
+    </h2>
       <h4 className="text-center">
+      <RevealOpacity delay={500}>
         Ne demandez pas votre chemin, trouvez vos réponses ici.
+        </RevealOpacity>
       </h4>
       <div id='accordion' className='pt-52'>
       <Accordion type="single" collapsible>
+      < RevealListWrapper delay={600} interval={60} reset={false} >
         {faqData.map((faq, index) => (
          <div 
          className={index % 2 === 0 ? "col-start-3 col-end-7" : "col-start-7 col-end-11"}
          
          key={`faq-item-${index}`}
        >
+  
+
          <AccordionItem value={`item-${index}`}>
            <AccordionTrigger>{faq.question}</AccordionTrigger>
            <AccordionContent className='relative'>{faq.answer}</AccordionContent>
          </AccordionItem>
+
        </div>
         ))}
+                 </RevealListWrapper>
       </Accordion>
       </div>
       

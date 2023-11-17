@@ -27,6 +27,7 @@
     "@theatre/studio": "^0.7.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "curtainsjs": "^8.1.5",
     "dat.gui": "^0.7.9",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",

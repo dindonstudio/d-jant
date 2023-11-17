@@ -15,10 +15,11 @@ function CloseUp(props) {
     <div className='w-full pt-12'>
     <RevealOpacity delay={200}>
             <Image
-            src="https://cdn.sanity.io/images/m5ok1ygs/production/a21fffc9b54c22ab2292a53b65f97c1dad56db07-3648x5472.jpg"
+            src="https://cdn.sanity.io/images/m5ok1ygs/production/9d1cd0dfc5e712b0edacfe2453be1ba7d05fc76c-1121x1500.jpg?auto=format"
             width={1000}
             height={1000}
             loading='eager'
+            aspectRatio='auto'
             className='w-full'
           />
             </RevealOpacity>

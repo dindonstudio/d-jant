@@ -1,13 +1,14 @@
 import React from 'react';
 import {RevealWrapper} from 'next-reveal';
 
-const RevealLine = ({children, classname, delay}) => {
+const RevealButton = ({children, classname, delay}) => {
   return (
     <RevealWrapper
       className={classname}
       origin="top"
       delay={delay}
       duration={800}
+      scale={0.9}
       distance="0"
       easing="cubic-bezier(0.41, 0.75, 0.07, 0.97)"
       reset={false}
@@ -18,4 +19,4 @@ const RevealLine = ({children, classname, delay}) => {
   );
 };
 
-export default RevealLine;
+export default RevealButton;

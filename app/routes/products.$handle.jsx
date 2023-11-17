@@ -1,4 +1,5 @@
 import {Suspense} from 'react';
+import {useEffect} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData} from '@remix-run/react';
 import {
@@ -14,7 +15,7 @@ import {getVariantUrl} from '~/utils';
  * @type {MetaFunction<typeof loader>}
  */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.product.title ?? ''}`}];
+  return [{title: `Déjanté | ${data?.product.title ?? ''}`}];
 };
 
 /**
@@ -77,15 +78,16 @@ export async function loader({params, request, context}) {
   const referencedProductGID = product.metafield.value;
 
   let referencedProduct = null;
-  const referencedProductResponse = await storefront.query(REFERENCED_PRODUCT_QUERY, {
-    variables: { id: referencedProductGID },
-  });
+  const referencedProductResponse = await storefront.query(
+    REFERENCED_PRODUCT_QUERY,
+    {
+      variables: {id: referencedProductGID},
+    },
+  );
 
-    referencedProduct = referencedProductResponse;
+  referencedProduct = referencedProductResponse;
 
-
-  
-  return defer({product, variants,referencedProduct});
+  return defer({product, variants, referencedProduct});
 }
 
 /**
@@ -113,15 +115,26 @@ function redirectToFirstVariant({product, request}) {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, variants,referencedProduct} = useLoaderData();
+  const {product, variants, referencedProduct} = useLoaderData();
   const {selectedVariant} = product;
 
-  console.log(referencedProduct);
+  useEffect(() => {
+    document.body.classList.add('hide-header');
+
+    // Cleanup function to remove the class when the component unmounts
+    return () => {
+      document.body.classList.remove('hide-header');
+    };
+  }, []); // Emp
   return (
     <div className="product">
+      <div className="flex gap-4 fixed top-12 left-8 z-50">
+      
+        <Link to="../"><h5 className='text-semiDark'> ← Retour </h5></Link>
+      </div>
       <ProductImage image={product.images.nodes} />
       <ProductMain
-      referencedProduct={referencedProduct}
+        referencedProduct={referencedProduct}
         selectedVariant={selectedVariant}
         product={product}
         variants={variants}
@@ -144,7 +157,6 @@ function ProductImage({image}) {
           <Image
             alt={image.altText || 'Product Image'}
             src={image.url} // Use the src attribute for the image URL
-         
             key={image.id}
             sizes="(min-width: 45em) 50vw, 100vw"
           />
@@ -160,54 +172,55 @@ function ProductImage({image}) {
  *   variants: Promise<ProductVariantsQuery>;
  * }}
  */
-function ProductMain({selectedVariant, product, variants,referencedProduct}) {
+function ProductMain({selectedVariant, product, variants, referencedProduct}) {
   const {title, descriptionHtml} = product;
   return (
     <div className="product-main h-screen flex flex-col justify-between">
-      <div className='w-4/5 '>
-      <div className="flex flex-col md:pb-12">
-        {' '}
-        <h3>{title}</h3>
-        <ProductPrice selectedVariant={selectedVariant} />
-      </div>
+      <div className="w-4/5 md:pt-24 ">
+        <div className="flex flex-col ">
+          {' '}
+          <h3>{title}</h3>
+          <ProductPrice selectedVariant={selectedVariant} />
+        </div>
 
-      <h5>
-        <strong>Description</strong>
-      </h5>
+        <h5>
+          
+        </h5>
 
-      <br />
-      <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-      <Suspense
-        fallback={
-          <ProductForm
-            product={product}
-            selectedVariant={selectedVariant}
-            variants={[]}
-          />
-        }
-      >
-        <Await
-          errorElement="There was a problem loading product variants"
-          resolve={variants}
-        >
-          {(data) => (
+        <br />
+        <div className='descriptionProduct' dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+        <Suspense
+          fallback={
             <ProductForm
               product={product}
               selectedVariant={selectedVariant}
-              variants={data.product?.variants.nodes || []}
+              variants={[]}
             />
-          )}
-        </Await>
-      </Suspense>
-      <br />
-      <br />
+          }
+        >
+          <Await
+            errorElement="There was a problem loading product variants"
+            resolve={variants}
+          >
+            {(data) => (
+              <ProductForm
+                product={product}
+                selectedVariant={selectedVariant}
+                variants={data.product?.variants.nodes || []}
+              />
+            )}
+          </Await>
+        </Suspense>
+        <br />
+        <br />
 
-      <br />
+        <br />
       </div>
-   <div className='sticky bottom-8 w-full flex justify-end pr-8' >
-   <a href={`/products/${referencedProduct.node.handle}`}>
-      <h4>Découvrez aussi le {referencedProduct.node.title} →</h4></a>
-   </div>
+      <div className="sticky bottom-8 w-full flex justify-end pr-8">
+        <a href={`/products/${referencedProduct.node.handle}`}>
+          <h4>Découvrez aussi le {referencedProduct.node.title} →</h4>
+        </a>
+      </div>
     </div>
   );
 }
@@ -222,8 +235,7 @@ function ProductPrice({selectedVariant}) {
     <h3 className="product-price">
       {selectedVariant?.compareAtPrice ? (
         <>
-          <p>Sale</p>
-          <br />
+       
           <h3 className="product-price-on-sale">
             {selectedVariant ? <Money data={selectedVariant.price} /> : null}
             <s>
@@ -248,13 +260,17 @@ function ProductPrice({selectedVariant}) {
 function ProductForm({product, selectedVariant, variants}) {
   return (
     <div className="product-form">
+      <div className='flex gap-24'>
       <VariantSelector
         handle={product.handle}
         options={product.options}
         variants={variants}
       >
         {({option}) => <ProductOptions key={option.name} option={option} />}
+
+
       </VariantSelector>
+      </div>
       <br />
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
@@ -283,15 +299,14 @@ function ProductForm({product, selectedVariant, variants}) {
  */
 function ProductOptions({option}) {
   return (
-    <div className="product-options pt-8" key={option.name}>
-      <h5 className='pb-4'>{option.name}</h5>
+    <div className="product-options pt-12" key={option.name}>
+      <h5 className="pb-4">{option.name}</h5>
       <div className=" flex gap-4 ">
         {option.values.map(({value, isAvailable, isActive, to}) => {
           return (
             <Link
-            className="  rounded-sm  px-4 pt-3 pb-2 text-semiWhite bg-semiBlack uppercase  hover:text-semiWhite transition-colors duration-150"
-
-              key={option.name + value}
+            className={`rounded-sm px-4 pt-3 pb-2 text-semiWhite bg-semiBlack uppercase hover:text-semiWhite transition-colors duration-150 ${isActive ? 'IsActive' : ''}`}
+            key={option.name + value}
               prefetch="intent"
               preventScrollReset
               replace
@@ -301,11 +316,17 @@ function ProductOptions({option}) {
                 opacity: isAvailable ? 1 : 0.3,
               }}
             >
-              <h5 className={isActive ? 'transition-all' : 'hover:opacity-60 transition-all'}> {value}</h5>
-
-            
+              <h4
+                className={
+                  isActive
+                    ? 'transition-all'
+                    : 'hover:opacity-60 transition-all'
+                }
+              >
+                {' '}
+                {value}
+              </h4>
             </Link>
-       
           );
         })}
       </div>
@@ -335,24 +356,25 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
           />
           <button
             type="submit"
-            className=" relative"
+            className=" relative pt-4"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
           >
-            <h4 className="uppercase myButton filled flex relative cursor-pointer">Ajouter au Panier
-            <div className="  arrow absolute right-0 opacity-0 ">
-              <svg
-                className="w-10 h-12"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="#f4f4f4"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-              >
-                <path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z" />
-              </svg>
-            </div></h4>
-            
+            <h4 className="uppercase myButton filled productPage flex relative cursor-pointer">
+              Ajouter au Panier
+              {/* <div className="  arrow absolute right-0 opacity-0 ">
+                <svg
+                  className="w-10 h-12"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="#f4f4f4"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z" />
+                </svg>
+              </div> */}
+            </h4>
           </button>
         </>
       )}

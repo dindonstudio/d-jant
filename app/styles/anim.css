@@ -1,81 +1,190 @@
+.fadeInUp {
+  animation-name: fadeInUp;
+  animation-duration: 1000ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+  opacity: 0;
+  animation-delay: 0.7s;
+}
+.fadeInUp2 {
+  animation-name: fadeInUp;
+  animation-delay: 0.8s !important;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+  opacity: 0;
+  animation-duration: 1000ms;
+}
+.fadeInUp3 {
+  animation-name: fadeInUp;
+  animation-fill-mode: forwards;
+  animation-delay: 0.9s !important;
+  animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+  opacity: 0;
+  animation-duration: 1000ms;
+}
+.fadeInDown {
+  animation-name: fadeInDown;
+  animation-fill-mode: forwards;
+  animation-delay: 1.3s !important;
+  animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+  animation-duration: 1000ms;
+  transform: translate3d(0, -100%, 0);
+}
 
-.fadeInUp{
-    animation-name: fadeInUp ;
-    animation-duration: 1000ms;
-    animation-fill-mode: forwards;
-    animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+.scaleDown {
+  height: 100%;
+  animation-name: scaleDown;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+
+  animation-duration: 1000ms;
+}
+
+.BlackReveal {
+  animation-name: opacity;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+  opacity: 1;
+  height: 100vh;
+  position: absolute;
+  background-color: black;
+z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+
+  animation-duration: 800ms;
+}
+
+
+.motorBlock.active .backgroundImage {
+  transition-property: opacity, transform, z-index;
+  transition-duration: 0.6s, 0.6s, 0.2s;
+  transition-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+  opacity: 0.9;
+  transform: scale(1);
+  z-index: 0;
+}
+
+.motorBlock.active .backgroundImage img{
+  transition: 0.6s ease all;
+  filter: contrast(1) grayscale(0);
+}
+.motorBlock.active .button {
+  transition: 0.6s ease all;
+box-shadow: none;
+opacity: 0;
+}
+.motorBlock.active h3{
+  opacity: 0;
+  transition: 0.5s ease all;
+}
+
+
+
+@keyframes revealVideoCentered {
+  0% {
+    width: 0%;
     opacity: 0;
-    animation-delay: 0.7s;
-  
+    left: 50%;
   }
-  .fadeInUp2{
-    animation-name: fadeInUp ;
-    animation-delay: 0.8s !important;
-    animation-fill-mode: forwards;
-    animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
-    opacity: 0;
-    animation-duration: 1000ms;
-  
-  }
-  .fadeInUp3{
-    animation-name: fadeInUp ;
- animation-fill-mode: forwards;
-    animation-delay: 0.9s !important;
-    animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
-    opacity: 0;
-    animation-duration: 1000ms;
-  }
-  .fadeInDown{
-    animation-name: fadeInDown ;
- animation-fill-mode: forwards;
- animation-delay: 1.3s !important;
-    animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
-    animation-duration: 1000ms;
-    transform: translate3d(0,-100%,0);
-  }
-
-  .scaleDown{
-  
-    height: 100%;
-    animation-name: scaleDown ;
-    animation-fill-mode: forwards;
-    animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
-
-    
-
-    animation-duration: 1000ms;
-  }
-
-  @keyframes fadeInUp{
-    0% {
-      opacity: 0;
-    
-      transform: translate3d(0,30px,0);
+  70%{
+    opacity: 1;
   }
   100% {
-      opacity: 1;
+    width: 100%;
+    left: 0;
+    opacity: 1;;
+  }
+}
+
+.video-reveal-centered {
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+  height: 45vw;
+}
+.videoPresentation video{
+
+width: 0%;
+}
+.video-reveal-centered video {
+  position: absolute;
+  animation-timing-function: cubic-bezier(0.41, 0.75, 0.07, 0.97);
+
+  animation-duration: 2000ms;
+  animation-name: revealVideoCentered;
+  animation-fill-mode: forwards;
+}
+.blur{
+  filter: url(#svgBlur);
   
-      transform: translateZ(0);
-  }
-  }
-  @keyframes fadeInDown{
-    0% {
-      opacity: 0;
+}
+/* .block {
+  overflow: hidden;
+  width: 800px;
+  margin: 50px auto;
+  background: #fff;
+}
+.animation {
+  width: auto;
+  height: 100px;
+  font-size: 0px;
+}
+.animation div {
+  display: inline-block;
+  width: auto;
+  float: none;
+  padding: 0 10px;
+} */
+
+.marquee1 img{
+height: 22.5rem;
+}
+.marquee2 img{
+height: 30rem;
+}
+@keyframes opacity {
+  0% {
+    opacity: 1;
     
-      transform: translate3d(0,-100%,0);
   }
   100% {
-      opacity: 1;
-  
-      transform: translate3d(0,0%,0);
+    opacity: 0;
+    z-index: -1;
   }
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+
+    transform: translate3d(0, 30px, 0);
   }
-    
-  @keyframes scaleDown{
-    0% {
-transform: scale(1.2);
+  100% {
+    opacity: 1;
+
+    transform: translateZ(0);
+  }
+}
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+
+    transform: translate3d(0, 0%, 0);
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+    transform: scale(1.2);
   }
   100% {
     transform: scale(1);
   }
-  }
+}

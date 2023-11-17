@@ -44,14 +44,13 @@ const PerspectiveCard = ({number}) => {
         <svg
         key={index}
               version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+             
               x="0px"
               y="0px"
               height="40px"
   viewBox="0 0 256 191"
-  enable-background="new 0 0 256 256"
-  xml:space="preserve"
+  enableBackground="new 0 0 256 256"
+  xmlSpace="preserve"
           
             >
               <metadata>

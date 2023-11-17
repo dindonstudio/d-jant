@@ -1,6 +1,8 @@
 import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
+import ImageSlider from '~/components/ImageSlider';
+import ImageMarquee from '~/components/ImageMarquee';
 import React, {useState, useEffect, useRef} from 'react';
 // import  {SanityProductPage} from '~/lib/sanity';
 import {Image, Money} from '@shopify/hydrogen';
@@ -15,30 +17,37 @@ import {VariantSelector} from '@shopify/hydrogen';
 import Etapes from '../components/Etapes';
 import Decouvertes from '../components/Decouverte';
 import CloseUp from '../components/CloseUp';
-import TicketBar from '../components/TicketBar'
-import Collection from '../components/Shop';
-import ProgressBar from '~/components/ProgressBar';
+import TicketBar from '../components/TicketBar';
+
 import DragSlider from '~/components/DragSlider';
 import CustomButton from '~/components/CustomButton';
 import VideoPresentation from '~/components/VideoPresentation';
 import PerspectiveCard from '~/components/PerspectiveCard';
-import CustomAnimation from  '~/components/Test';
 import FAQ from '~/components/FAQ';
 import RevealTitle from '~/components/RevealTitleWrapper';
 import RevealListWrapper from '~/components/RevealListWrapper';
 import RevealOpacity from '~/components/RevealOpacity';
-
+import CustomFooter  from '~/components/CustomFooter';
 import {CartForm} from '@shopify/hydrogen';
 const query = `*[_type == 'home' ]
 {
  ...,
   "gallery": gallery[]{
     "url": image.asset->url
+  },
+  "gallery2": gallery2[]{
+    "url": image.asset->url
   }
 }`;
 const params = {slug: 'about'};
 const queryimage = `*[_type == "home" ]{
   "gallery": gallery[]{
+    "url": image.asset->url
+  }
+}
+`;
+const queryimage2 = `*[_type == "home" ]{
+  "gallery": gallery2[]{
     "url": image.asset->url
   }
 }
@@ -56,14 +65,12 @@ const client = createClient({
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [{title: 'Déjanté | Home'}];
 };
 
 /**
  * @param {LoaderFunctionArgs}
  */
-
-
 
 export async function loader({context}) {
   const {storefront} = context;
@@ -72,20 +79,26 @@ export async function loader({context}) {
   const featuredCollection = collections.nodes[0];
   const sanityData = await client.fetch(query);
   const galleryData = await client.fetch(queryimage);
+  const galleryData2 = await client.fetch(queryimage2);
   const recommendedProducts = storefront.query(RECOMMENDED_PRODUCTS_QUERY);
   // Log the fetched data
   // console.log(sanityData);
 
-  return defer({sanityData, featuredCollection, recommendedProducts,galleryData});
+  return defer({
+    sanityData,
+    featuredCollection,
+    recommendedProducts,
+    galleryData,
+    galleryData2
+  });
 }
 
-export default function Homepage(sanityData, galleryData) {
-  
+export default function Homepage(sanityData, galleryData,galleryData2) {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
-  console.log(data);
+
   const sanity = data?.sanityData?.[0];
-  
+
   return (
     <div className="home">
       <div className="hero h-screen flex  flex-col z-20 relative overflow-hidden ">
@@ -93,35 +106,37 @@ export default function Homepage(sanityData, galleryData) {
         <VideoWithButtonOverlay sanity={sanity} />
       </div>
       <div id="rezized">
-      <div className="md:pt-64">
-        <Etapes />
-      </div>
-      <div className="md:pt-96">
-        <Decouvertes />
-      </div>
-      <div className="md:pt-96">
-        <CloseUp />
-      </div>
-  
-      <div id="shop" className="md:pt-96">
-        <RecommendedProducts products={data.recommendedProducts} />
-      </div>
-      <div  className="md:pt-96">
-        <DragSlider galleryData={sanity.gallery}   />
-      </div>
-      <div  className="md:pt-48">
-        <CustomButton   />
-      </div>
-      <div  className="md:pt-96">
-        <VideoPresentation   />
-      </div>
+        <div className="md:pt-64">
+          <Etapes />
+        </div>
+        <div className="md:pt-96">
+          <Decouvertes />
+        </div>
+        <div className="md:pt-96">
+          <CloseUp />
+        </div>
 
-      <div  className="md:pt-96">
-        <FAQ   />
-      </div>
-      </div>
-      
+        <div id="shop" className="md:pt-96">
+          <RecommendedProducts products={data.recommendedProducts} />
+        </div>
+        <div className="md:pt-96">
+          <DragSlider galleryData={sanity.gallery} galleryData2={sanity.gallery2} />
+        </div>
+    
+        <div className="">
+          <CustomButton />
+        </div>
+        <div className="">
+          <VideoPresentation />
+        </div>
 
+        <div className="md:pt-96">
+          <FAQ />
+        </div>
+        <div className="md:pt-72">
+          <CustomFooter />
+        </div>
+      </div>
     </div>
   );
 }
@@ -146,11 +161,8 @@ function RecommendedProducts({products}) {
 
   return (
     <div className="recommended-products">
-                
       <h2 className="text-center ">
-      <RevealOpacity delay={200}>
-                CHOPE TON TICKET
-                </RevealOpacity>
+        <RevealOpacity delay={200}>CHOPE TON TICKET</RevealOpacity>
       </h2>
       <TicketBar remainingTickets={4596} />
       {/* <h4 className='text-center'>Accélérez, les places sont comptées !</h4> */}
@@ -160,9 +172,10 @@ function RecommendedProducts({products}) {
       <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={products}>
           {({products}) => (
-                    <RevealListWrapper reset={false} classname={'grid paddingGrid px-8 pt-56'}>
-
-          
+            <RevealListWrapper
+              reset={false}
+              classname={'grid paddingGrid px-8 pt-56'}
+            >
               {products.nodes.map((product, index) => {
                 const imageIndex = currentImageIndex[product.id] || 0;
                 const images = product.images?.nodes || [];
@@ -184,7 +197,7 @@ function RecommendedProducts({products}) {
                             className="w-full h-full object-cover"
                             sizes="(min-width: 45em) 20vw, 50vw"
                           />
-                          <PerspectiveCard number={index +1}/>
+                          <PerspectiveCard number={index + 1} />
                         </div>
                         <div className="flex justify-between absolute left-4 bottom-4"></div>
                       </Link>
@@ -192,28 +205,30 @@ function RecommendedProducts({products}) {
                         <div className="absolute top-0 h-full left-4 flex items-center z-10-">
                           {hasPrev && (
                             <h4
-                              className="        w-full px-4 text-semiDark bg-semiWhite uppercase hover:bg-semiDark hover:text-semiWhite transition-colors duration-150"
-                              onClick={() => navigateImage(product.id, 'prev')}
+                            className="    scale-150    w-full px-4  text-semiDark  uppercase cursor-pointer transition-colors duration-150"
+                            onClick={() => navigateImage(product.id, 'prev')}
                             >
-                              {'<'}
+                            <svg width="24" height="24" ><path d="M20 .755l-14.374 11.245 14.374 11.219-.619.781-15.381-12 15.391-12 .609.755z"/></svg>
                             </h4>
                           )}
                         </div>
                         <div>
-                          <div className="absolute top-0 h-full right-4 flex items-center z-10">
+                          <div className="absolute top-0 h-full right-4 opacity-75 hover:opacity-100 flex items-center z-10">
                             {hasNext && (
                               <h4
-                                className="        w-full px-4  text-semiDark bg-semiWhite uppercase hover:bg-semiDark hover:text-semiWhite transition-colors duration-150"
+                                className="    scale-150    w-full px-4  text-semiDark  uppercase cursor-pointer transition-colors duration-150"
                                 onClick={() =>
                                   navigateImage(product.id, 'next')
                                 }
                               >
-                                {'>'}
+                                <svg width="24" height="24" clipRule="evenodd"><path d="M4 .755l14.374 11.245-14.374 11.219.619.781 15.381-12-15.391-12-.609.755z"/></svg>
                               </h4>
                             )}
                           </div>
                         </div>
-                        {shouldDisplayProductForm && <ProductForm product={product} />}
+                        {shouldDisplayProductForm && (
+                          <ProductForm product={product} />
+                        )}
                       </div>
                     </div>
                     <div className="flex justify-between md:mt-6">
@@ -225,7 +240,7 @@ function RecommendedProducts({products}) {
                   </div>
                 );
               })}
-                    </RevealListWrapper>
+            </RevealListWrapper>
           )}
         </Await>
       </Suspense>
@@ -234,7 +249,7 @@ function RecommendedProducts({products}) {
   );
 }
 function ProductForm({product}) {
-  console.log(product);
+  // console.log(product);
 
   return (
     <VariantSelector
@@ -245,8 +260,15 @@ function ProductForm({product}) {
       {({option}) => (
         <>
           {/* <div>{option.name}</div> */}
-          <div className="flex justify-center items-end w-full absolute bottom-12 z-10 ">
-            <div className="flex gap-8 bg-semiWhite">
+          <div className="flex justify-center items-end w-full absolute bottom-12 z-10 group ">
+            <div className="flex gap-8 bg-semiWhite relative">
+              <div className='text-semiDark z-10  bg-semiWhite absolute h-full w-full left-0 top-0 flex justify-center items-center group-hover:hidden '>
+        
+                <h5 className='uppercase relative top-1'>Ajouter au panier</h5>  
+              
+ 
+              </div>
+    
               {option.values.map((value, index) => {
                 const variant = product.variants.nodes[index]; // Match variant by index
                 return (

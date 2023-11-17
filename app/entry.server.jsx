@@ -18,8 +18,8 @@ export default async function handleRequest(
   const {nonce, header, NonceProvider} = createContentSecurityPolicy({
     styleSrc: [
       "'self'",
-      'https://cdn.shopify.com',
-      'https://cdn.sanity.io',
+      "'unsafe-inline'",
+  
     ],
     connectSrc: [
       "'self'",

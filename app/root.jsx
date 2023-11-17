@@ -119,6 +119,8 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
+        <meta name="description" content="Participer au concours et tenter de gagner une Abarth 595" />
+
         <Links />
       </head>
       <body>

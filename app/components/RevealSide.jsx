@@ -1,14 +1,13 @@
 import React from 'react';
 import {RevealWrapper} from 'next-reveal';
 
-const RevealLine = ({children, classname, delay}) => {
+const RevealSide = ({children, delay, distance, origin}) => {
   return (
     <RevealWrapper
-      className={classname}
-      origin="top"
+      origin={origin}
       delay={delay}
       duration={800}
-      distance="0"
+      distance='-100px'
       easing="cubic-bezier(0.41, 0.75, 0.07, 0.97)"
       reset={false}
       viewOffset={{top: 25, right: 0, bottom: 10, left: 5}}
@@ -18,4 +17,4 @@ const RevealLine = ({children, classname, delay}) => {
   );
 };
 
-export default RevealLine;
+export default RevealSide;
