@@ -6,12 +6,15 @@ function CloseUp(props) {
   const { text, onClick } = props;
 
   return (
-   <div className='px-8'>
+   <div className=''>
+    <div className='px-8'>
     <h2 className='uppercase  chroma'>
     <RevealOpacity delay={200}>
       Un bon close up?
       </RevealOpacity>
      </h2>
+    </div>
+
     <div className='w-full pt-12'>
     <RevealOpacity delay={200}>
             <Image

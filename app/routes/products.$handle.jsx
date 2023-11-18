@@ -1,6 +1,8 @@
 import {Suspense} from 'react';
 import {useEffect} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
+import PerspectiveCard from '~/components/PerspectiveCard';
+
 import {Await, Link, useLoaderData} from '@remix-run/react';
 import {
   Image,
@@ -176,7 +178,7 @@ function ProductMain({selectedVariant, product, variants, referencedProduct}) {
   const {title, descriptionHtml} = product;
   return (
     <div className="product-main h-screen flex flex-col justify-between">
-      <div className="w-4/5 md:pt-24 ">
+      <div className="w-4/5 md:pt-24 md:pt-0 ">
         <div className="flex flex-col ">
           {' '}
           <h3>{title}</h3>
