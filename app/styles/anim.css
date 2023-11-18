@@ -144,6 +144,13 @@ height: 22.5rem;
 }
 .marquee2 img{
 height: 30rem;
+transition: 0.4s ease all;
+
+}
+.marquee2 img:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: 0.4s ease all;
 }
 @keyframes opacity {
   0% {
