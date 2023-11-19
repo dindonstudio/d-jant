@@ -24,11 +24,11 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
     const triggerReflow = () => {
         // You can access any DOM element. Here, document.body is used as an example.
         setTimeout(() => {
-          resizer.style.width = '99%' ; // Trigger reflow
+          resizer.style.width = '95%' ; // Trigger reflow
       }, 1500);
         setTimeout(() => {
           resizer.style.width = '100%' ; // Trigger reflow
-      }, 1800);
+      }, 1550);
 
 
     };

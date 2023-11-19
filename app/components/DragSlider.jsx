@@ -19,7 +19,7 @@ export default function DragSlider({ galleryData, galleryData2 }) {
   };
 
   return (
-    <div id="Magazine" className="py-12">
+    <div id="Magazine" className="py-12 overflow-x-hidden">
    <div className="px-8 md:pb-52 pb-32">
         <h2 className="uppercase">
           Capturez l'essence <br /> de Déjanté
