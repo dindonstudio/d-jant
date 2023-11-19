@@ -25,12 +25,12 @@ const CustomButton = ({buttonText = 'Command'}) => {
   };
 
   return (
-    <div className={`flex motorBlock justify-center relative flex-col items-center h-screen ${clicked ? 'active' : ''}`}>
+    <div className={`flex motorBlock justify-center relative flex-col items-center md:h-screen h-auto md:py-0 py-36 ${clicked ? 'active' : ''}`}>
         <h2 className="text-center"><RevealTitle>
       ALLUME LE MOTEUR
       </RevealTitle>
    </h2>
-      <h3 className="text-center md:pb-32">
+      <h3 className="text-center md:pb-32 pb-16">
       <RevealTitle>
         Mmmh faites ronronner les mécaniques
         </RevealTitle>
@@ -57,7 +57,7 @@ const CustomButton = ({buttonText = 'Command'}) => {
       </button>
       </RevealButton>
       <div className='backgroundImage h-full w-full top-0 left-0 flex absolute justify-center items-center -z-10 opacity-10'>
-        <div className='w-1/2'>
+        <div className='md:w-1/2 w-3/4'>
           <RevealOpacity delay={600}>
           <Image
           src="https://cdn.sanity.io/images/m5ok1ygs/production/991766b39f196b747c35901117a8fe02832ad5a4-2007x1768.png"

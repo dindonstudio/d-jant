@@ -20,28 +20,28 @@ export default function DragSlider({ galleryData, galleryData2 }) {
 
   return (
     <div id="Magazine" className="py-12">
-   <div className="px-8 pb-52">
+   <div className="px-8 md:pb-52 pb-32">
         <h2 className="uppercase">
           Capturez l'essence <br /> de Déjanté
         </h2>
         <h4>Chaque image est une invitation à rejoindre la course.</h4>
       </div>
 
-      <div className='flex flex-col gap-40'>
+      <div className='flex flex-col md:gap-40 gap-32'>
         <RevealSide origin={'left'} distance={'-50'} delay={300}>
-          <Marquee autoFill={true} className="marquee2" pauseOnHover={true}>
+          <Marquee speed={50} autoFill={true} className="marquee2" pauseOnHover={true}>
             {galleryData2.map((img, index) => (
-              <div key={index} className="mx-4 overflow-hidden" onClick={() => openGallery(index)}>
-                <Image src={img.url} className="w-full object-cover" sizes="(min-width: 45em) 20vw, 50vw" />
+              <div key={index} className="md:mx-4 mx-2 overflow-hidden" onClick={() => openGallery(index)}>
+                <Image loading='eager' src={img.url} className="w-full object-cover" sizes="(min-width: 45em) 20vw, 50vw" />
               </div>
             ))}
           </Marquee>
         </RevealSide>
         <RevealSide origin={'right'} distance={'50'} delay={300}>
-          <Marquee autoFill={true} pauseOnHover={true} direction="right">
+          <Marquee speed={50} autoFill={true} pauseOnHover={true} direction="right">
             {galleryData.map((img, index) => (
-              <div key={index} className="marquee2 mx-4 overflow-hidden" onClick={() => openGallery(index, true)}>
-                <Image src={img.url} className="w-full object-cover" sizes="(min-width: 45em) 20vw, 50vw" />
+              <div key={index} className="marquee2 md:mx-4 mx-2 overflow-hidden" onClick={() => openGallery(index, true)}>
+                <Image loading='eager' src={img.url} className="w-full object-cover" sizes="(min-width: 45em) 20vw, 50vw" />
               </div>
             ))}
           </Marquee>
@@ -53,7 +53,7 @@ export default function DragSlider({ galleryData, galleryData2 }) {
       >
         <MyGallery startIndex={selectedIndex} galleryData={galleryData} galleryData2={galleryData2} />
         <div onClick={closeGallery} className="closeGallery w-full h-full z-10 fixed left-0 top-0"> </div>
-        <h5 className='fixed top-12 left-8 cursor-pointer z-20'  onClick={closeGallery} > Fermer</h5>
+        <h5 className='fixed md:top-12 md:left-8 top-4 left-6 cursor-pointer z-20'  onClick={closeGallery} > Fermer</h5>
       </div>
     </div>
   );

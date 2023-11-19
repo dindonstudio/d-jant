@@ -11,17 +11,17 @@ export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   const logoUrl = '../../public/DEJANTE_LOGO.RED.svg';
   return (
-    <header className="header fadeInDown pt-0 justify-between md:h-40 w-full flex fixed items-center gap-8 z-40 md:px-8">
+    <header className="header fadeInDown pt-0 justify-between md:h-40 w-full flex fixed items-center gap-8 z-40 md:px-8 px-6">
       <div className='flex-1 participate'>
-        <div className='flex relative -top-4'>
+        <div className='flex relative md:-top-4 -top-6'>
         <MyButtonHeader text="PARTICIPER" />
         </div>
 
       </div>
-      <div className="w-64 svgLogo ">
+      <div className="md:w-64 w-32 svgLogo relative md:top-0 -top-5 ">
         <SvgComponent />
       </div>
-      <div className='flex-1 relative -top-6'>
+      <div className='flex-1 relative md:-top-6 -top-7 '>
         <div className='flex justify-end gap-8 '>
   
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
@@ -119,7 +119,7 @@ function SearchToggle() {
  */
 function CartBadge({count}) {
   return (
-    <h5 className='mt-1'>
+    <h5 className='md:mt-1'>
       {' '}
       <a href="#cart-aside">Panier {count}</a>
     </h5>
