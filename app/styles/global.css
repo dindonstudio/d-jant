@@ -350,9 +350,7 @@ background-blend-mode: color;
 }
 
 
-main{
-  overflow-x: hidden;
-}
+
 .image-gallery-left-nav{
   left: -5% !important;
 }

@@ -66,7 +66,14 @@ function CartLines({lines, layout}) {
  * }}
  */
 function CartLineItem({layout, line}) {
+  if (!line.merchandise) {
+    console.error('Merchandise is undefined for line:', line);
+    return null; // Or handle the error as per your app's needs
+  }
+
   const {id, merchandise} = line;
+  console.log('Merchandise data:', merchandise);
+
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
