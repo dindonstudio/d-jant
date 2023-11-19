@@ -106,20 +106,20 @@ export default function Homepage(sanityData, galleryData,galleryData2) {
         <VideoWithButtonOverlay sanity={sanity} />
       </div>
       <div id="rezized">
-        <div className="md:pt-64">
+        <div className="md:pt-64 pt-32">
           <Etapes />
         </div>
-        <div className="md:pt-96">
+        <div className="md:pt-96 pt-44">
           <Decouvertes />
         </div>
-        <div className="md:pt-96">
+        <div className="md:pt-96 pt-44">
           <CloseUp />
         </div>
 
         <div id="shop" className="md:pt-96">
           <RecommendedProducts products={data.recommendedProducts} />
         </div>
-        <div className="md:pt-96">
+        <div className="md:pt-96 pt-44">
           <DragSlider galleryData={sanity.gallery} galleryData2={sanity.gallery2} />
         </div>
     

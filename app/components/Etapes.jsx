@@ -44,17 +44,17 @@ function Etapes(props) {
   const height = `${scrollPosition * 100}%`;
   return (
 
-    <div id="decouverte" className="px-8 ">
-      <div className="grid">
-        <h2 className="col-start-2 col-end-9">
+    <div id="decouverte" className="md:px-8 px-6 ">
+      <div className="md:gridCustom block">
+        <h2 className="col-start-2 col-end-9 md:pr-0 pr-12">
           <RevealTitle>
           RENTRER DANS LA COURSE EN 4 ÉTAPES
           </RevealTitle>
 
         </h2>
-        <div className="flex-col col-start-3 col-end-9 flex  mt-52 gap-48 relative ">
-          <div className="flex gap-24">
-            <RevealListWrapper reset={true} classname={'flex gap-24'}>
+        <div className="flex-col col-start-3 col-end-9 flex  md:mt-52 mt-32 gap-48 relative ">
+          <div className="flex md:gap-24 ">
+            <RevealListWrapper reset={true} classname={'flex md:gap-24 gap-20'}>
 
        
             <div>
@@ -72,7 +72,7 @@ function Etapes(props) {
             </RevealListWrapper>
           </div>
           <div className="flex gap-24">
-          <RevealListWrapper reset={true} classname={'flex gap-24'}>
+          <RevealListWrapper reset={true} classname={'flex md:gap-24 gap-20'}>
             <div>
               <div className="bulle relative">
                 <h3 className="w-full text-center">2</h3>
@@ -85,7 +85,7 @@ function Etapes(props) {
             </RevealListWrapper>
           </div>
           <div className="flex gap-24">
-          <RevealListWrapper reset={true} classname={'flex gap-24'}>
+          <RevealListWrapper reset={true} classname={'flex md:gap-24 gap-20'}>
             <div>
               <div className="bulle relative">
                 <h3 className="w-full text-center">3</h3>
@@ -99,7 +99,7 @@ function Etapes(props) {
           </div>
           
           <div className="flex gap-24">
-          <RevealListWrapper reset={true} classname={'flex gap-24'}>
+          <RevealListWrapper reset={true} classname={'flex md:gap-24 gap-20'}>
             <div>
               <div className="bulle relative">
                 <h3 className="w-full text-center">4</h3>
@@ -113,8 +113,8 @@ function Etapes(props) {
             </RevealListWrapper>
           </div>
           <div className="flex gap-24">
-          <RevealListWrapper reset={true} classname={'flex gap-24'}>
-            <div className="relative -left-16">
+          <RevealListWrapper reset={true} classname={'flex md:gap-24 gap-20'}>
+            <div className="relative md:-left-16">
               <FilledButton text={'PARTICIPER'} />
             </div>
             </RevealListWrapper>

@@ -139,19 +139,27 @@ width: 0%;
   padding: 0 10px;
 } */
 
-.marquee1 img{
-height: 22.5rem;
-}
 .marquee2 img{
-height: 30rem;
-transition: 0.4s ease all;
-
-}
-.marquee2 img:hover{
-  cursor: pointer;
-  transform: scale(1.1);
+  height: 15rem;
   transition: 0.4s ease all;
+  
+  }
+@media (min-width: 769px) {
+  .marquee1 img{
+    height: 22.5rem;
+    }
+    .marquee2 img{
+    height: 30rem;
+    transition: 0.4s ease all;
+    
+    }
+    .marquee2 img:hover{
+      cursor: pointer;
+      transform: scale(1.1);
+      transition: 0.4s ease all;
+    }
 }
+
 @keyframes opacity {
   0% {
     opacity: 1;
