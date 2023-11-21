@@ -689,7 +689,7 @@ font-variation-settings: "wght" 500,"wdth" 600,"ital" 0,"opsz" 200;
 aside {
   background: #f4f4f4;
   box-shadow: 0 0 50px #0000004d;
-  height: 100vh;
+  height: 100%;
   /* max-width: 450px;
   max-width: var(--aside-width);
   min-width: 450px; */
