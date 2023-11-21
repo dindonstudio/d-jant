@@ -30,7 +30,7 @@ const CustomButton = ({buttonText = 'Command'}) => {
       ALLUME LE MOTEUR
       </RevealTitle>
    </h2>
-      <h3 className="text-center md:pb-32 pb-16">
+      <h3 className="text-center md:pb-32 pb-8">
       <RevealTitle>
         Mmmh faites ronronner les mécaniques
         </RevealTitle>

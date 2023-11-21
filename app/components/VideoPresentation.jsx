@@ -29,14 +29,14 @@ function VideoPresentation(props) {
     };
   }, []);
   return (
-    <div className="grid md:px-8 videoPresentation">
-      <div className="col-start-1 col-end-11 md:pb-40">
+    <div className="grid md:px-8 px-6 videoPresentation">
+      <div className="col-start-1 md:col-end-11 col-end-13 md:pb-40 pb-16">
         <h2 className="uppercase maxCh21">
           <RevealTitle>Découvrez la vie à travers le pare-brise</RevealTitle>
         </h2>
         {/* <h4>Ressentez chaque virage, chaque accélération, chaque instant de liberté.</h4> */}
       </div>
-      <div className="col-start-2 col-end-12" ref={videoContainerRef}>
+      <div className="md:col-start-2 md:col-end-12 col-start-1 col-end-13" ref={videoContainerRef}>
         <VideoPlayer
           url={
             'https://cdn.shopify.com/videos/c/o/v/4fd141f5e89b4be1925cef0f25f1d09a.mp4'
@@ -44,7 +44,7 @@ function VideoPresentation(props) {
           controls
         />
       </div>
-      <div className="col-start-3 col-end-9 md:pt-96">
+      <div className="md:col-start-3 md:col-end-9 col-start-2 col-end-12 md:pt-96 pt-32">
         <RevealListWrapper delay={600} interval={300}>
           <h4>
             Chez Déjanté, notre projet est né d’un rêve partagé : marier l’amour

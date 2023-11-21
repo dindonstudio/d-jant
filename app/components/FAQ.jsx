@@ -57,8 +57,8 @@ function FAQ() {
   ];
 
   return (
-    <div>
-      <h2 className="uppercase text-center">
+    <div className='md:px-0 px-6'>
+      <h2 className="uppercase text-center ">
         <RevealOpacity delay={500}>
         Foire aux questions
         </RevealOpacity>
@@ -68,7 +68,7 @@ function FAQ() {
         Ne demandez pas votre chemin, trouvez vos réponses ici.
         </RevealOpacity>
       </h4>
-      <div id='accordion' className='pt-52'>
+      <div id='accordion' className='md:pt-52 pt-24 md:px-0 px-12'>
       <Accordion type="single" collapsible>
       < RevealListWrapper delay={600} interval={60} reset={false} >
         {faqData.map((faq, index) => (
