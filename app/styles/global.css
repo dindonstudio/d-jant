@@ -695,14 +695,14 @@ aside {
   min-width: 450px; */
   min-width: 100%;
   position: fixed;
-  right: -100%;
-
+  right: 0%;
+  transform: translate(100%);
   top: 0;
   transition: transform .2s ease-in-out;
 }
 
 .overlay:target aside {
-  transform: translate(-100%);
+  transform: translate(0%);
   /* transform: translate(calc(var(--aside-width) * -1)); */
 }
 
@@ -726,9 +726,10 @@ aside header .close h4{
 }
 aside h5{
   font-size: 2.4rem;
+  line-height: 100%;
 }
 .priceCart {
-  line-height: 60%;
+  /* line-height: 60%; */
 }
 .smallH5{
   font-size: 2rem;
@@ -782,6 +783,10 @@ aside form button h5{
   padding: 18px 3.2rem 12px;
   transition: 0.45s ease all;
   font-variation-settings: 'wght' 500, 'wdth' 600, 'ital' 0, 'opsz' 200;
+}
+
+.paddingGrid{
+  padding: 4rem 1.5rem 2rem;
 }
 @media (min-width: 769px) {
   .priceCart {
@@ -883,7 +888,7 @@ aside form button h5{
    footer h5 {
   font-size: 2.8rem;
   }
-  #shop .bigSubText {
+  #shop .bigSubText, .bigSubText {
     font-size: 6.8rem;
     line-height: 85%;
     font-variation-settings: "wght" 450,"wdth" 600,"ital" 0,"opsz" 200;

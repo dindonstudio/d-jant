@@ -199,7 +199,7 @@ function RecommendedProducts({products}) {
           {({products}) => (
             <RevealListWrapper
               reset={false}
-              classname={'grid paddingGrid md:px-8 px-6 md:pt-56 pt-20 mobileSlider pb-12 md:pb-0'}
+              classname={'grid paddingGrid  mobileSlider '}
             >
               {products.nodes.map((product, index) => {
                  const itemStyle = index === 2 && isMobile ? { opacity: 1 } : {};

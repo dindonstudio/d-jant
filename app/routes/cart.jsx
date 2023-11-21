@@ -4,6 +4,7 @@ import {CartForm} from '@shopify/hydrogen';
 import {json} from '@shopify/remix-oxygen';
 import {CartMain} from '~/components/Cart';
 import {useRootLoaderData} from '~/root';
+import { useEffect } from 'react';
 
 /**
  * @type {MetaFunction}
@@ -90,6 +91,10 @@ export async function action({request, context}) {
 export default function Cart() {
   const rootData = useRootLoaderData();
   const cartPromise = rootData.cart;
+  useEffect(() => {
+    // Redirect to /#cart-aside
+    window.location.href = './#cart-aside';
+  }, []); // Empty dependency array means this runs once after the component mounts
 
   return (
     <div className="cart">
