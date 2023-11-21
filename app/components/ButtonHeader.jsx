@@ -30,7 +30,7 @@ function MyButtonHeader(props) {
 
     const shopElement = document.getElementById('shop');
     if (shopElement) {
-      const yOffset = +100; // 2 rem above the element
+      const yOffset = 0; // 2 rem above the element
       const y = shopElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }

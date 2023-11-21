@@ -139,7 +139,7 @@ export default function Product() {
     <div className="product">
       <div className="flex gap-4 md:mix-blend-normal mix-blend-difference fixed md:top-12 top-6 left-6 md:left-8 z-50">
       
-        <Link to="../"><h5 className='md:text-semiDark text-semiWhite'> ← Retour </h5></Link>
+        <Link to="../#shop"><h5 className='md:text-semiDark text-semiWhite'> ← Retour </h5></Link>
       </div>
       <ProductImage image={product.images.nodes} />
       <ProductMain

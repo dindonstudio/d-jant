@@ -664,12 +664,12 @@ footer h3{
 font-size: 1.8rem;
 font-variation-settings: "wght" 500,"wdth" 600,"ital" 0,"opsz" 200;
 }
-.video-reveal-centered {
+/* .video-reveal-centered {
   position: relative;
   overflow: hidden;
   width: auto;
   height: 215px;
-}
+} */
 
 
 .overlay {
