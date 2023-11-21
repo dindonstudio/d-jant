@@ -123,7 +123,7 @@ function Decouvertes(props) {
       <div className="grid content-baseline md:pt-24 three pt-12">
         <div className="md:col-start-2 md:col-end-8 col-start-1 col-end-10 relative ">
           <div className=' overIt pt-12 relative md:-top-12 -top-8'>
-            <div className="uppercase yellow text-left md:ext-center bigSubText pb-2">
+            <div className="uppercase yellow text-left md:text-center bigSubText pb-2">
             <RevealOpacity delay={1000}>
               REVETEMENT au soleil
               </RevealOpacity>

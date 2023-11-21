@@ -51,8 +51,6 @@ export async function loader({params, request, context}) {
 
   // console.log("Loaded product data:", product);
 
-  
-
   if (!product?.id) {
     throw new Response(null, {status: 404});
   }
@@ -85,7 +83,7 @@ export async function loader({params, request, context}) {
   // console.log("Raw variants response:", variants);
 
   const referencedProductGID = product.metafield.value;
-console.log(referencedProductGID)
+  console.log(referencedProductGID);
   let referencedProduct = null;
   const referencedProductResponse = await storefront.query(
     REFERENCED_PRODUCT_QUERY,
@@ -138,8 +136,9 @@ export default function Product() {
   return (
     <div className="product">
       <div className="flex gap-4 md:mix-blend-normal mix-blend-difference fixed md:top-12 top-6 left-6 md:left-8 z-50">
-      
-        <Link to="../#shop"><h5 className='md:text-semiDark text-semiWhite'> ← Retour </h5></Link>
+        <Link to="../#shop">
+          <h5 className="md:text-semiDark text-semiWhite"> ← Retour </h5>
+        </Link>
       </div>
       <ProductImage image={product.images.nodes} />
       <ProductMain
@@ -194,12 +193,13 @@ function ProductMain({selectedVariant, product, variants, referencedProduct}) {
           <ProductPrice selectedVariant={selectedVariant} />
         </div>
 
-        <h5>
-          
-        </h5>
+        <h5></h5>
 
         <br />
-        <div className='descriptionProduct' dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+        <div
+          className="descriptionProduct"
+          dangerouslySetInnerHTML={{__html: descriptionHtml}}
+        />
         <Suspense
           fallback={
             <ProductForm
@@ -229,7 +229,7 @@ function ProductMain({selectedVariant, product, variants, referencedProduct}) {
       </div>
       <div className="md:sticky relative md:pt-0 pt-12 bottom-8 w-full flex justify-end pr-8">
         <a href={`/products/${referencedProduct.node.handle}`}>
-          <h4>Découvrez aussi le {referencedProduct.node.title} →</h4>
+          <h4 className='text-right'>Découvrez aussi le {referencedProduct.node.title} →</h4>
         </a>
       </div>
     </div>
@@ -246,7 +246,6 @@ function ProductPrice({selectedVariant}) {
     <h3 className="product-price">
       {selectedVariant?.compareAtPrice ? (
         <>
-       
           <h3 className="product-price-on-sale">
             {selectedVariant ? <Money data={selectedVariant.price} /> : null}
             <s>
@@ -274,24 +273,22 @@ function ProductForm({product, selectedVariant, variants}) {
   // console.log("ProductForm - Variants:", variants);
   return (
     <div className="product-form">
-      <div className='flex gap-24'>
-      <VariantSelector
-        handle={product.handle}
-        options={product.options}
-        variants={variants}
-      >
-        {({option}) => <ProductOptions key={option.name} option={option} />}
-
-
-      </VariantSelector>
+      <div className="flex gap-24">
+        <VariantSelector
+          handle={product.handle}
+          options={product.options}
+          variants={variants}
+        >
+          {({option}) => <ProductOptions key={option.name} option={option} />}
+        </VariantSelector>
       </div>
       <br />
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
           window.location.href = window.location.href + '#cart-aside';
-          console.log('herreeeeze')
-          console.log(selectedVariant)
+          console.log('herreeeeze');
+          console.log(selectedVariant);
         }}
         lines={
           selectedVariant
@@ -302,9 +299,7 @@ function ProductForm({product, selectedVariant, variants}) {
                 },
               ]
             : []
-
         }
-        
       >
         {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
       </AddToCartButton>
@@ -316,7 +311,7 @@ function ProductForm({product, selectedVariant, variants}) {
  * @param {{option: VariantOption}}
  */
 function ProductOptions({option}) {
-  console.log(option)
+  console.log(option);
 
   return (
     <div className="product-options md:pt-8" key={option.name}>
@@ -325,8 +320,10 @@ function ProductOptions({option}) {
         {option.values.map(({value, isAvailable, isActive, to}) => {
           return (
             <Link
-            className={`rounded-sm px-4 pt-3 pb-2 text-semiWhite bg-semiBlack uppercase hover:text-semiWhite transition-colors duration-150 ${isActive ? 'IsActive' : ''}`}
-            key={option.name + value}
+              className={`rounded-sm px-4 pt-3 pb-2 text-semiWhite bg-semiBlack uppercase hover:text-semiWhite transition-colors duration-150 ${
+                isActive ? 'IsActive' : ''
+              }`}
+              key={option.name + value}
               prefetch="intent"
               preventScrollReset
               replace
