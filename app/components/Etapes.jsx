@@ -52,7 +52,7 @@ function Etapes(props) {
           </RevealTitle>
 
         </h2>
-        <div className="flex-col col-start-3 col-end-9 flex  md:mt-52 mt-32 gap-48 relative ">
+        <div className="flex-col col-start-3 col-end-9 flex  md:mt-52 mt-32 md:gap-48 gap-28 relative ">
           <div className="flex md:gap-24 ">
             <RevealListWrapper reset={true} classname={'flex md:gap-24 gap-20'}>
 
@@ -64,10 +64,10 @@ function Etapes(props) {
             </div>
 
             <h4 className="">
-               Choisissez votre pack et décrochez votre ticket - l'aventure
-              commence avec un T-shirt (1 ticket), s'accélère avec un Hoodie (2
-              tickets), et passe à la vitesse supérieure avec le combo T-shirt +
-              Hoodie (3 tickets).
+              <strong>Choisissez votre pack et décrochez votre ticket</strong>  - l'aventure
+              commence avec <strong> un T-shirt (1 ticket)</strong>, s'accélère avec <strong>un Hoodie (2
+              tickets)</strong> , et passe à la vitesse supérieure avec <strong>le combo T-shirt +
+              Hoodie (3 tickets).</strong> 
             </h4>
             </RevealListWrapper>
           </div>
@@ -79,7 +79,7 @@ function Etapes(props) {
               </div>
             </div>
             <h4>
-              La ligne d'arrivée est fixée à 5000 participations <br /> ne
+              La ligne d'arrivée est fixée à <strong>5000 participations</strong>  <br /> ne
               laissez pas cette chance vous échapper !
             </h4>
             </RevealListWrapper>
@@ -92,8 +92,8 @@ function Etapes(props) {
               </div>
             </div>
             <h4>
-               La "Rota Fortunae" tourne - un tirage au sort par un huissier de
-              justice vous mène vers la victoire.
+               La <strong>"Rota Fortunae" </strong> tourne - un tirage au sort par <strong>un huissier de
+              justice</strong>  vous mène vers la victoire.
             </h4>
             </RevealListWrapper>
           </div>
@@ -106,15 +106,16 @@ function Etapes(props) {
               </div>
             </div>
             <h4>
-              Clef en main, avec ou sans permis - nous vous offrons même le
-              permis si nécessaire. Chez Déjanté, Personne n’est laissé sur le
+              <strong> Clef en main</strong>
+             , avec ou sans permis - <strong>nous vous offrons même le
+              permis si nécessaire.</strong>  Chez Déjanté, Personne n’est laissé sur le
               bord de la route.
             </h4>
             </RevealListWrapper>
           </div>
-          <div className="flex gap-24">
-          <RevealListWrapper reset={true} classname={'flex md:gap-24 gap-20'}>
-            <div className="relative md:-left-16">
+          <div className="flex gap-24 ">
+          <RevealListWrapper reset={true} classname={'flex md:gap-24 gap-20 py-2 relative damier md:-left-20'}>
+            <div className="relative ">
               <FilledButton text={'PARTICIPER'} />
             </div>
             </RevealListWrapper>

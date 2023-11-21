@@ -38,6 +38,7 @@ export async function loader({params, request, context}) {
       // Filter out third party tracking params
       !option.name.startsWith('fbclid'),
   );
+  // console.log("Selected options for query:", selectedOptions);
 
   if (!handle) {
     throw new Error('Expected product handle to be defined');
@@ -47,6 +48,10 @@ export async function loader({params, request, context}) {
   const {product} = await storefront.query(PRODUCT_QUERY, {
     variables: {handle, selectedOptions},
   });
+
+  // console.log("Loaded product data:", product);
+
+  
 
   if (!product?.id) {
     throw new Response(null, {status: 404});
@@ -77,8 +82,10 @@ export async function loader({params, request, context}) {
   const variants = storefront.query(VARIANTS_QUERY, {
     variables: {handle},
   });
-  const referencedProductGID = product.metafield.value;
+  // console.log("Raw variants response:", variants);
 
+  const referencedProductGID = product.metafield.value;
+console.log(referencedProductGID)
   let referencedProduct = null;
   const referencedProductResponse = await storefront.query(
     REFERENCED_PRODUCT_QUERY,
@@ -130,9 +137,9 @@ export default function Product() {
   }, []); // Emp
   return (
     <div className="product">
-      <div className="flex gap-4 fixed top-12 left-8 z-50">
+      <div className="flex gap-4 md:mix-blend-normal mix-blend-difference fixed md:top-12 top-6 left-6 md:left-8 z-50">
       
-        <Link to="../"><h5 className='text-semiDark'> ← Retour </h5></Link>
+        <Link to="../"><h5 className='md:text-semiDark text-semiWhite'> ← Retour </h5></Link>
       </div>
       <ProductImage image={product.images.nodes} />
       <ProductMain
@@ -153,7 +160,7 @@ function ProductImage({image}) {
     return <div className="product-image" />;
   }
   return (
-    <div className="product-image-container">
+    <div className="product-image-container md:block flex flex-nowrapwrap overflow-x-auto">
       {image.map((image) => (
         <div className="product-image" key={image.id}>
           <Image
@@ -176,9 +183,11 @@ function ProductImage({image}) {
  */
 function ProductMain({selectedVariant, product, variants, referencedProduct}) {
   const {title, descriptionHtml} = product;
+  // console.log("ProductMain props:", { selectedVariant, product, variants, referencedProduct });
+
   return (
-    <div className="product-main h-screen flex flex-col justify-between">
-      <div className="w-4/5 md:pt-24 md:pt-0 ">
+    <div className="product-main md:h-screen flex flex-col justify-between">
+      <div className="md:w-4/5 md:pt-8 pt-16 md:px-0 px-6 ">
         <div className="flex flex-col ">
           {' '}
           <h3>{title}</h3>
@@ -218,7 +227,7 @@ function ProductMain({selectedVariant, product, variants, referencedProduct}) {
 
         <br />
       </div>
-      <div className="sticky bottom-8 w-full flex justify-end pr-8">
+      <div className="md:sticky relative md:pt-0 pt-12 bottom-8 w-full flex justify-end pr-8">
         <a href={`/products/${referencedProduct.node.handle}`}>
           <h4>Découvrez aussi le {referencedProduct.node.title} →</h4>
         </a>
@@ -260,6 +269,9 @@ function ProductPrice({selectedVariant}) {
  * }}
  */
 function ProductForm({product, selectedVariant, variants}) {
+  // console.log("ProductForm - Product:", product);
+  // console.log("ProductForm - Selected Variant ID:", selectedVariant.id);
+  // console.log("ProductForm - Variants:", variants);
   return (
     <div className="product-form">
       <div className='flex gap-24'>
@@ -278,6 +290,8 @@ function ProductForm({product, selectedVariant, variants}) {
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
           window.location.href = window.location.href + '#cart-aside';
+          console.log('herreeeeze')
+          console.log(selectedVariant)
         }}
         lines={
           selectedVariant
@@ -288,7 +302,9 @@ function ProductForm({product, selectedVariant, variants}) {
                 },
               ]
             : []
+
         }
+        
       >
         {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
       </AddToCartButton>
@@ -300,8 +316,10 @@ function ProductForm({product, selectedVariant, variants}) {
  * @param {{option: VariantOption}}
  */
 function ProductOptions({option}) {
+  console.log(option)
+
   return (
-    <div className="product-options pt-12" key={option.name}>
+    <div className="product-options md:pt-8" key={option.name}>
       <h5 className="pb-4">{option.name}</h5>
       <div className=" flex gap-4 ">
         {option.values.map(({value, isAvailable, isActive, to}) => {
@@ -347,6 +365,8 @@ function ProductOptions({option}) {
  * }}
  */
 function AddToCartButton({analytics, children, disabled, lines, onClick}) {
+  console.log('CartForm lines:', lines);
+
   return (
     <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher) => (
@@ -358,11 +378,11 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
           />
           <button
             type="submit"
-            className=" relative pt-4"
+            className=" relative pt-4 md:w-auto w-full"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
           >
-            <h4 className="uppercase myButton filled productPage flex relative cursor-pointer">
+            <h4 className="uppercase myButton filled productPage flex justify-center relative cursor-pointer">
               Ajouter au Panier
               {/* <div className="  arrow absolute right-0 opacity-0 ">
                 <svg
@@ -445,7 +465,7 @@ const PRODUCT_FRAGMENT = `#graphql
     selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions) {
       ...ProductVariant
     }
-    variants(first: 1) {
+    variants(first: 16) {
       nodes {
         ...ProductVariant
       }
@@ -455,6 +475,9 @@ const PRODUCT_FRAGMENT = `#graphql
       title
     }
     metafield(namespace: "custom", key: "link") {
+      value
+    }
+    metafield(namespace: "custom", key: "pack_3_t_shirt_hoodie") {
       value
     }
   }

@@ -6,6 +6,8 @@ import {useVariantUrl} from '~/utils';
  * @param {CartMainProps}
  */
 export function CartMain({layout, cart}) {
+  // console.log(cart)
+
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
@@ -47,7 +49,7 @@ function CartDetails({layout, cart}) {
  */
 function CartLines({lines, layout}) {
   if (!lines) return null;
-
+// console.log(lines.nodes)
   return (
     <div aria-labelledby="cart-lines">
       <ul>
@@ -66,28 +68,49 @@ function CartLines({lines, layout}) {
  * }}
  */
 function CartLineItem({layout, line}) {
-  if (!line.merchandise) {
-    console.error('Merchandise is undefined for line:', line);
-    return null; // Or handle the error as per your app's needs
+
+  // Define default merchandise if undefined
+  if (!line || !line.merchandise) {
+    console.error('Line or merchandise is undefined, using default values:', line);
+    // Define a default line object with both id and merchandise
+    line = {
+      id: 'gid://shopify/CartLine/378a9cd9-cefb-409f-8f62-66336ccf6ed8?cart=Z2NwLWV1cm9wZS13ZXN0MzowMUhGUDlDSkRCS0QxSkUxUFk5SFdSRzdDQw', // A unique identifier for the default line
+      merchandise: {
+        id: 'gid://shopify/ProductVariant/47049456943435', // Default variant ID
+        availableForSale: true,
+        price: { amount: '100.0', currencyCode: 'EUR' }, // Default price
+        image: {
+          altText: null,
+          height: 1000,
+          id: 'gid://shopify/ProductImage/51358307680587', // Default image ID
+          url: 'https://cdn.shopify.com/s/files/1/0786/5417/7611/files/mockup.PACK2_0ffdeb7f-372b-42e7-b942-9e31d3bbbf18.jpg?v=1699975342', // Default image URL
+          width: 1000,
+        },
+        product: {
+          handle: 'pack-3-tickets', // Default product handle
+          title: 'PACK 3 TICKETS',   // Default product title
+        },
+        selectedOptions: [{ name: 'Option', value: 'Bundle' }],
+        title: '', // Default variant title
+      }
+    };
   }
 
   const {id, merchandise} = line;
-  console.log('Merchandise data:', merchandise);
-
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
   return (
-    <li key={id} className="cart-line gap-6 md:pt-12 md:pl-4">
+    <li key={id} className="cart-line md:gap-6 gap-2 md:pt-12 md:pl-4">
       {image && (
         <Image
           alt={title}
-          // aspectRatio="1/1"
-          className='w-2/5'
+          aspectRatio="1/1"
+          className='md:w-2/5 w-1/2'
           data={image}
-          height={100}
+          height={200}
           loading="lazy"
-          width={100}
+          width={200}
         />
       )}
 
@@ -106,7 +129,7 @@ function CartLineItem({layout, line}) {
             <strong>{product.title}</strong>
           </h5>
         </Link>
-        <CartLinePrice line={line} as="h5" />
+        <CartLinePrice className='priceCart' line={line} as="h5" />
         <ul className='pt-8'>
           {selectedOptions.map((option) => (
             <div className='smallH5' key={option.name}>
@@ -131,7 +154,7 @@ function CartCheckoutActions({checkoutUrl}) {
   return (
     <div>
       <a className='' href={checkoutUrl} target="_self">
-        <h4                         className=" text-center borderblack  rounded-sm w-full px-4 pt-7 pb-6 hover:text-semiDark hover:bg-semiWhite uppercase bg-semiDark text-semiWhite transition-colors duration-150"
+        <h4                         className=" text-center borderblack  rounded-sm w-full px-4 pt-7 pb-6 hover:text-semiDark hover:bg-semiWhite uppercase bg-green text-semiWhite transition-colors duration-150"
 
         >Proceder au paiement </h4>
       </a>
@@ -155,7 +178,7 @@ export function CartSummary({cost, layout, children = null}) {
     <div aria-labelledby="cart-summary" className={className}>
       <div className='flex justify-between py-8 px-4'>
       <h4>Total</h4>
-      <h4>
+      <h4 className=''>
       <Money data={cost?.subtotalAmount} />
       </h4>
 
@@ -177,7 +200,7 @@ function CartLineRemoveButton({lineIds}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button className='md:pl-4' type="submit"><div className='smallH5'>Supprimer</div></button>
+      <button className='md:pl-4 w-full' type="submit"><div className='smallH5'>Supprimer</div></button>
     </CartForm>
   );
 }
@@ -186,13 +209,13 @@ function CartLineRemoveButton({lineIds}) {
  * @param {{line: CartLine}}
  */
 function CartLineQuantity({line}) {
-  if (!line || typeof line?.quantity === 'undefined') return null;
+
   const {id: lineId, quantity} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
-    <div className="cart-line-quantiy">
+    <div className="cart-line-quantiy flex-wrap">
       <div className='smallH5'>Quantité: {quantity} &nbsp;&nbsp;</div>
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button

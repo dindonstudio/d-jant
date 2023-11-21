@@ -20,14 +20,14 @@ export default function DragSlider({ galleryData, galleryData2 }) {
 
   return (
     <div id="Magazine" className="py-12 overflow-x-hidden">
-   <div className="px-8 md:pb-52 pb-32">
+   <div className="px-8 md:pb-52 pb-24">
         <h2 className="uppercase">
           Capturez l'essence <br /> de Déjanté
         </h2>
         <h4>Chaque image est une invitation à rejoindre la course.</h4>
       </div>
 
-      <div className='flex flex-col md:gap-40 gap-32'>
+      <div className='flex flex-col md:gap-40 gap-20'>
         <RevealSide origin={'left'} distance={'-50'} delay={300}>
           <Marquee speed={50} autoFill={true} className="marquee2" pauseOnHover={true}>
             {galleryData2.map((img, index) => (
