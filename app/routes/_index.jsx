@@ -152,7 +152,7 @@ export default function Homepage(sanityData, galleryData, galleryData2) {
 function RecommendedProducts({products}) {
   const [isMobile, setIsMobile] = useState(false); // Initially set to false
   const containerRef = useRef(null);
-  useLayoutEffect(() => {
+  useEffect(() => {
     const container = document.querySelector('.mobileSlider'); // Adjust the class name as per your structure
     if (container) {
       const containerWidth = container.offsetWidth;
