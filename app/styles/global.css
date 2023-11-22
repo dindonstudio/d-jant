@@ -1806,7 +1806,7 @@ text set in the data-text attribute. */
     /* END */
 
     .galleryContainer{
-      background-color: rgba(0, 0, 0, 0.95);
+      /* background-color: rgba(0, 0, 0, 0.95); */
     }
 
     .image-gallery-left-nav .image-gallery-svg, .image-gallery-right-nav .image-gallery-svg {
