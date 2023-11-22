@@ -130,9 +130,7 @@ function Decouvertes(props) {
             </div>
             <h4 className="text-left maxch30">
             <RevealOpacity delay={1000}>
-
-              Libérez l'enthuastif qui sommeille en vous avec l'Abart 565
-              Turismo, rajouter le vrai text
+            Découvrez son charme a la lumière : un revêtement de voiture inédit, où le soleil danse dans un kaléidoscope de couleurs.
               </RevealOpacity>
             </h4>
           </div>
@@ -180,9 +178,7 @@ function Decouvertes(props) {
             </div>
             <h4 className="text-left maxch30">
             <RevealOpacity delay={400}>
-
-              Libérez l'enthuastif qui sommeille en vous avec l'Abart 565
-              Turismo, rajouter le vrai text
+            Explorez l'audace en design : des sièges de voiture customisés, où la créativité et l'originalité se rencontrent dans un éclat de fantaisie.
               </RevealOpacity>
             </h4>
           </div>

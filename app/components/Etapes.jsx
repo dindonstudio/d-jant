@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect,useState,useRef } from 'react';
 import FilledButton from './FilledButton';
-
+import RevealOpacity from '~/components/RevealOpacity';
 import RevealTitle from '~/components/RevealTitleWrapper';
 import RevealListWrapper from '~/components/RevealListWrapper';
 function Etapes(props) {
@@ -79,7 +79,7 @@ function Etapes(props) {
               </div>
             </div>
             <h4>
-              La ligne d'arrivée est fixée à <strong>5000 participations</strong>  <br /> ne
+              La ligne d'arrivée est fixée à <strong>5000 participations</strong>   ne
               laissez pas cette chance vous échapper !
             </h4>
             </RevealListWrapper>

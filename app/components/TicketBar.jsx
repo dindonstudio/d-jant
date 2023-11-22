@@ -39,7 +39,7 @@ const TicketBar = ({ remainingTickets }) => {
     <div ref={barRef} className="progress-bar-container bg-semiDark sticky top-0 z-50 w-screen md:pt-9 pt-8 pb-4 md:h-40 h-24">
            <RevealOpacity delay={200}>
       <div className="progress-bar z-0" style={{ width: `${progress}%`, transition: 'width 1s ease-in-out 0.4s' }}></div>
-      <div className="bigSubText mix-blend-difference flex justify-center">
+      <div className="bigSubText relative flex justify-center">
         <div>
           Dépêchez-vous, plus que {remainingTickets} tickets restants!
         </div>

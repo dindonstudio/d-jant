@@ -6,7 +6,7 @@ function CloseUp(props) {
   const { text, onClick } = props;
 
   return (
-   <div className=''>
+   <div className='closeUp'>
     <div className='md:px-8 px-6'>
     <h2 className='uppercase  chroma'>
     <RevealOpacity delay={200}>

@@ -7,7 +7,7 @@ const CustomButton = ({buttonText = 'Command'}) => {
   const [fillColor, setFillColor] = useState('black');
   const [clicked, setClicked] = useState(false); // New state to track if the button was clicked
   const soundUrl =
-    'https://cdn.shopify.com/s/files/1/0786/5417/7611/files/Sound_Effect.mp3?v=1699196520';
+    'https://cdn.shopify.com/s/files/1/0786/5417/7611/files/Enregistrement_4_1_..m4a?v=1700634931';
 
   useEffect(() => {
     // Preload the audio
