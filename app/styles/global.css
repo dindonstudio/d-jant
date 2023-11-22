@@ -173,7 +173,7 @@ video {
 
     background-color: var(--white);
     color: var(--black);
-    padding: 6px 1rem 3px;
+    padding: 8px 1rem 3px;
 }
 h5{
   font-size: 1.5rem;
@@ -225,7 +225,7 @@ padding-bottom: 0.5rem;
   margin-top: 0.5rem;
   font-variation-settings: "wght" 650, "wdth" 600, "ital" 0, "opsz" 200;
   position: relative;
-  top: 0.1rem;
+  top: 0rem;
 }
 .lineDotted {
   left: 4.5rem;
@@ -244,7 +244,7 @@ padding-bottom: 0.5rem;
   color: var(--black);
   /* font-size: calc(rem + 0.1vw); */
   line-height: 100%;
-  padding: 10px 1.2rem 4px;
+  padding: 8px 1.2rem 4px;
   position: relative;
   /* right: -2rem; */
   transition: 0.45s ease all;
@@ -264,13 +264,13 @@ padding-bottom: 0.5rem;
 }
 
 .roundPoint{
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
 
 }
 .firstLine{
-  width: 4px;
+  width: 3px;
 }
 .one .dotContainer{
   top: 21%;
@@ -323,7 +323,7 @@ background-blend-mode: color;
 .three .secondLine{
   background-color: var(--yellow);
   position: absolute;
-  width: 4px;
+  width: 3px;
   height: 70px;
   /* z-index: -1; */
   left: 45%;
@@ -342,7 +342,7 @@ background-blend-mode: color;
 .four .secondLine{
   background-color: var(--red);
   position: absolute;
-  width: 4px;
+  width: 3px;
   height: 100px;
   /* z-index: -1; */
   left: 45%;
@@ -655,10 +655,10 @@ padding-bottom: 1rem;
 
 
 footer h3, footer h5 {
-  font-variation-settings: "wght" 700,"wdth" 600,"ital" 0,"opsz" 200;
+  font-variation-settings: "wght" 600,"wdth" 600,"ital" 0,"opsz" 200;
 }
 footer h3{
-  font-size: 3rem;
+  font-size: 4rem;
 }
  footer h5 {
 font-size: 1.8rem;
@@ -788,7 +788,101 @@ aside form button h5{
 .paddingGrid{
   padding: 4rem 1.5rem 2rem;
 }
+
+
+/* Base style for the badge */
+.badge {
+  display: inline-block;
+  border-radius: 50%; /* Makes the badge round */
+  text-align: center;
+  padding: 5px;
+  min-width: 32px; /* Ensures the badge has a circular shape */
+  border: 1px solid var(--white);
+}
+
+/* Style when count is 0 */
+.badge.zero {
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+}
+
+/* Style when count is more than one */
+.badge.more-than-one {
+  /* Add specific styles for this case, if needed */
+  background-color: var(--black); /* Example background color */
+  color: var(--white); /* Example text color */
+
+}
+.cartBuble{
+  background-color: white;
+  /* height: 1rem; */
+  /* width: 1rem; */
+  top: 1.4rem;
+  padding: 0.7rem 0.7rem;
+  line-height: 106%;
+  color: black;
+  font-variation-settings: "wght" 600, "wdth" 600, "ital" 0;
+}
+.cartBuble span{
+  line-height: 83%;
+  position: absolute;
+  top: 0.35rem;
+}
+.hero h5{
+  font-size: 2.5rem;
+}
+.hero h3{
+  font-size: 3.6rem;
+  line-height: 90%;
+  padding-bottom: 1rem;
+}
+.hero h4{
+  font-size: 3rem;
+}
+
+.closeUp img{
+  height: 120vh;
+  object-fit: cover;
+}
+
+
+
+
+
+.dropdown-menu{
+  background: var(--black);
+  border: 1px solid;
+  padding: 1rem;
+  font-size: 2rem;
+}
+.dropdown-menu .selector{
+  background: var(--black);
+
+}
+.button__icon svg {
+  height: 100%;
+  width: 100%;
+  /* fill: #aaaaaa; */
+}
 @media (min-width: 769px) {
+  .overlay:target aside {
+    transform: translate(-100%);
+    /* transform: translate(calc(var(--aside-width) * -1)); */
+  }
+  .customRight{
+    right: calc(50vw - -3rem);
+  }
+  
+  .customLeft{
+    left: calc(50vw + -15rem);
+
+  }
+  
+  .closeUp img{
+    height: auto;
+    /* object-fit: cover; */
+  }
   .priceCart {
     line-height: 100%;
   }
@@ -885,9 +979,9 @@ aside form button h5{
   footer h3, footer h5 {
     font-variation-settings: "wght" 700,"wdth" 600,"ital" 0,"opsz" 200;
   }
-   footer h5 {
+   /* footer h5 {
   font-size: 2.8rem;
-  }
+  } */
   #shop .bigSubText, .bigSubText {
     font-size: 6.8rem;
     line-height: 85%;
@@ -947,7 +1041,7 @@ aside form button h5{
     /* padding: 0 4rem; */
     margin-top: 0.5rem;
     position: relative;
-    top: 0.1rem;
+    /* top: 0.1rem; */
     font-variation-settings: "wght" 650, "wdth" 600, "ital" 0, "opsz" 200;
 
   }

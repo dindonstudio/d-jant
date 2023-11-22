@@ -29,20 +29,17 @@ export const meta = ({data}) => {
  * @param {LoaderFunctionArgs}
  */
 
-function CustomDropdown({ options }) {
-
-
+function CustomDropdown({ options, selectedVariant, setSelectedVariant }) {
   const [selectedValue, setSelectedValue] = useState(options[0]?.value || '');
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const selectedOption = options.find(option => option.value === event.target.value);
-    setSelectedValue(event.target.value);
     if (selectedOption && selectedOption.to) {
-      navigate(selectedOption.to, { replace: true });
-      setTimeout(() => {
-        window.scrollTo(0, document.body.scrollHeight);
-      }, 195); 
+      // Update the selected variant
+      setSelectedVariant(selectedOption);
+
+      // Handle the URL change as needed
+      // You might need to trigger some state change or re-rendering here
     }
   };
 
@@ -159,9 +156,9 @@ function redirectToFirstVariant({product, request}) {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, variants, referencedProduct} = useLoaderData();
-  const {selectedVariant} = product;
 
+  const {product, variants, referencedProduct} = useLoaderData();
+  const [selectedVariant, setSelectedVariant] = useState(product.selectedVariant);
   useEffect(() => {
     document.body.classList.add('hide-header');
 
@@ -182,6 +179,13 @@ export default function Product() {
         referencedProduct={referencedProduct}
         selectedVariant={selectedVariant}
         product={product}
+        variants={variants}
+        handle={product.handle}
+      />
+      <ProductForm
+        product={product}
+        selectedVariant={selectedVariant}
+        setSelectedVariant={setSelectedVariant}
         variants={variants}
         handle={product.handle}
       />
@@ -226,21 +230,21 @@ function ProductMain({selectedVariant, product, variants, referencedProduct, han
   return (
     <div className="product-main md:h-screen flex flex-col justify-between">
        {handle === 't-shirt-dejante' && (
-            <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
+            <div className="absolute -top-28 right-3 w-24">
               <img src={ticket1} alt="Ticket 1" className="ticket-svg" />
             </div>
           )}
        {handle === 'hoodie-dejante' && (
-               <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
+            <div className="absolute -top-28 right-3 w-24">
               <img src={ticket2} alt="Ticket 1" className="ticket-svg" />
             </div>
           )}
        {handle === 'pack-3-tickets-1' && (
         <>
-       <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
+        <div className="absolute -top-28 right-3 w-24">
               <img src={ticket3} alt="Ticket 1" className="ticket-svg" />
             </div>
-             <div className='absolute -top-28  md:fixed md:top-4 left-3 w-24 customLeft'>
+             <div className='absolute -top-28 left-3 w-24'>
              <img
                src={bestOffer}
                alt="Best Deal"
@@ -333,7 +337,7 @@ function ProductPrice({selectedVariant}) {
  *   variants: Array<ProductVariantFragment>;
  * }}
  */
-function ProductForm({product, selectedVariant, variants}) {
+function ProductForm({product, selectedVariant, setSelectedVariant, variants, handle}) {
   // console.log("ProductForm - Product:", product);
   // console.log("ProductForm - Selected Variant ID:", selectedVariant.id);
   // console.log("ProductForm - Variants:", variants);
@@ -345,8 +349,15 @@ function ProductForm({product, selectedVariant, variants}) {
           options={product.options}
           variants={variants}
         >
-          {({option}) => <ProductOptions key={option.name} option={option} handle={product.handle} />}
-        </VariantSelector>
+{({option}) => (
+          <ProductOptions 
+            key={option.name} 
+            option={option} 
+            handle={handle}
+            selectedVariant={selectedVariant}
+            setSelectedVariant={setSelectedVariant}
+          />
+        )}        </VariantSelector>
       </div>
       <br />
       <AddToCartButton
@@ -382,8 +393,11 @@ function ProductOptions({option, handle}) {
     return (
       <div className="product-options md:pt-8" key={option.name}>
         <h5 className="pb-4">{option.name}</h5>
-        <CustomDropdown options={option.values.map(({ value, isAvailable, to }) => ({ value, isAvailable, to }))} />
-
+        <CustomDropdown 
+        options={option.values.map(({ value, isAvailable, to }) => ({ value, isAvailable, to }))}
+        selectedVariant={selectedVariant}
+        setSelectedVariant={setSelectedVariant}
+      />
    
       </div>
     );

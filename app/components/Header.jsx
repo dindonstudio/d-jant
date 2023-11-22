@@ -10,6 +10,7 @@ import {logo} from '../../public/DEJANTE_LOGO.RED.svg';
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   const logoUrl = '../../public/DEJANTE_LOGO.RED.svg';
+  
   return (
     <header className="header fadeInDown pt-0 justify-between md:h-40 w-full flex fixed items-center gap-8 z-40 md:px-8 px-6">
       <div className='flex-1 participate'>
@@ -18,7 +19,7 @@ export function Header({header, isLoggedIn, cart}) {
         </div>
 
       </div>
-      <div className="md:w-64 w-32 svgLogo relative md:top-0 -top-5 ">
+      <div className="md:w-64 w-36 svgLogo relative md:top-0 -top-5 ">
         <SvgComponent />
       </div>
       <div className='flex-1 relative md:-top-6 -top-7 '>
@@ -117,14 +118,16 @@ function SearchToggle() {
 /**
  * @param {{count: number}}
  */
-function CartBadge({count}) {
+function CartBadge({ count }) {
+
   return (
     <h5 className='md:mt-1'>
-      {' '}
-      <a href="#cart-aside">Panier {count}</a>
+    <a href="#cart-aside"class="relative flex items-center justify-center w-11 h-11 md:w-14 focus:ring-primary/5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-24 h-24"><title>Bag</title><path fill-rule="evenodd" d="M8.125 5a1.875 1.875 0 0 1 3.75 0v.375h-3.75V5Zm-1.25.375V5a3.125 3.125 0 1 1 6.25 0v.375h3.5V15A2.625 2.625 0 0 1 14 17.625H6A2.625 2.625 0 0 1 3.375 15V5.375h3.5ZM4.625 15V6.625h10.75V15c0 .76-.616 1.375-1.375 1.375H6c-.76 0-1.375-.616-1.375-1.375Z"></path></svg><div class="text-contrast cartBuble bg-primary absolute bottom-1 right-1 text-[0.625rem] font-medium subpixel-antialiased h-3 min-w-[0.75rem] bg-semiWhite flex items-center justify-center leading-none  text-center text-lg text-semiDarl bg-semiwhite rounded-full w-auto px-[0.125rem] pb-px"><span>{count}</span></div></a>
+
     </h5>
   );
 }
+
 
 /**
  * @param {Pick<HeaderProps, 'cart'>}
