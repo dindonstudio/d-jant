@@ -49,7 +49,7 @@ function VideoPresentation(props) {
           <h4>
             Chez Déjanté, notre projet est né d’un rêve partagé : marier l’amour
             de l’automobile à l’art du textile. De fil en aiguille, virage par
-            virage ; l’idée s’est progressivement tisser. Notre objectif commun
+            virage ; l’idée s’est progressivement tissée. Notre objectif commun
             ; partager l’histoire de cet alliage haut en couleurs avec d’autres
             passionnés. Vous offrir et s’offrir à nous mêmes une chance de
             transformer nos quotidiens. À l’image de notre Abarth iconique : en

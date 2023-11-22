@@ -23,7 +23,7 @@ function VideoWithButtonOverlay(props) {
 
       <div  className="grid  absolute w-full top-0 left-0 px-10 z-20 h-full">
         <div  className="flex fadeInUp flex-col md:gap-4 gap-2 items-center col-span-12   justify-center  ">
-            <h3 className=''>Gagner une Abarth 595</h3>
+            <h3 className=''>Gagnez une Abarth 595</h3>
 
 
             <h5 className="maxCH fadeInUp2 text-center ">

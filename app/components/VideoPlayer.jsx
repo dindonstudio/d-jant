@@ -12,7 +12,7 @@ const VideoPlayer = ({ url, loop = false, mute = false, autoplay = false, contro
         className='borderRadius'
             width="100%"
             height="100%"
-            controls
+        playsInline
             loop={loop}
             muted={mute}
             autoPlay={autoplay}
