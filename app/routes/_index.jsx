@@ -207,7 +207,7 @@ console.log(products)
       <h2 className="text-center pb-4 md:pb-0 ">
         <RevealOpacity delay={200}>CHOPE TON TICKET</RevealOpacity>
       </h2>
-      <TicketBar remainingTickets={4096} />
+      <TicketBar remainingTickets={4916} />
       {/* <h4 className='text-center'>Accélérez, les places sont comptées !</h4> */}
       {/* <div className='w-full'>
         <ProgressBar/>
