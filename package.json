@@ -17,6 +17,7 @@
     "@react-three/drei": "9.82.0",
     "@react-three/fiber": "8.14.1",
     "@remix-run/react": "2.1.0",
+    "@remix-run/v1-route-convention": "^0.1.4",
     "@sanity/client": "^6.7.0",
     "@shopify/cli": "3.50.0",
     "@shopify/cli-hydrogen": "^6.0.0",
