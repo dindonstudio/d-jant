@@ -10,7 +10,7 @@ export function Aside({children, heading, id = 'aside'}) {
       />
       <aside className="md:pt-8">
         <header className="">
-          <h4>{heading}</h4>
+          <h4>Panier</h4>
           <CloseAside />
         </header>
         <main>{children}</main>

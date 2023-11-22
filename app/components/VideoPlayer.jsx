@@ -17,7 +17,9 @@ const VideoPlayer = ({ url, loop = false, mute = false, autoplay = false, contro
             muted={mute}
             autoPlay={autoplay}
             src={url}
+            onCanPlay={console.log('can(play')}
             controls={controls}
+
         ></video>
     );
 };
