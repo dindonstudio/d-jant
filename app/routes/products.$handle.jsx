@@ -1,7 +1,7 @@
 import {Suspense} from 'react';
 import {useEffect} from 'react';
-import { useState } from 'react';
-import { useNavigate } from '@remix-run/react';
+import {useState} from 'react';
+import {useNavigate} from '@remix-run/react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import PerspectiveCard from '~/components/PerspectiveCard';
 import ticket1 from '../../public/badge_1TICKET.svg';
@@ -29,34 +29,37 @@ export const meta = ({data}) => {
  * @param {LoaderFunctionArgs}
  */
 
-function CustomDropdown({ options }) {
-
-
+function CustomDropdown({options}) {
   const [selectedValue, setSelectedValue] = useState(options[0]?.value || '');
   const navigate = useNavigate();
 
   const handleChange = (event) => {
-    const selectedOption = options.find(option => option.value === event.target.value);
+    const selectedOption = options.find(
+      (option) => option.value === event.target.value,
+    );
     setSelectedValue(event.target.value);
     if (selectedOption && selectedOption.to) {
-      navigate(selectedOption.to, { replace: true });
+      navigate(selectedOption.to, {replace: true});
       setTimeout(() => {
         window.scrollTo(0, document.body.scrollHeight);
-      }, 195); 
+      }, 195);
     }
   };
 
   return (
-    <div className='dropdown-menu'>
-   <select value={selectedValue} onChange={handleChange} className="selector">
-      {options.map(({ value, isAvailable }) => (
-        <option key={value} value={value} disabled={!isAvailable}>
-          {value}
-        </option>
-      ))}
-    </select>
+    <div className="dropdown-menu">
+      <select
+        value={selectedValue}
+        onChange={handleChange}
+        className="selector"
+      >
+        {options.map(({value, isAvailable}) => (
+          <option key={value} value={value} disabled={!isAvailable}>
+            {value}
+          </option>
+        ))}
+      </select>
     </div>
- 
   );
 }
 
@@ -177,7 +180,7 @@ export default function Product() {
           <h5 className="md:text-semiDark text-semiWhite"> ← Retour </h5>
         </Link>
       </div>
-      <ProductImage image={product.images.nodes}  />
+      <ProductImage image={product.images.nodes} />
       <ProductMain
         referencedProduct={referencedProduct}
         selectedVariant={selectedVariant}
@@ -193,9 +196,11 @@ export default function Product() {
  * @param {{image: ProductVariantFragment['image']}}
  */
 function ProductImage({image}) {
+  const totalImages = image.length;
+
   return (
     <div className="product-image-container relative md:block flex flex-nowrapwrap overflow-x-auto">
-      {image.map((image) => (
+      {image.map((image, index) => (
         <div className="product-image relative" key={image.id}>
           <Image
             alt={image.altText || 'Product Image'}
@@ -203,11 +208,11 @@ function ProductImage({image}) {
             key={image.id}
             sizes="(min-width: 45em) 50vw, 100vw"
           />
-          {/* Conditionally display ticket1 SVG */}
-          
+        <h5 className="index-label absolute bottom-4 left-4 text-semiDark md:hidden block">
+            {`${index + 1} / ${totalImages}`}
+          </h5>
         </div>
       ))}
-     
     </div>
   );
 }
@@ -219,43 +224,45 @@ function ProductImage({image}) {
  *   variants: Promise<ProductVariantsQuery>;
  * }}
  */
-function ProductMain({selectedVariant, product, variants, referencedProduct, handle}) {
+function ProductMain({
+  selectedVariant,
+  product,
+  variants,
+  referencedProduct,
+  handle,
+}) {
   const {title, descriptionHtml} = product;
   // console.log("ProductMain props:", { selectedVariant, product, variants, referencedProduct });
 
   return (
     <div className="product-main md:h-screen flex flex-col justify-between">
-       {handle === 't-shirt-dejante' && (
-            <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
-              <img src={ticket1} alt="Ticket 1" className="ticket-svg" />
-            </div>
-          )}
-       {handle === 'hoodie-dejante' && (
-               <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
-              <img src={ticket2} alt="Ticket 1" className="ticket-svg" />
-            </div>
-          )}
-       {handle === 'pack-3-tickets-1' && (
+      {handle === 't-shirt-dejante' && (
+        <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
+          <img src={ticket1} alt="Ticket 1" className="ticket-svg" />
+        </div>
+      )}
+      {handle === 'hoodie-dejante' && (
+        <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
+          <img src={ticket2} alt="Ticket 1" className="ticket-svg" />
+        </div>
+      )}
+      {handle === 'pack-3-tickets-1' && (
         <>
-       <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
-              <img src={ticket3} alt="Ticket 1" className="ticket-svg" />
-            </div>
-             <div className='absolute -top-28  md:fixed md:top-4 left-3 w-24 customLeft'>
-             <img
-               src={bestOffer}
-               alt="Best Deal"
-               className="best-deal-svg"
-             />
-                   </div>
+          <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
+            <img src={ticket3} alt="Ticket 1" className="ticket-svg" />
+          </div>
+          <div className="absolute -top-28  md:fixed md:top-4 right-28 w-24 customLeft">
+            <img src={bestOffer} alt="Best Deal" className="best-deal-svg" />
+          </div>
         </>
-            
-          )}
+      )}
       <div className="md:w-4/5 md:pt-8 pt-16 md:px-0 px-6 ">
         <div className="flex flex-col ">
           {' '}
           <h3>{title}</h3>
           <ProductPrice selectedVariant={selectedVariant} />
         </div>
+        <h4 className='green text-left md:pt-1 md:pb-4 pt-1'>La livraison est offerte !</h4>
 
         <h5></h5>
 
@@ -345,7 +352,13 @@ function ProductForm({product, selectedVariant, variants}) {
           options={product.options}
           variants={variants}
         >
-          {({option}) => <ProductOptions key={option.name} option={option} handle={product.handle} />}
+          {({option}) => (
+            <ProductOptions
+              key={option.name}
+              option={option}
+              handle={product.handle}
+            />
+          )}
         </VariantSelector>
       </div>
       <br />
@@ -382,9 +395,13 @@ function ProductOptions({option, handle}) {
     return (
       <div className="product-options md:pt-8" key={option.name}>
         <h5 className="pb-4">{option.name}</h5>
-        <CustomDropdown options={option.values.map(({ value, isAvailable, to }) => ({ value, isAvailable, to }))} />
-
-   
+        <CustomDropdown
+          options={option.values.map(({value, isAvailable, to}) => ({
+            value,
+            isAvailable,
+            to,
+          }))}
+        />
       </div>
     );
   }

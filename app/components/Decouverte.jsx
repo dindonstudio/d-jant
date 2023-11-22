@@ -130,7 +130,7 @@ function Decouvertes(props) {
             </div>
             <h4 className="text-left maxch30">
             <RevealOpacity delay={1000}>
-            Découvrez son charme a la lumière : un revêtement de voiture inédit, où le soleil danse dans un kaléidoscope de couleurs.
+            Découvrez son charme à la lumière : un revêtement de voiture inédit, où le soleil danse dans un kaléidoscope de couleurs.
               </RevealOpacity>
             </h4>
           </div>
@@ -141,7 +141,7 @@ function Decouvertes(props) {
         <div className="md:col-start-4 md:col-end-10 col-start-2 col-end-12 relative">
  
           <Image
-            src="https://cdn.sanity.io/images/m5ok1ygs/production/873ff8f604740744995a8bdb4d65949151cf7e16-4295x2494.png"
+            src="https://cdn.sanity.io/images/m5ok1ygs/production/53f68ec0187b7f230b43c8ecae71ba269d3db02a-1000x581.png"
             width={1000}
             height={1000}
             aspectRatio='auto'

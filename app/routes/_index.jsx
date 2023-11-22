@@ -124,7 +124,7 @@ export default function Homepage(sanityData, galleryData, galleryData2) {
         <div id="shop" className="md:pt-96 pt-44">
           <RecommendedProducts products={data.recommendedProducts} />
         </div>
-        <div className="md:pt-96 pt-20">
+        <div className="md:pt-80 pt-20">
           <DragSlider
             galleryData={sanity.gallery}
             galleryData2={sanity.gallery2}
@@ -201,7 +201,7 @@ function RecommendedProducts({products}) {
       return {...prev, [productId]: newIndex};
     });
   };
-
+console.log(products)
   return (
     <div className="recommended-products">
       <h2 className="text-center pb-4 md:pb-0 ">
@@ -319,12 +319,21 @@ function RecommendedProducts({products}) {
                         {shouldDisplayProductForm && (
                           <ProductForm product={product} />
                         )}
+                           <div className="text-semiDark z-10 absolute bottom-12 flex pointer-events-none  h-full w-full items-end  left-0 top-0  justify-center  group-hover:hidden md:hidden  ">
+                <h5 className="uppercase relative bg-semiWhite bottom-8 px-4 pt-1 ">Voir le produit</h5>
+              </div>
                       </div>
                     </div>
                     <div className="flex justify-between md:mt-6 mt-2">
                       <h5 className="capitalize">{product.title}</h5>
                       <h5>
+                        <div className='flex gap-3'>
+                        {index === 2 && (
+                          <h5 className='line-through opacity-50'>€100,00</h5>
+                          )}
                         <Money data={product.priceRange.minVariantPrice} />
+                        </div>
+                      
                       </h5>
                     </div>
                   </div>
@@ -335,6 +344,7 @@ function RecommendedProducts({products}) {
         </Await>
       </Suspense>
       <br />
+      <h3 className='green text-center md:pt-20 pt-1'>La livraison est offerte pour tous les produits !</h3>
     </div>
   );
 }
