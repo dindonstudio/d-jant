@@ -39,7 +39,7 @@ function VideoPresentation(props) {
       <div className="md:col-start-2 md:col-end-12 col-start-1 col-end-13" ref={videoContainerRef}>
         <VideoPlayer
           url={
-            'https://cdn.shopify.com/videos/c/o/v/4fd141f5e89b4be1925cef0f25f1d09a.mp4'
+            'https://cdn.shopify.com/videos/c/o/v/62651ea2ade947f3b65ff483fc811a32.mp4'
           }
           controls
         />
