@@ -344,7 +344,7 @@ console.log(products)
         </Await>
       </Suspense>
       <br />
-      <h3 className='green text-center md:pt-20 pt-1'>La livraison est offerte pour tous les produits !</h3>
+      <h3 className='green text-center md:pt-20 pt-1'>La livraison (sous 3 à 5 jours) est offerte !</h3>
     </div>
   );
 }

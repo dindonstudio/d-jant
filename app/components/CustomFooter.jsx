@@ -2,11 +2,11 @@ import React from 'react';
 
 const CustomFooter = () => {
   return (
-    <footer className="bg-semiWhite text-semiDark flex gap-4 flex-col md:flex-row justify-between items-center py-10 md:px-8">
-      <h3 className="uppercase order-2 ">Déjanté avec ou sans permis</h3>
+    <footer className="bg-semiWhite text-semiDark flex gap-8 md:gap-4 flex-col md:flex-row justify-between items-center py-10 md:px-8">
     
-      <ul className="flex md:gap-8 md:flex-row flex-col items-center order-1 flex-1">
-        <div className='flex gap-4'>
+    
+      <ul className="flex md:gap-4 md:flex-row flex-col md:justify-end items-center order-1 flex-1">
+        <div className='flex gap-6'>
         <li>
             <a href="/policies/refund-policy">
               {' '}
@@ -34,7 +34,9 @@ const CustomFooter = () => {
           </li>
         </div>
       </ul>
-      <div className="flex gap-8 md:pt-0 pt-8 order-3 flex-1 justify-end">
+      <h4 className="uppercase flex-1 text-center order-2 ">- Déjanté avec ou sans permis -</h4>
+      <div className="flex md:gap-4 md:flex-col flex-col justify-start order-3 flex-1">
+        <div className='flex gap-4'>
         <a
           href="https://www.instagram.com/dejante_fr/"
           target="_blank"
@@ -50,6 +52,38 @@ const CustomFooter = () => {
           <h5>          Twitter</h5>
 
         </a>
+        <a
+          href="https://www.twitter.com/dejantefr"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h5>          Facebook</h5>
+
+        </a>
+        <a
+          href="https://www.twitter.com/dejantefr"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h5>          Youtube</h5>
+
+        </a>
+        <a
+          href="https://www.twitter.com/dejantefr"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h5>          Pinterest</h5>
+
+        </a>
+        <a
+          href="https://www.twitter.com/dejantefr"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h5>          TikTok</h5>
+
+        </a>
         {/* <a
           href="https://www.ticktock.com/me"
           target="_blank"
@@ -62,6 +96,8 @@ const CustomFooter = () => {
         </a> */}
         <a href="mailto:contact@dejante.co"><h5>contact@dejante.co</h5></a>
       </div>
+        </div>
+      
     </footer>
   );
 };

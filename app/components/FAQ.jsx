@@ -13,11 +13,11 @@ function FAQ() {
   const faqData = [
     {
       question: "Comment participer au concours pour gagner la Abarth Déjanté ?",
-      answer: "L’achat d’un T-shirt, Hoodie ou le pack vous garantie 1, 2 ou 3 participation automatique au concours. "
+      answer: "L’achat d’un T-shirt, Hoodie ou le pack vous garantit 1, 2 ou 3 participations automatiques au concours. "
     },
     {
       question: "Dois-je avoir un permis de conduire pour gagner la voiture ?",
-      answer: "Non ! Si le gagnant n'a pas le permis nous lui offrons ! Vous devez cependant avoir atteint l'âge légal de 18ans. "
+      answer: "Non ! Si le gagnant n'a pas le permis, nous lui offrons ! Vous devez cependant avoir atteint l'âge légal de 18 ans. "
     },
 
     {
@@ -35,15 +35,16 @@ function FAQ() {
 
     {
       question: "Puis-je participer si je suis en dehors du pays ?",
-      answer: "Oui ! Depuis Monaco, la Belgique, la Suisse et le Luxembourg"
+      answer: "Oui ! Depuis Monaco, la Belgique, la Suisse et le Luxembourg."
     },
     {
       question: "Comment le gagnant sera-t-il choisi ?",
-      answer: "Ce concours est encadré par la loi. Le gagnant sera tiré dans la liste des participations nominatives.Un tirage 100% transparent retransmis en vidéo et réalisé par Maître Bernard DELATRE, huissier de justice de ATLAS JUSTICE. Retrouvez le règlement ici"
+      answer: "Ce concours est encadré par la loi. Le gagnant sera tiré dans la liste des participations nominatives. Un tirage 100% transparent retransmis en vidéo et réalisé par Maître Bernard DELATRE, huissier de justice de ATLAS JUSTICE. Retrouvez le règlement     <a href='/policies/refund-policy'>ici</a> "
     },
+
     {
       question: " Puis-je échanger la voiture contre de l'argent ?",
-      answer: "Non ! Cependant le gagnant garde le droit une fois détenteur légal de celui-ci d’en faire ce qu’il souhaite.  "
+      answer: "Non ! Cependant le gagnant garde le droit une fois détenteur légal de celle-ci d’en faire ce qu’il souhaite.  "
     },
     {
       question: " Que se passe-t-il si les 5000 unités ne sont pas vendues ?",

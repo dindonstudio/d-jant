@@ -79,7 +79,7 @@ function Etapes(props) {
               </div>
             </div>
             <h4>
-              La ligne d'arrivée est fixée à <strong>5000 participations</strong>   ne
+              La ligne d'arrivée est fixée à <strong>5000 participations</strong>,   ne
               laissez pas cette chance vous échapper !
             </h4>
             </RevealListWrapper>

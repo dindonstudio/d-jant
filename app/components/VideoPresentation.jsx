@@ -51,7 +51,7 @@ function VideoPresentation(props) {
             de l’automobile à l’art du textile. De fil en aiguille, virage par
             virage ; l’idée s’est progressivement tissée. Notre objectif commun
             ; partager l’histoire de cet alliage haut en couleurs avec d’autres
-            passionnés. Vous offrir et s’offrir à nous mêmes une chance de
+            passionnés. Vous offrir et nous offrir à nous-mêmes une chance de
             transformer nos quotidiens. À l’image de notre Abarth iconique : en
             puissance et avec un grain de magie. <br /> <br />  </h4>
             <h3 className=" italic">Bienvenue chez Déjanté.</h3>
