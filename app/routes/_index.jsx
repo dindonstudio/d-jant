@@ -1,6 +1,7 @@
 import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
+
 import { useLayoutEffect } from 'react';
 import ImageSlider from '~/components/ImageSlider';
 import ImageMarquee from '~/components/ImageMarquee';
