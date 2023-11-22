@@ -27,7 +27,7 @@ const CustomButton = ({buttonText = 'Command'}) => {
   return (
     <div className={`flex motorBlock justify-center relative flex-col items-center md:h-screen h-auto md:py-0 py-36 ${clicked ? 'active' : ''}`}>
         <h2 className="text-center"><RevealTitle>
-      ALLUME LE MOTEUR
+      ALLUMEZ LE MOTEUR
       </RevealTitle>
    </h2>
       <h3 className="text-center md:pb-32 pb-8">

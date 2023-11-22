@@ -655,14 +655,15 @@ padding-bottom: 1rem;
 
 
 footer h3, footer h5 {
-  font-variation-settings: "wght" 600,"wdth" 600,"ital" 0,"opsz" 200;
+  font-variation-settings: "wght" 400,"wdth" 600,"ital" 0,"opsz" 200;
 }
 footer h3{
   font-size: 4rem;
+  font-variation-settings: "wght" 600,"wdth" 600,"ital" 0,"opsz" 200;
 }
  footer h5 {
-font-size: 1.8rem;
-font-variation-settings: "wght" 500,"wdth" 600,"ital" 0,"opsz" 200;
+font-size: 1.5rem;
+/* font-variation-settings: "wght" 500,"wdth" 600,"ital" 0,"opsz" 200; */
 }
 /* .video-reveal-centered {
   position: relative;
@@ -873,6 +874,11 @@ aside form button h5{
 #shop h5{
   font-size: 1.8rem;
 }
+
+footer h4{
+  font-variation-settings: "wght" 600,"wdth" 600,"ital" 0,"opsz" 200;
+  font-size: 3.6rem;
+}
 @media (min-width: 769px) {
   .hero h4{
     font-size: 3rem;
@@ -897,6 +903,9 @@ aside form button h5{
   .customLeft{
     left: calc(50vw + -15rem);
 
+  }
+  .customLeftPlus{
+    left: calc(50vw - 21rem);
   }
   
   .closeUp img{
@@ -997,8 +1006,9 @@ aside form button h5{
     line-height: 120%; */
   }
   footer h3, footer h5 {
-    font-variation-settings: "wght" 700,"wdth" 600,"ital" 0,"opsz" 200;
+    /* font-variation-settings: "wght" 700,"wdth" 600,"ital" 0,"opsz" 200; */
   }
+
    /* footer h5 {
   font-size: 2.8rem;
   } */

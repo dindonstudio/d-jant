@@ -22,7 +22,7 @@ function Decouvertes(props) {
         <div className="flex justify-center">
           <h4 className="text-center mxCh53 ">
           <RevealTitle>
-        Plus qu'une voiture, son covering inedit, elle brille dans toutes les rues et dans tous les cœurs{' '}
+        Plus qu'une voiture, son covering inédit, elle brille dans toutes les rues et dans tous les cœurs{' '}
             </RevealTitle>
           </h4>
         </div>
@@ -37,7 +37,7 @@ function Decouvertes(props) {
           </div>
           <h4 className="md:text-right">
           <RevealOpacity delay={800}>
-            Libérez l'enthuastif qui sommeille en vous avec l'Abart 565 Turismo,
+            Libérez l'enthousiaste qui sommeille en vous avec l'Abart 565 Turismo,
             un chef-d'œuvre de l'ingénierie automobile.
             </RevealOpacity>
           </h4>
@@ -173,12 +173,12 @@ function Decouvertes(props) {
             <div className="uppercase red  bigSubText pb-2">
             <RevealOpacity delay={400}>
 
-            Des sieges totallement déjanté
+Le vrai full option
             </RevealOpacity>
             </div>
             <h4 className="text-left maxch30">
             <RevealOpacity delay={400}>
-            Explorez l'audace en design : des sièges de voiture customisés, où la créativité et l'originalité se rencontrent dans un éclat de fantaisie.
+            Succombez à la douce étreinte du cuir matelassé. À l'intense vibration de la sono Beats. À la totale liberté du toit ouvrant.
               </RevealOpacity>
             </h4>
           </div>

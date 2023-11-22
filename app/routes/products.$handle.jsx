@@ -7,6 +7,7 @@ import PerspectiveCard from '~/components/PerspectiveCard';
 import ticket1 from '../../public/badge_1TICKET.svg';
 import ticket2 from '../../public/badge_x2TICKETS.svg';
 import ticket3 from '../../public/badge_x3TICKETS.svg';
+import freeShiping from '../../public/FREESHIPPING.svg';
 import bestOffer from '../../public/badge.BESTOFFER.svg';
 import {Await, Link, useLoaderData} from '@remix-run/react';
 import {
@@ -208,7 +209,7 @@ function ProductImage({image}) {
             key={image.id}
             sizes="(min-width: 45em) 50vw, 100vw"
           />
-        <h5 className="index-label absolute bottom-4 left-4 text-semiDark md:hidden block">
+          <h5 className="index-label absolute bottom-4 left-4 text-semiDark md:hidden block">
             {`${index + 1} / ${totalImages}`}
           </h5>
         </div>
@@ -237,14 +238,24 @@ function ProductMain({
   return (
     <div className="product-main md:h-screen flex flex-col justify-between">
       {handle === 't-shirt-dejante' && (
-        <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
-          <img src={ticket1} alt="Ticket 1" className="ticket-svg" />
-        </div>
+        <>
+          <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
+            <img src={ticket1} alt="Ticket 1" className="ticket-svg" />
+          </div>
+          <div className="absolute -top-28  md:fixed md:top-4 right-28 w-24 customLeft ">
+            <img src={freeShiping} alt="Best Deal" className="best-deal-svg" />
+          </div>
+        </>
       )}
       {handle === 'hoodie-dejante' && (
-        <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
-          <img src={ticket2} alt="Ticket 1" className="ticket-svg" />
-        </div>
+               <>
+               <div className="absolute md:fixed md:top-4 -top-28 right-3 w-24 customRight">
+                 <img src={ticket2} alt="Ticket 1" className="ticket-svg" />
+               </div>
+               <div className="absolute -top-28  md:fixed md:top-4 right-28 w-24 customLeft ">
+                 <img src={freeShiping} alt="Best Deal" className="best-deal-svg" />
+               </div>
+             </>
       )}
       {handle === 'pack-3-tickets-1' && (
         <>
@@ -254,6 +265,9 @@ function ProductMain({
           <div className="absolute -top-28  md:fixed md:top-4 right-28 w-24 customLeft">
             <img src={bestOffer} alt="Best Deal" className="best-deal-svg" />
           </div>
+          <div className="absolute -top-28  md:fixed md:top-4 right-52 w-24 customLeftPlus ">
+                 <img src={freeShiping} alt="Best Deal" className="best-deal-svg" />
+               </div>
         </>
       )}
       <div className="md:w-4/5 md:pt-8 pt-16 md:px-0 px-6 ">
@@ -262,7 +276,9 @@ function ProductMain({
           <h3>{title}</h3>
           <ProductPrice selectedVariant={selectedVariant} />
         </div>
-        <h4 className='green text-left md:pt-1 md:pb-4 pt-1'>La livraison est offerte !</h4>
+        {/* <h4 className="green text-left md:pt-1 md:pb-4 pt-1">
+          La livraison est offerte !
+        </h4> */}
 
         <h5></h5>
 
