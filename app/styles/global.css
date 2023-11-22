@@ -82,7 +82,14 @@ fill: var(--white);
   gap: 2rem; /* This sets both row and column gaps to 2rem */
 }
 }
-
+.rfm-marquee-container {
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 100%;
+  transform: none;
+}
 .descriptionProduct h5{
   padding-top: 1rem;
 }
