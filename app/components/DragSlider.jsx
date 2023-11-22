@@ -27,7 +27,7 @@ export default function DragSlider({ galleryData, galleryData2 }) {
         <h4>Chaque image est une invitation à rejoindre la course.</h4>
       </div>
 
-      <div className='md:flex hidden flex-col md:gap-40 gap-20'>
+      <div className=' hidden flex-col md:gap-40 gap-20'>
         <RevealSide mobile={false} origin={'left'} distance={'-50'} delay={300}>
           <Marquee speed={50} autoFill={false} className="marquee2" pauseOnHover={true}>
             {galleryData2.map((img, index) => (
@@ -48,12 +48,12 @@ export default function DragSlider({ galleryData, galleryData2 }) {
         </RevealSide>
       </div>
       <div
-        className='md:fixed relative top-0 left-0 transition-opacity w-full h-full flex justify-center items-center galleryContainer'
+        className='relative top-0 left-0 transition-opacity w-full h-full flex justify-center items-center galleryContainer'
         // style={{ opacity: galleryStyle.opacity, zIndex: galleryStyle.zIndex }}
       >
         <MyGallery startIndex={selectedIndex} galleryData={galleryData} galleryData2={galleryData2} />
-        <div onClick={closeGallery} className="closeGallery w-full h-full z-10 fixed left-0 top-0"> </div>
-        <h5 className='fixed md:top-12 md:left-8 top-4 left-6 cursor-pointer z-20'  onClick={closeGallery} > Fermer</h5>
+        {/* <div onClick={closeGallery} className="closeGallery w-full h-full z-10 fixed left-0 top-0"> </div>
+        <h5 className='fixed md:top-12 md:left-8 top-4 left-6 cursor-pointer z-20'  onClick={closeGallery} > Fermer</h5> */}
       </div>
     </div>
   );
