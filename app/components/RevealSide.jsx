@@ -1,10 +1,11 @@
 import React from 'react';
 import {RevealWrapper} from 'next-reveal';
 
-const RevealSide = ({children, delay, distance, origin}) => {
+const RevealSide = ({children, delay, distance, origin, mobile}) => {
   return (
     <RevealWrapper
       origin={origin}
+      mobile={false}
       delay={delay}
       duration={800}
       distance='-100px'

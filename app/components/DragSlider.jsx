@@ -28,7 +28,7 @@ export default function DragSlider({ galleryData, galleryData2 }) {
       </div>
 
       <div className='flex flex-col md:gap-40 gap-20'>
-        <RevealSide origin={'left'} distance={'-50'} delay={300}>
+        <RevealSide mobile={false} origin={'left'} distance={'-50'} delay={300}>
           <Marquee speed={50} autoFill={true} className="marquee2" pauseOnHover={true}>
             {galleryData2.map((img, index) => (
               <div key={index} className="md:mx-4 mx-2 overflow-hidden" onClick={() => openGallery(index)}>
@@ -37,7 +37,7 @@ export default function DragSlider({ galleryData, galleryData2 }) {
             ))}
           </Marquee>
         </RevealSide>
-        <RevealSide origin={'right'} distance={'50'} delay={300}>
+        <RevealSide mobile={false} origin={'right'} distance={'50'} delay={300}>
           <Marquee speed={50} autoFill={true} pauseOnHover={true} direction="right">
             {galleryData.map((img, index) => (
               <div key={index} className="marquee2 md:mx-4 mx-2 overflow-hidden" onClick={() => openGallery(index, true)}>

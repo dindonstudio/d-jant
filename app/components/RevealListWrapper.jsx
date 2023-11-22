@@ -1,13 +1,14 @@
 import React from 'react';
 import { RevealList } from 'next-reveal';
 
-const RevealListWrapper = ({ children, classname, reset, delay = 200, interval = 200 }) => {
+const RevealListWrapper = ({ children, classname, reset, delay = 200, interval = 200, value = true }) => {
 
   return (
     <RevealList
       interval={interval}
       className={classname}
       origin="top"
+    mobile={value}
       key={classname}
       delay={delay}
       duration={800}

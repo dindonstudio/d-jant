@@ -216,6 +216,7 @@ console.log(products)
         <Await resolve={products}>
           {({products}) => (
             <RevealListWrapper
+            value={false}
               reset={false}
               ref={containerRef}
               classname={'grid paddingGrid  mobileSlider '}
