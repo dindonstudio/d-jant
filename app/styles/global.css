@@ -831,12 +831,16 @@ aside form button h5{
 }
 .hero h5{
   font-size: 2.5rem;
+  line-height: 100%;
 }
 .hero h3{
-  font-size: 3.6rem;
+  font-size: 4.6rem;
   line-height: 90%;
-  padding-bottom: 1rem;
+  text-align: center;
+  padding-bottom: 0.5Rem;
 }
+
+
 .hero h4{
   font-size: 3rem;
 }
@@ -866,6 +870,12 @@ aside form button h5{
   /* fill: #aaaaaa; */
 }
 @media (min-width: 769px) {
+  .hero h3{
+    font-size: 7.6rem;
+    line-height: 90%;
+    /* padding-bottom: 1rem; */
+  }
+  
   .overlay:target aside {
     transform: translate(-100%);
     /* transform: translate(calc(var(--aside-width) * -1)); */
