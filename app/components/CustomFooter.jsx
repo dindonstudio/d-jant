@@ -53,7 +53,7 @@ const CustomFooter = () => {
 
         </a>
         <a
-          href="https://www.twitter.com/dejantefr"
+          href="https://www.facebook.com/profile.php?id=61553983434193"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -61,7 +61,7 @@ const CustomFooter = () => {
 
         </a>
         <a
-          href="https://www.twitter.com/dejantefr"
+          href="https://www.youtube.com/channel/UCSKwC1YUPe1bcmxg0F3J3EQ"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -69,7 +69,7 @@ const CustomFooter = () => {
 
         </a>
         <a
-          href="https://www.twitter.com/dejantefr"
+          href="https://www.pinterest.com/dejante_fr/"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -77,7 +77,7 @@ const CustomFooter = () => {
 
         </a>
         <a
-          href="https://www.twitter.com/dejantefr"
+          href="https://tiktok.com/@dejante_fr"
           target="_blank"
           rel="noopener noreferrer"
         >
