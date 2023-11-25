@@ -3,7 +3,7 @@ import { Image } from '@shopify/hydrogen';
 import RevealOpacity from '~/components/RevealOpacity';
 import RevealTitle from '~/components/RevealTitleWrapper';
 import RevealButton from '~/components/RevealButton';
-const CustomButton = ({buttonText = 'Command'}) => {
+const CustomButton = ({buttonText = 'Command'}, sanity) => {
   const [fillColor, setFillColor] = useState('black');
   const [clicked, setClicked] = useState(false); // New state to track if the button was clicked
   const soundUrl =

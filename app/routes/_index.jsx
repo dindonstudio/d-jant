@@ -113,17 +113,17 @@ export default function Homepage(sanityData, galleryData, galleryData2) {
       </div>
       <div id="rezized">
         <div className="md:pt-64 pt-32">
-          <Etapes />
+          <Etapes sanity={sanity} />
         </div>
         <div className="md:pt-96 pt-44">
-          <Decouvertes />
+          <Decouvertes sanity={sanity} />
         </div>
         <div className="md:pt-96 pt-44">
-          <CloseUp />
+          <CloseUp sanity={sanity} />
         </div>
 
         <div id="shop" className="md:pt-96 pt-44">
-          <RecommendedProducts products={data.recommendedProducts} />
+          <RecommendedProducts sanity={sanity} products={data.recommendedProducts} />
         </div>
         <div className="md:pt-80 pt-20">
           <DragSlider
@@ -133,24 +133,24 @@ export default function Homepage(sanityData, galleryData, galleryData2) {
         </div>
 
         <div className="">
-          <CustomButton />
+          <CustomButton sanity={sanity} />
         </div>
         <div className="md:pt-0 pt-20">
-          <VideoPresentation />
+          <VideoPresentation sanity={sanity} />
         </div>
 
         <div className="md:pt-96 pt-44">
-          <FAQ />
+          <FAQ sanity={sanity} />
         </div>
         <div className="md:pt-72 pt-32">
-          <CustomFooter />
+          <CustomFooter sanity={sanity} />
         </div>
       </div>
     </div>
   );
 }
 
-function RecommendedProducts({products}) {
+function RecommendedProducts({products, sanity}) {
   const [isMobile, setIsMobile] = useState(false); // Initially set to false
   const containerRef = useRef(null);
   useEffect(() => {
@@ -206,9 +206,9 @@ console.log(products)
   return (
     <div className="recommended-products">
       <h2 className="text-center pb-4 md:pb-0 ">
-        <RevealOpacity delay={200}>CHOPE TON TICKET</RevealOpacity>
+        <RevealOpacity delay={200}>{sanity.shopTitle}</RevealOpacity>
       </h2>
-      <TicketBar remainingTickets={4916} />
+      <TicketBar remainingTickets={sanity.ProgressBarNumber} />
       {/* <h4 className='text-center'>Accélérez, les places sont comptées !</h4> */}
       {/* <div className='w-full'>
         <ProgressBar/>
@@ -346,7 +346,7 @@ console.log(products)
         </Await>
       </Suspense>
       <br />
-      <h3 className='green text-center md:pt-20 pt-1'>La livraison (sous 3 à 5 jours) est offerte !</h3>
+      <h3 className='green text-center md:pt-20 pt-1'>{sanity.livraison}</h3>
     </div>
   );
 }

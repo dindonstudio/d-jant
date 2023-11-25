@@ -15,15 +15,14 @@ function Decouvertes(props) {
       <div className="w-full flex flex-col justify-center items-center md:pb-72 pb-40">
         <h2 className="text-center uppercase pb-2 maxCh16">
         <RevealTitle>
-
-          Découverte de l'Abarth 595
+        { sanity.decouverte }
+  
           </RevealTitle>
         </h2>
         <div className="flex justify-center">
           <h4 className="text-center mxCh53 ">
           <RevealTitle>
-        Plus qu'une voiture, son covering inédit, elle brille dans toutes les rues et dans tous les cœurs{' '}
-            </RevealTitle>
+          { sanity.decouverteSubTitle }            </RevealTitle>
           </h4>
         </div>
        
@@ -32,13 +31,12 @@ function Decouvertes(props) {
         <div className="col-start-2 col-end-6 md:pt-0  ">
           <div className="md:text-right uppercase bigSubText overIt md:pt-0 pt-12 relative md:-right-12 md:pr-12">
           <RevealOpacity delay={700}>
-            Quand l’italie rencontre la performance
+          { sanity.planche1Title }     
             </RevealOpacity>
           </div>
           <h4 className="md:text-right">
           <RevealOpacity delay={800}>
-            Libérez l'enthousiaste qui sommeille en vous avec l'Abart 565 Turismo,
-            un chef-d'œuvre de l'ingénierie automobile.
+          { sanity.planche1SubTitle }     
             </RevealOpacity>
           </h4>
           <div className='absolute dotContainer'>
@@ -104,7 +102,7 @@ function Decouvertes(props) {
         <div className="flex  md:ml-12 items-center col-start-9 blue top-1/2 md:top-auto md:relative -right-2 md:right-0 absolute col-end-13">
           <div className="uppercase bigSubText overIt pl-12 -left-12 md:relative  noBG ">
           <RevealOpacity delay={1200}>
-            REVETEMENT de NUIT
+          { sanity.planche2Title }     
             </RevealOpacity></div>
         </div>
         <div className='absolute dotContainer'>
@@ -125,13 +123,12 @@ function Decouvertes(props) {
           <div className=' overIt pt-12 relative md:-top-12 -top-8'>
             <div className="uppercase yellow text-left md:text-center bigSubText pb-2">
             <RevealOpacity delay={1000}>
-              REVETEMENT au soleil
+            { sanity.planche3Title }  
               </RevealOpacity>
             </div>
             <h4 className="text-left maxch30">
             <RevealOpacity delay={1000}>
-            Découvrez son charme à la lumière : un revêtement de voiture inédit, où le soleil danse dans un kaléidoscope de couleurs.
-              </RevealOpacity>
+            { sanity.planche3SubTitle }                </RevealOpacity>
             </h4>
           </div>
       
@@ -173,12 +170,12 @@ function Decouvertes(props) {
             <div className="uppercase red  bigSubText pb-2">
             <RevealOpacity delay={400}>
 
-Le vrai full option
+            { sanity.planche4Title }     
             </RevealOpacity>
             </div>
             <h4 className="text-left maxch30">
             <RevealOpacity delay={400}>
-            Succombez à la douce étreinte du cuir matelassé. À l'intense vibration de la sono Beats. À la totale liberté du toit ouvrant.
+            { sanity.planche4SubTitle }     
               </RevealOpacity>
             </h4>
           </div>
