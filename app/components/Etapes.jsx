@@ -48,7 +48,7 @@ function Etapes(props) {
       <div className="md:gridCustom block">
         <h2 className="col-start-2 col-end-9 md:pr-0 pr-12">
           <RevealTitle>
-          { sanity.decouverte }
+          RENTRER DANS LA COURSE EN 4 ÉTAPES
           </RevealTitle>
 
         </h2>

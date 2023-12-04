@@ -16,7 +16,7 @@ function VideoWithButtonOverlay(props) {
     <div className="w-full h-full relative  z-0 borderRadius overflow-hidden ">
       <div className='BlackReveal' ></div>
       <div className='scaleDown'>
-      <VideoPlayer url=            {sanity.heroVideoUrl} loop mute autoplay />
+      <VideoPlayer url=            {sanity.heroVideoUrl}   loop mute autoplay />
 
       </div>
       {/* <div className="blackOverlay"></div> */}
