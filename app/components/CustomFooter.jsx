@@ -1,6 +1,7 @@
 import React from 'react';
 
-const CustomFooter = () => {
+function CustomFooter(sanity) {
+
   return (
     <footer className="bg-semiWhite text-semiDark flex gap-8 md:gap-4 flex-col md:flex-row justify-between items-center py-10 md:px-8">
     
@@ -38,14 +39,14 @@ const CustomFooter = () => {
       <div className="flex md:gap-4 md:flex-col flex-col justify-start order-3 flex-1">
         <div className='flex gap-4'>
         <a
-          href="https://www.instagram.com/dejante_fr/"
+          href={sanity.sanity.instagram}
           target="_blank"
           rel="noopener noreferrer"
         >
           <h5>Instagram</h5>
         </a>
         <a
-          href="https://www.twitter.com/dejantefr"
+               href={sanity.sanity.twitter}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -53,7 +54,7 @@ const CustomFooter = () => {
 
         </a>
         <a
-          href="https://www.facebook.com/profile.php?id=61553983434193"
+         href={sanity.sanity.facebook}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -61,7 +62,7 @@ const CustomFooter = () => {
 
         </a>
         <a
-          href="https://www.youtube.com/channel/UCSKwC1YUPe1bcmxg0F3J3EQ"
+              href={sanity.sanity.youtube}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -69,7 +70,7 @@ const CustomFooter = () => {
 
         </a>
         <a
-          href="https://www.pinterest.com/dejante_fr/"
+         href={sanity.sanity.pinterest}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -77,7 +78,7 @@ const CustomFooter = () => {
 
         </a>
         <a
-          href="https://tiktok.com/@dejante_fr"
+         href={sanity.sanity.tiktok}
           target="_blank"
           rel="noopener noreferrer"
         >

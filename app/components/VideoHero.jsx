@@ -16,19 +16,18 @@ function VideoWithButtonOverlay(props) {
     <div className="w-full h-full relative  z-0 borderRadius overflow-hidden ">
       <div className='BlackReveal' ></div>
       <div className='scaleDown'>
-      <VideoPlayer url={'https://cdn.shopify.com/videos/c/o/v/8266dd760c4a4966af83c83b8226cf66.mp4'} loop mute autoplay />
+      <VideoPlayer url=            {sanity.heroVideoUrl}   loop mute autoplay />
 
       </div>
       {/* <div className="blackOverlay"></div> */}
 
       <div  className="grid  absolute w-full top-0 left-0 px-10 z-20 h-full">
         <div  className="flex fadeInUp flex-col md:gap-4 gap-2 items-center col-span-12   justify-center  ">
-            <h3 className=''>Gagnez une Abarth 595</h3>
+            <h3 className=''>{sanity.heroTitleCar}</h3>
 
 
             <h5 className="maxCH fadeInUp2 text-center ">
-              Participez au concours pour un changement de vitesse dans votre
-              quotidien.
+            {sanity.heroSubTitleCar}
             </h5>
 
  

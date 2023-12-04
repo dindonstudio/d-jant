@@ -3,14 +3,14 @@ import { Image } from '@shopify/hydrogen';
 import RevealOpacity from '~/components/RevealOpacity';
 
 function CloseUp(props) {
-  const { text, onClick } = props;
+  const {sanity} = props;
 
   return (
    <div className='closeUp'>
     <div className='md:px-8 px-6'>
     <h2 className='uppercase  chroma'>
     <RevealOpacity delay={200}>
-      Un bon close up?
+  {sanity.closeUp}
       </RevealOpacity>
      </h2>
     </div>

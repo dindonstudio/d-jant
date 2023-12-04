@@ -39,8 +39,11 @@ function FAQ() {
     },
     {
       question: "Comment le gagnant sera-t-il choisi ?",
-      answer: "Ce concours est encadré par la loi. Le gagnant sera tiré dans la liste des participations nominatives. Un tirage 100% transparent retransmis en vidéo et réalisé par Maître Bernard DELATRE, huissier de justice de ATLAS JUSTICE. Retrouvez le règlement     <a href='/policies/refund-policy'>ici</a> "
+      answer: (
+        <div dangerouslySetInnerHTML={{__html: `Ce concours est encadré par la loi. Le gagnant sera tiré dans la liste des participations nominatives. Un tirage 100% transparent retransmis en vidéo et réalisé par Maître Bernard DELATRE, huissier de justice de ATLAS JUSTICE. Retrouvez le règlement <a href='/policies/refund-policy'>ici</a>`}} />
+      )
     },
+    
 
     {
       question: " Puis-je échanger la voiture contre de l'argent ?",
