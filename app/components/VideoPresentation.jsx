@@ -48,7 +48,7 @@ function VideoPresentation(props) {
         <RevealListWrapper delay={600} interval={300}>
           <h4>
           {sanity.storyTelling} <br /> <br />  </h4>
-            <h3 className=" italic">Bienvenue chez Déjanté.</h3>
+            <h3 className=" italic">   {sanity.welcomeToDejante}</h3>
         
         </RevealListWrapper>
       </div>

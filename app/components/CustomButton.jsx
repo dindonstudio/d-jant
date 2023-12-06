@@ -3,7 +3,7 @@ import { Image } from '@shopify/hydrogen';
 import RevealOpacity from '~/components/RevealOpacity';
 import RevealTitle from '~/components/RevealTitleWrapper';
 import RevealButton from '~/components/RevealButton';
-const CustomButton = ({buttonText = 'Command'}, sanity) => {
+export default function CustomButton({sanity }) {
   const [fillColor, setFillColor] = useState('black');
   const [clicked, setClicked] = useState(false); // New state to track if the button was clicked
   const soundUrl =
@@ -27,12 +27,12 @@ const CustomButton = ({buttonText = 'Command'}, sanity) => {
   return (
     <div className={`flex motorBlock justify-center relative flex-col items-center md:h-screen h-auto md:py-0 py-36 ${clicked ? 'active' : ''}`}>
         <h2 className="text-center"><RevealTitle>
-      ALLUMEZ LE MOTEUR
+{sanity.buttonTitle}
       </RevealTitle>
    </h2>
       <h3 className="text-center md:pb-32 pb-8">
       <RevealTitle>
-        Mmmh faites ronronner les mécaniques
+      {sanity.buttonSubTitle}
         </RevealTitle>
       </h3>
       <RevealButton delay={600}>
@@ -75,4 +75,4 @@ const CustomButton = ({buttonText = 'Command'}, sanity) => {
   );
 };
 
-export default CustomButton;
+

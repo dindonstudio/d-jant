@@ -1,7 +1,8 @@
 import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
-
+import { useContext } from 'react';
+import LanguageContext from '~/components/LanguageContext';
 import { useLayoutEffect } from 'react';
 import ImageSlider from '~/components/ImageSlider';
 import ImageMarquee from '~/components/ImageMarquee';
@@ -101,16 +102,32 @@ export async function loader({context}) {
 
 export default function Homepage(sanityData, galleryData, galleryData2) {
   /** @type {LoaderReturnData} */
+  const language = useContext(LanguageContext);
+
+
+  // Handler to toggle language
+  const toggleLanguage = () => {
+    setLanguage(lang => (lang === 'fr' ? 'en' : 'fr'));
+  };
+
+  /** @type {LoaderReturnData} */
   const data = useLoaderData();
 
-  const sanity = data?.sanityData?.[0];
+  // Using the selected language to determine which data to fetch
+  const sanity = language === 'en' ? data?.sanityData?.[1] : data?.sanityData?.[0];
 
+  // const data = useLoaderData();
+
+  // const sanity = data?.sanityData?.[0];
+// console.log(sanity)
   return (
     <div className="home">
+
       <div className="hero h-screen flex  flex-col z-20 relative overflow-hidden ">
         {/* <MarqueeBanner/> */}
         <VideoWithButtonOverlay sanity={sanity} />
       </div>
+ 
       <div id="rezized">
         <div className="md:pt-64 pt-32">
           <Etapes sanity={sanity} />
@@ -127,6 +144,7 @@ export default function Homepage(sanityData, galleryData, galleryData2) {
         </div>
         <div className="md:pt-80 pt-20">
           <DragSlider
+          sanity={sanity}
             galleryData={sanity.gallery}
             galleryData2={sanity.gallery2}
           />
@@ -202,13 +220,13 @@ function RecommendedProducts({products, sanity}) {
       return {...prev, [productId]: newIndex};
     });
   };
-console.log(products)
+// console.log(products)
   return (
     <div className="recommended-products">
       <h2 className="text-center pb-4 md:pb-0 ">
         <RevealOpacity delay={200}>{sanity.shopTitle}</RevealOpacity>
       </h2>
-      <TicketBar remainingTickets={sanity.ProgressBarNumber} />
+      <TicketBar sanity={sanity} remainingTickets={sanity.ProgressBarNumber} />
       {/* <h4 className='text-center'>Accélérez, les places sont comptées !</h4> */}
       {/* <div className='w-full'>
         <ProgressBar/>
@@ -319,10 +337,10 @@ console.log(products)
                           </div>
                         </div>
                         {shouldDisplayProductForm && (
-                          <ProductForm product={product} />
+                          <ProductForm product={product} sanity={sanity} />
                         )}
                            <div className="text-semiDark z-10 absolute bottom-12 flex pointer-events-none  h-full w-full items-end  left-0 top-0  justify-center  group-hover:hidden md:hidden  ">
-                <h5 className="uppercase relative bg-semiWhite bottom-8 px-4 pt-1 ">Voir le produit</h5>
+                <h5 className="uppercase relative bg-semiWhite bottom-8 px-4 pt-1 ">{sanity.seeProduct}</h5>
               </div>
                       </div>
                     </div>
@@ -350,7 +368,7 @@ console.log(products)
     </div>
   );
 }
-function ProductForm({product}) {
+function ProductForm({product, sanity}) {
   // console.log(product);
 
   return (
@@ -365,7 +383,7 @@ function ProductForm({product}) {
           <div className="md:flex justify-center items-end w-full absolute bottom-12 z-10 group hidden ">
             <div className="flex gap-8 bg-semiWhite relative">
               <div className="text-semiDark z-10  bg-semiWhite absolute h-full w-full left-0 top-0 flex justify-center items-center group-hover:hidden ">
-                <h5 className="uppercase relative top-1">Ajouter au panier</h5>
+                <h5 className="uppercase relative top-1">{sanity.addToCartText}</h5>
               </div>
 
               {option.values.map((value, index) => {

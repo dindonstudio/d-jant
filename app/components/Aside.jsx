@@ -1,4 +1,4 @@
-export function Aside({children, heading, id = 'aside'}) {
+export function Aside({children, heading, id = 'aside', sanity}) {
   return (
     <div aria-modal className="overlay" id={id} role="dialog">
       <button

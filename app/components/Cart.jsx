@@ -5,7 +5,7 @@ import {useVariantUrl} from '~/utils';
 /**
  * @param {CartMainProps}
  */
-export function CartMain({layout, cart}) {
+export function CartMain({layout, cart, sanity}) {
   // console.log(cart)
 
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
@@ -17,7 +17,7 @@ export function CartMain({layout, cart}) {
   return (
     <div className={className}>
       <CartEmpty hidden={linesCount} layout={layout} />
-      <CartDetails cart={cart} layout={layout} />
+      <CartDetails sanity={sanity} cart={cart} layout={layout} />
     </div>
   );
 }
@@ -25,16 +25,16 @@ export function CartMain({layout, cart}) {
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart}) {
+function CartDetails({layout, cart, sanity}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
     <div className="cart-details">
-      <CartLines lines={cart?.lines} layout={layout} />
+      <CartLines sanity={sanity} lines={cart?.lines} layout={layout} />
       {cartHasItems && (
-        <CartSummary cost={cart.cost} layout={layout}>
+        <CartSummary  sanity={sanity} cost={cart.cost} layout={layout}>
           {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
-          <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
+          <CartCheckoutActions  sanity={sanity} checkoutUrl={cart.checkoutUrl} />
         </CartSummary>
       )}
     </div>
@@ -47,14 +47,14 @@ function CartDetails({layout, cart}) {
  *   lines: CartApiQueryFragment['lines'] | undefined;
  * }}
  */
-function CartLines({lines, layout}) {
+function CartLines({lines, layout, sanity}) {
   if (!lines) return null;
 // console.log(lines.nodes)
   return (
     <div aria-labelledby="cart-lines">
       <ul>
         {lines.nodes.map((line) => (
-          <CartLineItem key={line.id} line={line} layout={layout} />
+          <CartLineItem sanity={sanity} key={line.id} line={line} layout={layout} />
         ))}
       </ul>
     </div>
@@ -67,7 +67,7 @@ function CartLines({lines, layout}) {
  *   line: CartLine;
  * }}
  */
-function CartLineItem({layout, line}) {
+function CartLineItem({layout, line, sanity}) {
 
   // Define default merchandise if undefined
   if (!line || !line.merchandise) {
@@ -134,12 +134,12 @@ function CartLineItem({layout, line}) {
           {selectedOptions.map((option) => (
             <div className='smallH5' key={option.name}>
       
-                {option.name}: {option.value}
+                {sanity.taille}: {option.value}
               
             </div>
           ))}
         </ul>
-        <CartLineQuantity line={line} />
+        <CartLineQuantity sanity={sanity} line={line} />
       </div>
     </li>
   );
@@ -148,7 +148,7 @@ function CartLineItem({layout, line}) {
 /**
  * @param {{checkoutUrl: string}}
  */
-function CartCheckoutActions({checkoutUrl}) {
+function CartCheckoutActions({checkoutUrl, sanity}) {
   if (!checkoutUrl) return null;
 
   return (
@@ -156,7 +156,7 @@ function CartCheckoutActions({checkoutUrl}) {
       <a className='' href={checkoutUrl} target="_self">
         <h4                         className=" text-center borderblack  rounded-sm w-full px-4 pt-7 pb-6 hover:text-semiDark hover:bg-semiWhite uppercase bg-green text-semiWhite transition-colors duration-150"
 
-        >Proceder au paiement </h4>
+        >{sanity.paiement} </h4>
       </a>
       <br />
     </div>
@@ -193,14 +193,14 @@ export function CartSummary({cost, layout, children = null}) {
 /**
  * @param {{lineIds: string[]}}
  */
-function CartLineRemoveButton({lineIds}) {
+function CartLineRemoveButton({lineIds, sanity}) {
   return (
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button className='md:pl-4 w-full' type="submit"><div className='smallH5'>Supprimer</div></button>
+      <button className='md:pl-4 w-full' type="submit"><div className='smallH5'>{sanity.supprimer}</div></button>
     </CartForm>
   );
 }
@@ -208,7 +208,7 @@ function CartLineRemoveButton({lineIds}) {
 /**
  * @param {{line: CartLine}}
  */
-function CartLineQuantity({line}) {
+function CartLineQuantity({line, sanity}) {
 
   const {id: lineId, quantity} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
@@ -216,7 +216,7 @@ function CartLineQuantity({line}) {
 
   return (
     <div className="cart-line-quantiy flex-wrap">
-      <div className='smallH5'>Quantité: {quantity} &nbsp;&nbsp;</div>
+      <div className='smallH5'>{sanity.quantiteText} {quantity} &nbsp;&nbsp;</div>
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"
@@ -238,7 +238,7 @@ function CartLineQuantity({line}) {
         </button>
       </CartLineUpdateButton>
       &nbsp;
-      <CartLineRemoveButton lineIds={[lineId]} />
+      <CartLineRemoveButton sanity={sanity} lineIds={[lineId]} />
     </div>
   );
 }

@@ -7,7 +7,8 @@ import {logo} from '../../public/DEJANTE_LOGO.RED.svg';
 /**
  * @param {HeaderProps}
  */
-export function Header({header, isLoggedIn, cart}) {
+export function Header({header, isLoggedIn, cart,sanity}) {
+  console.log(sanity)
   const {shop, menu} = header;
   const logoUrl = '../../public/DEJANTE_LOGO.RED.svg';
   
@@ -15,7 +16,7 @@ export function Header({header, isLoggedIn, cart}) {
     <header className="header fadeInDown pt-0 justify-between md:h-40 w-full flex fixed items-center gap-8 z-40 md:px-8 px-6">
       <div className='flex-1 participate'>
         <div className='flex relative md:-top-4 -top-6'>
-        <MyButtonHeader text="PARTICIPER" />
+        <MyButtonHeader text={sanity.participateButton} />
         </div>
 
       </div>

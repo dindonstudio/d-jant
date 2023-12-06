@@ -3,8 +3,8 @@ import { Image } from '@shopify/hydrogen';
 import Marquee from 'react-fast-marquee';
 import RevealSide from '~/components/RevealSide';
 import MyGallery from '~/components/MyGallery';
-
-export default function DragSlider({ galleryData, galleryData2 }) {
+import { PortableText } from '@portabletext/react';
+export default function DragSlider({ galleryData, galleryData2,sanity }) {
   const [galleryStyle, setGalleryStyle] = useState({ opacity: 0, zIndex: -50 });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -22,9 +22,11 @@ export default function DragSlider({ galleryData, galleryData2 }) {
     <div id="Magazine" className="py-12 overflow-x-hidden">
    <div className="px-8 md:pb-52 pb-24">
         <h2 className="uppercase">
-          Capturez l'essence <br /> de Déjanté
+        <PortableText
+            value={sanity.sliderTitle}
+          />
         </h2>
-        <h4>Chaque image est une invitation à rejoindre la course.</h4>
+        <h4>{sanity.sliderSubTitle}</h4>
       </div>
 
       <div className=' hidden flex-col md:gap-40 gap-20'>

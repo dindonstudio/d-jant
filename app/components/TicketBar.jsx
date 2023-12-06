@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import RevealOpacity from '~/components/RevealOpacity';
-const TicketBar = ({ remainingTickets }) => {
+const TicketBar = ({ remainingTickets, sanity }) => {
   const totalTickets = 5000;
   const [progress, setProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -41,7 +41,7 @@ const TicketBar = ({ remainingTickets }) => {
       <div className="progress-bar z-0" style={{ width: `${progress}%`, transition: 'width 1s ease-in-out 0.4s' }}></div>
       <div className="bigSubText relative flex justify-center">
         <div>
-          Dépêchez-vous, plus que {remainingTickets} tickets restants!
+         {sanity.depechez} {remainingTickets}  {sanity.restant}
         </div>
       </div>
       </RevealOpacity>
