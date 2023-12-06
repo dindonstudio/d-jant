@@ -1,9 +1,13 @@
 import {Suspense} from 'react';
 import {useEffect} from 'react';
 import {useState} from 'react';
+import { useContext } from 'react';
 import {useNavigate} from '@remix-run/react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import PerspectiveCard from '~/components/PerspectiveCard';
+import {PortableText} from '@portabletext/react'
+import sanityClient, {createClient} from '@sanity/client';
+import LanguageContext from '~/components/LanguageContext';
 import ticket1 from '../../public/badge_1TICKET.svg';
 import ticket2 from '../../public/badge_x2TICKETS.svg';
 import ticket3 from '../../public/badge_x3TICKETS.svg';
@@ -29,8 +33,18 @@ export const meta = ({data}) => {
 /**
  * @param {LoaderFunctionArgs}
  */
+const query = `*[_type == 'product' && store.slug.current == $handle]
+{
+ ...,
 
-function CustomDropdown({options}) {
+}`;
+const client = createClient({
+  apiVersion: 'v2022-05-01',
+  dataset: 'production',
+  projectId: 'm5ok1ygs',
+  useCdn: false,
+});
+function CustomDropdown({options, sanity}) {
   const [selectedValue, setSelectedValue] = useState(options[0]?.value || '');
   const navigate = useNavigate();
 
@@ -67,6 +81,7 @@ function CustomDropdown({options}) {
 export async function loader({params, request, context}) {
   const {handle} = params;
   const {storefront} = context;
+  const sanityData = await client.fetch(query, { handle });
 
   const selectedOptions = getSelectedProductOptions(request).filter(
     (option) =>
@@ -124,7 +139,7 @@ export async function loader({params, request, context}) {
   // console.log("Raw variants response:", variants);
 
   const referencedProductGID = product.metafield.value;
-  console.log(referencedProductGID);
+
   let referencedProduct = null;
   const referencedProductResponse = await storefront.query(
     REFERENCED_PRODUCT_QUERY,
@@ -135,7 +150,7 @@ export async function loader({params, request, context}) {
 
   referencedProduct = referencedProductResponse;
 
-  return defer({product, variants, referencedProduct});
+  return defer({product, variants, referencedProduct, sanityData});
 }
 
 /**
@@ -163,9 +178,31 @@ function redirectToFirstVariant({product, request}) {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, variants, referencedProduct} = useLoaderData();
+  const language = useContext(LanguageContext);
+
+  const {product, variants, referencedProduct, sanityData} = useLoaderData();
   const {selectedVariant} = product;
 
+let sanity = {
+  body: "Default content",
+  decouvrir: "Découvrir",
+  taille: "Taille",
+  panier: "AJOUTER AU PANIER"
+};
+
+if (sanityData) {
+  if (language === 'fr') {
+    sanity.body = sanityData[0].body;
+    sanity.decouvrir = sanityData[0].decouvrirFr;
+    sanity.taille = sanityData[0].tailleFr;
+    sanity.panier = sanityData[0].ajouterPanierFr;
+  } else if (language === 'en') {
+    sanity.body = sanityData[0].bodyEnglish;
+    sanity.decouvrir = sanityData[0].decouvrirEn;
+    sanity.taille = sanityData[0].tailleEn;
+    sanity.panier = sanityData[0].ajouterPanierEn;
+  }
+}
   useEffect(() => {
     document.body.classList.add('hide-header');
 
@@ -178,11 +215,15 @@ export default function Product() {
     <div className="product">
       <div className="flex gap-4 md:mix-blend-normal mix-blend-difference fixed md:top-12 top-8 left-6 md:left-8 z-50">
         <Link to="../#shop">
-          <h5 className="md:text-semiDark text-semiWhite"> ← Retour </h5>
+        {language === 'en' ?
+                <h5 className="md:text-semiDark text-semiWhite"> ← {sanityData[0].retourEn}</h5> :
+                <h5 className="md:text-semiDark text-semiWhite">← {sanityData[0].retourFr}</h5>
+            }
         </Link>
       </div>
       <ProductImage image={product.images.nodes} />
       <ProductMain
+      sanity={sanity}
         referencedProduct={referencedProduct}
         selectedVariant={selectedVariant}
         product={product}
@@ -231,6 +272,7 @@ function ProductMain({
   variants,
   referencedProduct,
   handle,
+  sanity
 }) {
   const {title, descriptionHtml} = product;
   // console.log("ProductMain props:", { selectedVariant, product, variants, referencedProduct });
@@ -283,10 +325,15 @@ function ProductMain({
         <h5></h5>
 
         <br />
+        
         <div
           className="descriptionProduct"
-          dangerouslySetInnerHTML={{__html: descriptionHtml}}
+          
+          // dangerouslySetInnerHTML={{__html: descriptionHtml}}
         />
+           <PortableText
+            value={sanity.body}
+          />
         <Suspense
           fallback={
             <ProductForm
@@ -303,6 +350,7 @@ function ProductMain({
             {(data) => (
               <ProductForm
                 product={product}
+                sanity={sanity}
                 selectedVariant={selectedVariant}
                 variants={data.product?.variants.nodes || []}
               />
@@ -315,11 +363,11 @@ function ProductMain({
         <br />
       </div>
       <div className="md:sticky relative md:pt-0 pt-12 bottom-8 w-full flex justify-end pr-8">
-        <a href={`/products/${referencedProduct.node.handle}`}>
+        <Link to={`/products/${referencedProduct.node.handle}`}>
           <h4 className="text-right">
-            Découvrez aussi le {referencedProduct.node.title} →
+           {sanity.decouvrir} {referencedProduct.node.title} →
           </h4>
-        </a>
+        </Link>
       </div>
     </div>
   );
@@ -356,7 +404,7 @@ function ProductPrice({selectedVariant}) {
  *   variants: Array<ProductVariantFragment>;
  * }}
  */
-function ProductForm({product, selectedVariant, variants}) {
+function ProductForm({product, selectedVariant, variants, sanity}) {
   // console.log("ProductForm - Product:", product);
   // console.log("ProductForm - Selected Variant ID:", selectedVariant.id);
   // console.log("ProductForm - Variants:", variants);
@@ -372,6 +420,7 @@ function ProductForm({product, selectedVariant, variants}) {
             <ProductOptions
               key={option.name}
               option={option}
+              sanity={sanity}
               handle={product.handle}
             />
           )}
@@ -379,10 +428,11 @@ function ProductForm({product, selectedVariant, variants}) {
       </div>
       <br />
       <AddToCartButton
+      sanity={sanity}
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
           window.location.href = window.location.href + '#cart-aside';
-          console.log('herreeeeze');
+       
           console.log(selectedVariant);
         }}
         lines={
@@ -405,12 +455,12 @@ function ProductForm({product, selectedVariant, variants}) {
 /**
  * @param {{option: VariantOption}}
  */
-function ProductOptions({option, handle}) {
+function ProductOptions({option, handle, sanity}) {
   console.log(option);
   if (handle === 'pack-3-tickets-1') {
     return (
       <div className="product-options md:pt-8" key={option.name}>
-        <h5 className="pb-4">{option.name}</h5>
+        <h5 className="pb-4">{sanity?.taille}</h5>
         <CustomDropdown
           options={option.values.map(({value, isAvailable, to}) => ({
             value,
@@ -423,7 +473,7 @@ function ProductOptions({option, handle}) {
   }
   return (
     <div className="product-options md:pt-8" key={option.name}>
-      <h5 className="pb-4">{option.name}</h5>
+      <h5 className="pb-4">{sanity.taille}</h5>
       <div className=" flex gap-4 ">
         {option.values.map(({value, isAvailable, isActive, to}) => {
           return (
@@ -469,11 +519,11 @@ function ProductOptions({option, handle}) {
  *   onClick?: () => void;
  * }}
  */
-function AddToCartButton({analytics, children, disabled, lines, onClick}) {
+function AddToCartButton({analytics, children, disabled, lines, onClick, sanity}) {
   console.log('CartForm lines:', lines);
 
   return (
-    <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
+    <CartForm sanity={sanity} route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher) => (
         <>
           <input
@@ -488,7 +538,7 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
             disabled={disabled ?? fetcher.state !== 'idle'}
           >
             <h4 className="uppercase myButton filled productPage flex justify-center relative cursor-pointer">
-              Ajouter au Panier
+              {sanity?.panier}
               {/* <div className="  arrow absolute right-0 opacity-0 ">
                 <svg
                   className="w-10 h-12"

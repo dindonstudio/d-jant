@@ -32,7 +32,7 @@ function VideoWithButtonOverlay(props) {
 
  
             <div className="mt-4 fadeInUp3 ">
-              <MyButtonHero text={'DÉCOUVRIR'} />
+              <MyButtonHero text={sanity.discoverButton} />
             </div>
 
         </div>

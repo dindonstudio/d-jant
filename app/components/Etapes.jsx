@@ -3,6 +3,7 @@ import { useEffect,useState,useRef } from 'react';
 import FilledButton from './FilledButton';
 import RevealOpacity from '~/components/RevealOpacity';
 import RevealTitle from '~/components/RevealTitleWrapper';
+import { PortableText } from '@portabletext/react';
 import RevealListWrapper from '~/components/RevealListWrapper';
 function Etapes(props) {
   const { sanity } = props;
@@ -48,7 +49,7 @@ function Etapes(props) {
       <div className="md:gridCustom block">
         <h2 className="col-start-2 col-end-9 md:pr-0 pr-12">
           <RevealTitle>
-          RENTRER DANS LA COURSE EN 4 ÉTAPES
+         {sanity.etapeTitle}
           </RevealTitle>
 
         </h2>
@@ -64,10 +65,10 @@ function Etapes(props) {
             </div>
 
             <h4 className="">
-              <strong>Choisissez votre pack et décrochez votre ticket</strong>  - l'aventure
-              commence avec <strong> un T-shirt (1 ticket)</strong>, s'accélère avec <strong>un Hoodie (2
-              tickets)</strong> , et passe à la vitesse supérieure avec <strong>le combo T-shirt +
-              Hoodie (3 tickets).</strong> 
+            <PortableText
+            value={sanity.etape1}
+          />
+
             </h4>
             </RevealListWrapper>
           </div>
@@ -79,8 +80,9 @@ function Etapes(props) {
               </div>
             </div>
             <h4>
-              La ligne d'arrivée est fixée à <strong>5000 participations</strong>,   ne
-              laissez pas cette chance vous échapper !
+            <PortableText
+            value={sanity.etape2}
+          />
             </h4>
             </RevealListWrapper>
           </div>
@@ -92,8 +94,9 @@ function Etapes(props) {
               </div>
             </div>
             <h4>
-               La <strong>"Rota Fortunae" </strong> tourne - un tirage au sort par <strong>un huissier de
-              justice</strong>  vous mène vers la victoire.
+            <PortableText
+            value={sanity.etape3}
+          />
             </h4>
             </RevealListWrapper>
           </div>
@@ -106,17 +109,16 @@ function Etapes(props) {
               </div>
             </div>
             <h4>
-              <strong> Clef en main</strong>
-             , avec ou sans permis - <strong>nous vous offrons même le
-              permis si nécessaire.</strong>  Chez Déjanté, Personne n’est laissé sur le
-              bord de la route.
+            <PortableText
+            value={sanity.etape4}
+          />
             </h4>
             </RevealListWrapper>
           </div>
           <div className="flex gap-24 ">
           <RevealListWrapper reset={true} classname={'flex md:gap-24 gap-20 py-2 relative damier md:-left-20'}>
             <div className="relative ">
-              <FilledButton text={'PARTICIPER'} />
+              <FilledButton text={sanity.participateButton} />
             </div>
             </RevealListWrapper>
           </div>

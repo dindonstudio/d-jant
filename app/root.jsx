@@ -13,13 +13,16 @@ import {
   isRouteErrorResponse,
 } from '@remix-run/react';
 import favicon from '../public/favicon.svg';
-import customFav from '../public/customFav.png'
+import customFav from '../public/customFav.png';
 import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
-import anim from './styles/anim.css'
-import globalStyles from './styles/global.css'
+import anim from './styles/anim.css';
+import globalStyles from './styles/global.css';
 import {Layout} from '~/components/Layout';
-
+import sanityClient, {createClient} from '@sanity/client';
+import {useState, useEffect, useRef} from 'react';
+import {useLocation} from '@remix-run/react';
+import {usePageAnalytics} from './utils';
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -67,6 +70,23 @@ export const useRootLoaderData = () => {
 /**
  * @param {LoaderFunctionArgs}
  */
+
+const query = `*[_type == 'home' ]
+{
+ ...,
+  "gallery": gallery[]{
+    "url": image.asset->url
+  },
+  "gallery2": gallery2[]{
+    "url": image.asset->url
+  }
+}`;
+const client = createClient({
+  apiVersion: 'v2022-05-01',
+  dataset: 'production',
+  projectId: 'm5ok1ygs',
+  useCdn: false,
+});
 export async function loader({context}) {
   const {storefront, session, cart} = context;
   const customerAccessToken = await session.get('customerAccessToken');
@@ -96,7 +116,7 @@ export async function loader({context}) {
       headerMenuHandle: 'main-menu', // Adjust to your header menu handle
     },
   });
-
+  const sanityData = await client.fetch(query);
   return defer(
     {
       cart: cartPromise,
@@ -104,6 +124,10 @@ export async function loader({context}) {
       header: await headerPromise,
       isLoggedIn,
       publicStoreDomain,
+      sanityData,
+      analytics: {
+        pageType: 'product',
+      },
     },
     {headers},
   );
@@ -113,11 +137,36 @@ export default function App() {
   const nonce = useNonce();
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
+  const [language, setLanguage] = useState('fr');
+
+  // Define a function to toggle language
+  const toggleLanguage = () => {
+    setLanguage((lang) => (lang === 'fr' ? 'en' : 'fr'));
+  };
+  const lastLocationKey = useRef('');
+  const location = useLocation();
+  const pageAnalytics = usePageAnalytics();
+  useEffect(() => {
+    // Filter out useEffect running twice
+    if (lastLocationKey.current === location.key) return;
+
+    lastLocationKey.current = location.key;
+
+    // Send page view analytics
+
+    console.log(pageAnalytics);
+    // pageAnalytics = {
+    //    shopId: 'gid://shopify/Shop/1',
+    //    pageType: 'product',
+    // }
+  }, [location, pageAnalytics]);
 
   return (
     <html lang="en">
       <head>
-          <script dangerouslySetInnerHTML={{ __html: `
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -126,22 +175,42 @@ export default function App() {
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
+    fbq.disablePushState = true; //not recommended, but can be done
+
     fbq('init', '730284285674428');
     fbq('track', 'PageView');
-  ` }} />
-  <noscript><img height="1" width="1" style={{ display: 'none' }}
-    src="https://www.facebook.com/tr?id=730284285674428&ev=PageView&noscript=1"
-  /></noscript>
+  `,
+          }}
+        />
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{display: 'none'}}
+            src="https://www.facebook.com/tr?id=730284285674428&ev=PageView&noscript=1"
+          />
+        </noscript>
 
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
-        <meta name="description" content="Participer au concours et tenter de gagner une Abarth 595" />
+        <meta
+          name="description"
+          content="Participer au concours et tenter de gagner une Abarth 595"
+        />
 
         <Links />
       </head>
       <body>
-        <Layout {...data}>
+        <div className="fixed md:top-12 md:right-28 z-50 mt-1 top-8 right-20 ">
+          <h5>
+            <button onClick={toggleLanguage}>
+              {language === 'fr' ? 'English' : 'Français'}
+            </button>
+          </h5>
+        </div>
+
+        <Layout language={language} {...data}>
           <Outlet />
         </Layout>
         <ScrollRestoration nonce={nonce} />
@@ -173,7 +242,6 @@ export function ErrorBoundary() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
-
       </head>
       <body>
         <Layout {...rootData}>

@@ -7,9 +7,9 @@ import {
 } from '@/components/ui/accordion';
 import RevealTitle from '~/components/RevealTitleWrapper';
 import RevealOpacity from '~/components/RevealOpacity';
-
+import { PortableText } from '@portabletext/react';
 import RevealListWrapper from '~/components/RevealListWrapper';
-function FAQ() {
+export default function FAQ({sanity }) {
   const faqData = [
     {
       question: "Comment participer au concours pour gagner la Abarth Déjanté ?",
@@ -59,23 +59,22 @@ function FAQ() {
     },
 
   ];
-
+console.log(sanity.faqTitle)
   return (
     <div className='md:px-0 px-6'>
       <h2 className="uppercase text-center ">
         <RevealOpacity delay={500}>
-        Foire aux questions
+  {sanity.faqTitle}
         </RevealOpacity>
     </h2>
       <h4 className="text-center">
       <RevealOpacity delay={500}>
-        Ne demandez pas votre chemin, trouvez vos réponses ici.
-        </RevealOpacity>
+      {sanity.faqSubTitle}        </RevealOpacity>
       </h4>
       <div id='accordion' className='md:pt-52 pt-24 md:px-0 px-12'>
       <Accordion type="single" collapsible>
       < RevealListWrapper delay={600} interval={60} reset={false} >
-        {faqData.map((faq, index) => (
+        {sanity.faqItem.map((faq, index) => (
          <div 
          className={index % 2 === 0 ? "col-start-3 col-end-7" : "col-start-7 col-end-11"}
          
@@ -85,7 +84,9 @@ function FAQ() {
 
          <AccordionItem value={`item-${index}`}>
            <AccordionTrigger>{faq.question}</AccordionTrigger>
-           <AccordionContent className='relative'>{faq.answer}</AccordionContent>
+           <AccordionContent className='relative'>   <PortableText
+            value={faq.reponse}
+          /></AccordionContent>
          </AccordionItem>
 
        </div>
@@ -98,4 +99,4 @@ function FAQ() {
   );
 }
 
-export default FAQ;
+

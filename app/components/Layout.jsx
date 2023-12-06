@@ -1,59 +1,105 @@
-import {Await} from '@remix-run/react';
+import {defer} from '@shopify/remix-oxygen';
 import {Suspense} from 'react';
+import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Aside} from '~/components/Aside';
-import {Footer} from '~/components/Footer';
+
 import {Header, HeaderMenu} from '~/components/Header';
+import sanityClient, {createClient} from '@sanity/client';
+import LanguageContext from './LanguageContext';
 import {CartMain} from '~/components/Cart';
-import { tailwind } from 'remix.config';
-import studio from "@theatre/studio";
-import extension from "@theatre/r3f/dist/extension";
-import { useEffect } from 'react';
+
+import {useEffect, useState} from 'react';
 import {
   PredictiveSearchForm,
   PredictiveSearchResults,
 } from '~/components/Search';
-// studio.extend(extension);
-// studio.initialize();
+
 /**
  * @param {LayoutProps}
  */
-export function Layout({cart, children = null, footer, header, isLoggedIn}) {
+
+const query = `*[_type == 'home' ]
+  {
+  ...,
+    "gallery": gallery[]{
+      "url": image.asset->url
+    },
+    "gallery2": gallery2[]{
+      "url": image.asset->url
+    }
+  }`;
+const client = createClient({
+  apiVersion: 'v2022-05-01',
+  dataset: 'production',
+  projectId: 'm5ok1ygs',
+  useCdn: false,
+});
+export async function loader({context}) {
+  const {storefront} = context;
+  const sanityData = await client.fetch(query);
+  console.log('KKK');
+  // Log the fetched data
+  // console.log(sanityData);
+
+  return defer({
+    sanityData,
+  });
+}
+export function Layout({
+  cart,
+  children = null,
+  footer,
+  header,
+  isLoggedIn,
+  sanityData,
+  language,
+}) {
+  const data = useLoaderData();
+  // Using the selected language to determine which data to fetch
+  const sanity =
+    language === 'en' ? data?.sanityData?.[1] : data?.sanityData?.[0];
+  console.log(sanity);
+
   useEffect(() => {
     // Triggering a reflow
-    const resizer = document.getElementById('rezized')
+    const resizer = document.getElementById('rezized');
     const triggerReflow = () => {
-        // You can access any DOM element. Here, document.body is used as an example.
-        setTimeout(() => {
-          resizer.style.width = '95%' ; // Trigger reflow
+      // You can access any DOM element. Here, document.body is used as an example.
+      setTimeout(() => {
+        resizer.style.width = '95%'; // Trigger reflow
       }, 1500);
-        setTimeout(() => {
-          resizer.style.width = '100%' ; // Trigger reflow
+      setTimeout(() => {
+        resizer.style.width = '100%'; // Trigger reflow
       }, 1550);
-
-
     };
 
-
-  triggerReflow();
-
-
+    triggerReflow();
 
     // Cleanup
-    return () => {
-    };
-}, []);
+    return () => {};
+  }, []);
   return (
     <>
-      <CartAside cart={cart} />
-      <SearchAside />
-      <MobileMenuAside menu={header.menu} shop={header.shop} />
-      <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
-      <main>{children}</main>
-      {/* <Suspense>
+      <LanguageContext.Provider value={language}>
+        <CartAside sanity={sanity} cart={cart} />
+        <SearchAside />
+        <MobileMenuAside menu={header.menu} shop={header.shop} />
+        {/* <a onClick={toggleLanguage}>
+        {language === 'fr' ? 'Switch to English' : 'Passer au français'}
+      </a> */}
+        <Header
+          sanity={sanity}
+          header={header}
+          cart={cart}
+          isLoggedIn={isLoggedIn}
+        />
+        <main>{children}</main>
+        {/* <Suspense>
         <Await resolve={footer}>
           {(footer) => <Footer menu={footer.menu} shop={header.shop} />}
         </Await>
       </Suspense> */}
+      </LanguageContext.Provider>
     </>
   );
 }
@@ -61,13 +107,13 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
 /**
  * @param {{cart: LayoutProps['cart']}}
  */
-function CartAside({cart}) {
+function CartAside({cart, sanity}) {
   return (
-    <Aside id="cart-aside" heading="CART">
+    <Aside id="cart-aside" sanity={sanity} heading="CART">
       <Suspense fallback={<p>Loading cart ...</p>}>
         <Await resolve={cart}>
           {(cart) => {
-            return <CartMain cart={cart} layout="aside" />;
+            return <CartMain sanity={sanity} cart={cart} layout="aside" />;
           }}
         </Await>
       </Suspense>
