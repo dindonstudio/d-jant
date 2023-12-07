@@ -1,49 +1,16 @@
 import {RemixServer} from '@remix-run/react';
 import isbot from 'isbot';
 import {renderToReadableStream} from 'react-dom/server';
-import {createContentSecurityPolicy} from '@shopify/hydrogen';
 
-/**
- * @param {Request} request
- * @param {number} responseStatusCode
- * @param {Headers} responseHeaders
- * @param {EntryContext} remixContext
- */
 export default async function handleRequest(
   request,
   responseStatusCode,
   responseHeaders,
   remixContext,
 ) {
-  const {nonce, header, NonceProvider} = createContentSecurityPolicy({
-    styleSrc: [
-      "'self'",
-      "'unsafe-inline'",
-      'https://cdn.shopify.com',
-
-    ],
-    connectSrc: [
-      "'self'",
-      'blob:',
-      'https://cdn.sanity.io',
-      // ... any other URLs or sources you want to allow connections to
-    ],
-    imgSrc: [
-      "'self'",
-      'https://cdn.shopify.com',
-      'https://cdn.sanity.io', // Add this line
-      // ... any other image sources
-    ],
-  });
-  
-  
-
   const body = await renderToReadableStream(
-    <NonceProvider>
-      <RemixServer context={remixContext} url={request.url} />
-    </NonceProvider>,
+    <RemixServer context={remixContext} url={request.url} />,
     {
-      nonce,
       signal: request.signal,
       onError(error) {
         // eslint-disable-next-line no-console
@@ -58,12 +25,8 @@ export default async function handleRequest(
   }
 
   responseHeaders.set('Content-Type', 'text/html');
-  responseHeaders.set('Content-Security-Policy', header);
-
   return new Response(body, {
     headers: responseHeaders,
     status: responseStatusCode,
   });
 }
-
-/** @typedef {import('@shopify/remix-oxygen').EntryContext} EntryContext */

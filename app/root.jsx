@@ -23,6 +23,8 @@ import sanityClient, {createClient} from '@sanity/client';
 import {useState, useEffect, useRef} from 'react';
 import {useLocation} from '@remix-run/react';
 import {usePageAnalytics} from './utils';
+import { AnalyticsHead } from './lib/analytics.client';
+import { ClientOnly } from 'remix-utils/client-only';
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -134,7 +136,7 @@ export async function loader({context}) {
 }
 
 export default function App() {
-  const nonce = useNonce();
+  // const nonce = useNonce();
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
   const [language, setLanguage] = useState('fr');
@@ -146,6 +148,23 @@ export default function App() {
   const lastLocationKey = useRef('');
   const location = useLocation();
   const pageAnalytics = usePageAnalytics();
+
+  useEffect(() => {    
+    if (lastLocationKey.current === location.key) return;
+
+    lastLocationKey.current = location.key;
+    const script = document.createElement('script');
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-Y07KB61WLZ';
+    script.async = true;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-Y07KB61WLZ');
+  }, []);
+
   useEffect(() => {
     // Filter out useEffect running twice
     if (lastLocationKey.current === location.key) return;
@@ -164,25 +183,8 @@ export default function App() {
   return (
     <html lang="en">
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-M3TNRC59');
-  `,
-          }}
-        />
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{display: 'none'}}
-            src="https://www.facebook.com/tr?id=730284285674428&ev=PageView&noscript=1"
-          />
-        </noscript>
+     
+    
 
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -193,6 +195,7 @@ export default function App() {
         />
 
         <Links />
+        <ClientOnly>{() => <AnalyticsHead />}</ClientOnly>
       </head>
       <body>
         <div className="fixed md:top-12 md:right-28 z-50 mt-1 top-8 right-20 ">
@@ -206,9 +209,9 @@ export default function App() {
         <Layout language={language} {...data}>
           <Outlet />
         </Layout>
-        <ScrollRestoration nonce={nonce} />
-        <Scripts nonce={nonce} />
-        <LiveReload nonce={nonce} />
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload  />
       </body>
     </html>
   );
@@ -217,7 +220,7 @@ export default function App() {
 export function ErrorBoundary() {
   const error = useRouteError();
   const rootData = useRootLoaderData();
-  const nonce = useNonce();
+  // const nonce = useNonce();
   let errorMessage = 'Unknown error';
   let errorStatus = 500;
 
