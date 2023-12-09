@@ -22,7 +22,7 @@ import {Layout} from '~/components/Layout';
 import sanityClient, {createClient} from '@sanity/client';
 import {useState, useEffect, useRef} from 'react';
 import {useLocation} from '@remix-run/react';
-import {usePageAnalytics} from './utils';
+import {usePageAnalytics, makeid} from './utils';
 import { AnalyticsHead } from './lib/analytics.client';
 import { ClientOnly } from 'remix-utils/client-only';
 /**
@@ -163,21 +163,35 @@ export default function App() {
     gtag('js', new Date());
 
     gtag('config', 'G-Y07KB61WLZ');
-  }, []);
+
+  }, [location]);
+  useEffect(() => {
+
+    !function(e){if(!window.pintrk){window.pintrk = function () {
+      window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var
+        n=window.pintrk;n.queue=[],n.version="3.0";var
+        t=document.createElement("script");t.async=!0,t.src=e;var
+        r=document.getElementsByTagName("script")[0];
+        r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
+        pintrk('load', '2614330111979', {em: '<user_email_address>'});
+        pintrk('page');
+  }, [])
 
   useEffect(() => {
     // Filter out useEffect running twice
     if (lastLocationKey.current === location.key) return;
 
     lastLocationKey.current = location.key;
-
     // Send page view analytics
 
-    console.log(pageAnalytics);
+    pintrk('track', 'pagevisit', {
+      event_id: makeid(8)
+      });
     // pageAnalytics = {
     //    shopId: 'gid://shopify/Shop/1',
     //    pageType: 'product',
     // }
+
   }, [location, pageAnalytics]);
 
   return (
@@ -195,6 +209,12 @@ export default function App() {
         />
 
         <Links />
+        <ClientOnly>
+       {() => ( <noscript>
+        <img height="1" width="1" style="display:none;" alt=""
+          src="https://ct.pinterest.com/v3/?event=init&tid=2614330111979&pd[em]=<hashed_email_address>&noscript=1" />
+        </noscript>)}
+        </ClientOnly>
         <ClientOnly>{() => <AnalyticsHead />}</ClientOnly>
       </head>
       <body>
@@ -251,9 +271,9 @@ export function ErrorBoundary() {
             )}
           </div>
         </Layout>
-        <ScrollRestoration nonce={nonce} />
-        <Scripts nonce={nonce} />
-        <LiveReload nonce={nonce} />
+        <ScrollRestoration  />
+        <Scripts  />
+        <LiveReload  />
       </body>
     </html>
   );

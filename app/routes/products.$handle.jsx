@@ -21,7 +21,7 @@ import {
   getSelectedProductOptions,
   CartForm,
 } from '@shopify/hydrogen';
-import {getVariantUrl} from '~/utils';
+import {getVariantUrl, makeid} from '~/utils';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -408,6 +408,7 @@ function ProductForm({product, selectedVariant, variants, sanity}) {
   // console.log("ProductForm - Product:", product);
   // console.log("ProductForm - Selected Variant ID:", selectedVariant.id);
   // console.log("ProductForm - Variants:", variants);
+
   return (
     <div className="product-form">
       <div className="flex gap-24">
@@ -432,7 +433,13 @@ function ProductForm({product, selectedVariant, variants, sanity}) {
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
           window.location.href = window.location.href + '#cart-aside';
-       
+          window.fbq('track', 'Add to Cart', {productTitle: product.title,variantId: selectedVariant.id, price: selectedVariant.price.amount, currency: selectedVariant.price.currencyCode, value: product.id})
+          pintrk('track', 'addtocart', {
+            event_id: makeid(8),
+            value: selectedVariant.price.amount,
+            order_quantity: 1,
+            currency: selectedVariant.price.currencyCode
+            });
           console.log(selectedVariant);
         }}
         lines={
@@ -451,6 +458,8 @@ function ProductForm({product, selectedVariant, variants, sanity}) {
     </div>
   );
 }
+
+
 
 /**
  * @param {{option: VariantOption}}

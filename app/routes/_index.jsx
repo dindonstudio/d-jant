@@ -36,6 +36,7 @@ import RevealListWrapper from '~/components/RevealListWrapper';
 import RevealOpacity from '~/components/RevealOpacity';
 import CustomFooter from '~/components/CustomFooter';
 import {CartForm} from '@shopify/hydrogen';
+import { makeid } from '~/utils';
 const query = `*[_type == 'home' ]
 {
  ...,
@@ -415,6 +416,13 @@ function ProductForm({product, sanity}) {
                         type="submit"
                         onClick={() => {
                           console.log('Add to cart clicked');
+                          window.fbq('track', 'Add to Cart', {value:product.id, productTitle: product.title,variantId: variant.id, price: variant.price.amount, currency: variant.price.currencyCode})
+                          pintrk('track', 'addtocart', {
+                          event_id: makeid(8),
+                          value: variant.price.amount,
+                          order_quantity: 1,
+                          currency: variant.price.currencyCode
+                          });
                           window.location.href = '#cart-aside';
                         }}
                         className="  rounded-sm w-full px-4 pt-3 pb-2 text-semiDark bg-semiWhite uppercase hover:bg-semiDark hover:text-semiWhite transition-colors duration-150"
