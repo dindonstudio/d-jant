@@ -150,9 +150,7 @@ export default function App() {
   const pageAnalytics = usePageAnalytics();
 
   useEffect(() => {    
-    if (lastLocationKey.current === location.key) return;
 
-    lastLocationKey.current = location.key;
     const script = document.createElement('script');
     script.src = 'https://www.googletagmanager.com/gtag/js?id=G-Y07KB61WLZ';
     script.async = true;
@@ -164,9 +162,6 @@ export default function App() {
 
     gtag('config', 'G-Y07KB61WLZ');
 
-  }, [location]);
-  useEffect(() => {
-
     !function(e){if(!window.pintrk){window.pintrk = function () {
       window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var
         n=window.pintrk;n.queue=[],n.version="3.0";var
@@ -175,7 +170,9 @@ export default function App() {
         r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
         pintrk('load', '2614330111979', {em: '<user_email_address>'});
         pintrk('page');
-  }, [])
+        console.log('running speed')
+
+  }, []);
 
   useEffect(() => {
     // Filter out useEffect running twice
@@ -183,9 +180,11 @@ export default function App() {
 
     lastLocationKey.current = location.key;
     // Send page view analytics
-
     pintrk('track', 'pagevisit', {
-      event_id: makeid(8)
+      event_id: makeid(8), 
+      page: pageAnalytics.pageType,
+      pagePath: location.pathname,
+      query: location.search
       });
     // pageAnalytics = {
     //    shopId: 'gid://shopify/Shop/1',
