@@ -1,6 +1,6 @@
 import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
-import {useVariantUrl} from '~/utils';
+import {useVariantUrl, makeid} from '~/utils';
 
 /**
  * @param {CartMainProps}
@@ -34,7 +34,7 @@ function CartDetails({layout, cart, sanity}) {
       {cartHasItems && (
         <CartSummary  sanity={sanity} cost={cart.cost} layout={layout}>
           {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
-          <CartCheckoutActions  sanity={sanity} checkoutUrl={cart.checkoutUrl} />
+          <CartCheckoutActions cost={cart.cost}  sanity={sanity} checkoutUrl={cart.checkoutUrl} />
         </CartSummary>
       )}
     </div>
@@ -148,12 +148,18 @@ function CartLineItem({layout, line, sanity}) {
 /**
  * @param {{checkoutUrl: string}}
  */
-function CartCheckoutActions({checkoutUrl, sanity}) {
+function CartCheckoutActions({checkoutUrl, sanity, cost}) {
   if (!checkoutUrl) return null;
 
   return (
     <div>
-      <a className='' href={checkoutUrl} target="_self">
+      <a className='' onClick={() => {
+        pintrk('track', 'checkout', {
+        event_id: makeid(),
+        value: cost?.subtotalAmount,
+        order_quantity: 1,
+        });
+      }} href={checkoutUrl} target="_self">
         <h4                         className=" text-center borderblack  rounded-sm w-full px-4 pt-7 pb-6 hover:text-semiDark hover:bg-semiWhite uppercase bg-green text-semiWhite transition-colors duration-150"
 
         >{sanity.paiement} </h4>
