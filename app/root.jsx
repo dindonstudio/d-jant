@@ -20,11 +20,12 @@ import anim from './styles/anim.css';
 import globalStyles from './styles/global.css';
 import {Layout} from '~/components/Layout';
 import sanityClient, {createClient} from '@sanity/client';
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect, useRef, React} from 'react';
 import {useLocation} from '@remix-run/react';
 import {usePageAnalytics, makeid} from './utils';
 import { AnalyticsHead } from './lib/analytics.client';
 import { ClientOnly } from 'remix-utils/client-only';
+import GoogleTagManager from './lib/gtm';
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -149,6 +150,15 @@ export default function App() {
   const location = useLocation();
   const pageAnalytics = usePageAnalytics();
 
+  const gtmTagScript = `<noscript>
+    <iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-M3TNRC59"
+      height="0"
+      width="0"
+      style={{ display: 'none', visibility: 'hidden' }}
+    ></iframe>
+  </noscript>`;
+
   useEffect(() => {    
 
     const script = document.createElement('script');
@@ -161,6 +171,22 @@ export default function App() {
     gtag('js', new Date());
 
     gtag('config', 'G-Y07KB61WLZ');
+
+    // const noScriptD = document.createElement('noscript');
+    // const iframe = document.createElement('iframe');
+    // iframe.src= 'https://www.googletagmanager.com/ns.html?id=GTM-M3TNRC59';
+    // iframe.style.height = '0';
+    // iframe.style.width = '0';
+    // iframe.style.display = 'none';
+    // iframe.style.visibility = 'hidden';
+    // noScriptD.appendChild(iframe);
+    // document.body.appendChild(noScriptD)
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3TNRC59');
 
     !function(e){if(!window.pintrk){window.pintrk = function () {
       window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var
@@ -231,7 +257,9 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload  />
-      </body>
+         {/* Your Google Tag Manager code */}
+        <GoogleTagManager />
+        </body>
     </html>
   );
 }
