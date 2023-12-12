@@ -25,7 +25,6 @@ import {useLocation} from '@remix-run/react';
 import {usePageAnalytics, makeid} from './utils';
 import { AnalyticsHead } from './lib/analytics.client';
 import { ClientOnly } from 'remix-utils/client-only';
-import GoogleTagManager from './lib/gtm';
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -172,21 +171,12 @@ export default function App() {
 
     gtag('config', 'G-Y07KB61WLZ');
 
-    // const noScriptD = document.createElement('noscript');
-    // const iframe = document.createElement('iframe');
-    // iframe.src= 'https://www.googletagmanager.com/ns.html?id=GTM-M3TNRC59';
-    // iframe.style.height = '0';
-    // iframe.style.width = '0';
-    // iframe.style.display = 'none';
-    // iframe.style.visibility = 'hidden';
-    // noScriptD.appendChild(iframe);
-    // document.body.appendChild(noScriptD)
 
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-M3TNRC59');
+    })(window,document,'script','dataLayer','GTM-PF9Q5H8M');
 
     !function(e){if(!window.pintrk){window.pintrk = function () {
       window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var
@@ -258,7 +248,7 @@ export default function App() {
         <Scripts />
         <LiveReload  />
          {/* Your Google Tag Manager code */}
-        <GoogleTagManager />
+        
         </body>
     </html>
   );
