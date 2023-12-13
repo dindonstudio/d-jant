@@ -23,7 +23,7 @@ import sanityClient, {createClient} from '@sanity/client';
 import {useState, useEffect, useRef, React} from 'react';
 import {useLocation} from '@remix-run/react';
 import {usePageAnalytics, makeid} from './utils';
-import { AnalyticsHead } from './lib/analytics.client';
+// import { AnalyticsHead } from './lib/analytics.client';
 import { ClientOnly } from 'remix-utils/client-only';
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -159,7 +159,6 @@ export default function App() {
 
   
   useEffect(() => {    
-
     const script = document.createElement('script');
     script.src = 'https://www.googletagmanager.com/gtag/js?id=G-Y07KB61WLZ';
     script.async = true;
@@ -226,7 +225,6 @@ export default function App() {
           src="https://ct.pinterest.com/v3/?event=init&tid=2614330111979&pd[em]=<hashed_email_address>&noscript=1" />
         </noscript>)}
         </ClientOnly>
-        <ClientOnly>{() => <AnalyticsHead />}</ClientOnly>
       </head>
       <body>
         <div className="fixed md:top-12 md:right-28 z-50 mt-1 top-8 right-20 ">

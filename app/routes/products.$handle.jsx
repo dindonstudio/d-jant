@@ -432,15 +432,20 @@ function ProductForm({product, selectedVariant, variants, sanity}) {
       sanity={sanity}
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
+          dataLayer.push({'event': 'Add To Cart', 
+          productTitle: product.title,
+          productId: [product.id],
+          currency: selectedVariant.price.currencyCode, 
+          value: selectedVariant.price.amount
+      })
           window.location.href = window.location.href + '#cart-aside';
-          window.fbq('track', 'Add to Cart', {productTitle: product.title,variantId: selectedVariant.id, price: selectedVariant.price.amount, currency: selectedVariant.price.currencyCode, value: product.id})
+          // window.fbq('track', 'Add to Cart', {productTitle: product.title,variantId: selectedVariant.id, price: selectedVariant.price.amount, currency: selectedVariant.price.currencyCode, value: product.id})
           pintrk('track', 'addtocart', {
             event_id: makeid(8),
             value: selectedVariant.price.amount,
             order_quantity: 1,
             currency: selectedVariant.price.currencyCode
             });
-          console.log(selectedVariant);
         }}
         lines={
           selectedVariant
