@@ -370,8 +370,7 @@ function RecommendedProducts({products, sanity}) {
   );
 }
 function ProductForm({product, sanity}) {
-  // console.log(product);
-
+    
   return (
     <VariantSelector
       handle={product.handle}
@@ -415,8 +414,13 @@ function ProductForm({product, sanity}) {
                       <button
                         type="submit"
                         onClick={() => {
-                          console.log('Add to cart clicked');
-                          window.fbq('track', 'Add to Cart', {value:product.id, productTitle: product.title,variantId: variant.id, price: variant.price.amount, currency: variant.price.currencyCode})
+                          // window.fbq('track', 'Add to Cart', {value: product.id, productTitle: product.title,variantId: variant.id, price: variant.price.amount, currency: variant.price.currencyCode})
+                          dataLayer.push({'event': 'Add To Cart', 
+                            productTitle: product.title,
+                            productId: [product.id],
+                            currency: variant.price.currencyCode, 
+                            value: variant.price.amount
+                        });
                           pintrk('track', 'addtocart', {
                           event_id: makeid(8),
                           value: variant.price.amount,

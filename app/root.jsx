@@ -20,10 +20,10 @@ import anim from './styles/anim.css';
 import globalStyles from './styles/global.css';
 import {Layout} from '~/components/Layout';
 import sanityClient, {createClient} from '@sanity/client';
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect, useRef, React} from 'react';
 import {useLocation} from '@remix-run/react';
 import {usePageAnalytics, makeid} from './utils';
-import { AnalyticsHead } from './lib/analytics.client';
+// import { AnalyticsHead } from './lib/analytics.client';
 import { ClientOnly } from 'remix-utils/client-only';
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -149,8 +149,16 @@ export default function App() {
   const location = useLocation();
   const pageAnalytics = usePageAnalytics();
 
-  useEffect(() => {    
+  function AddTagManager(){
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PF9Q5H8M');
+  }
 
+  
+  useEffect(() => {    
     const script = document.createElement('script');
     script.src = 'https://www.googletagmanager.com/gtag/js?id=G-Y07KB61WLZ';
     script.async = true;
@@ -162,6 +170,9 @@ export default function App() {
 
     gtag('config', 'G-Y07KB61WLZ');
 
+    AddTagManager()
+
+
     !function(e){if(!window.pintrk){window.pintrk = function () {
       window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var
         n=window.pintrk;n.queue=[],n.version="3.0";var
@@ -170,7 +181,6 @@ export default function App() {
         r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
         pintrk('load', '2614330111979', {em: '<user_email_address>'});
         pintrk('page');
-        console.log('running speed')
 
   }, []);
 
@@ -190,6 +200,7 @@ export default function App() {
     //    shopId: 'gid://shopify/Shop/1',
     //    pageType: 'product',
     // }
+    //G-TAG
 
   }, [location, pageAnalytics]);
 
@@ -214,7 +225,6 @@ export default function App() {
           src="https://ct.pinterest.com/v3/?event=init&tid=2614330111979&pd[em]=<hashed_email_address>&noscript=1" />
         </noscript>)}
         </ClientOnly>
-        <ClientOnly>{() => <AnalyticsHead />}</ClientOnly>
       </head>
       <body>
         <div className="fixed md:top-12 md:right-28 z-50 mt-1 top-8 right-20 ">
@@ -231,7 +241,9 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload  />
-      </body>
+         {/* Your Google Tag Manager code */}
+        
+        </body>
     </html>
   );
 }
