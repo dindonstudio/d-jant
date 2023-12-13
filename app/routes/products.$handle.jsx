@@ -434,7 +434,7 @@ function ProductForm({product, selectedVariant, variants, sanity}) {
         onClick={() => {
           dataLayer.push({'event': 'Add To Cart', 
           productTitle: product.title,
-          productId: [product.id],
+          productId: [product.id?.match(/\d+/)[0]],
           currency: selectedVariant.price.currencyCode, 
           value: selectedVariant.price.amount
       })

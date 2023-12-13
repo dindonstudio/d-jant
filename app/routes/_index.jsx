@@ -417,7 +417,7 @@ function ProductForm({product, sanity}) {
                           // window.fbq('track', 'Add to Cart', {value: product.id, productTitle: product.title,variantId: variant.id, price: variant.price.amount, currency: variant.price.currencyCode})
                           dataLayer.push({'event': 'Add To Cart', 
                             productTitle: product.title,
-                            productId: [product.id],
+                            productId: [product.id?.match(/\d+/)[0]],
                             currency: variant.price.currencyCode, 
                             value: variant.price.amount
                         });
