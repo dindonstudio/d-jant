@@ -271,7 +271,7 @@ function CartLinePrice({ line, ...passthroughProps }) {
           <div className="discounted-price">
             <Money withoutTrailingZeros {...passthroughProps} data={discountedPrice} />
           </div>
-          <s className="regular-price">
+          <s className="regular-price red">
             <Money withoutTrailingZeros {...passthroughProps} data={regularPrice} />
           </s>
         </div>
