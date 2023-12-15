@@ -256,24 +256,35 @@ function CartLineQuantity({line, sanity}) {
  *   [key: string]: any;
  * }}
  */
-function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
+function CartLinePrice({ line, ...passthroughProps }) {
   if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null;
 
-  const moneyV2 =
-    priceType === 'regular'
-      ? line.cost.totalAmount
-      : line.cost.compareAtAmountPerQuantity;
-
-  if (moneyV2 == null) {
-    return null;
-  }
+  const regularPrice = line.cost.amountPerQuantity;
+  const discountedPrice = line.cost.totalAmount;
+  const isDiscounted = parseFloat(discountedPrice.amount) < parseFloat(regularPrice.amount);
 
   return (
-    <div>
-      <Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />
+    <div className="cart-line-price">
+      {isDiscounted ? (
+        // Display both discounted price and regular price (struck through)
+        <div className='flex gap-4 flex-row-reverse justify-end'>
+          <div className="discounted-price">
+            <Money withoutTrailingZeros {...passthroughProps} data={discountedPrice} />
+          </div>
+          <s className="regular-price">
+            <Money withoutTrailingZeros {...passthroughProps} data={regularPrice} />
+          </s>
+        </div>
+      ) : (
+        // Display regular price only
+        <Money withoutTrailingZeros {...passthroughProps} data={regularPrice} />
+      )}
     </div>
   );
 }
+
+
+
 
 /**
  * @param {{

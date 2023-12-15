@@ -187,7 +187,10 @@ let sanity = {
   body: "Default content",
   decouvrir: "Découvrir",
   taille: "Taille",
-  panier: "AJOUTER AU PANIER"
+  panier: "AJOUTER AU PANIER",
+  chrissmass:'Un acheter -50% sur le deuxième',
+  urlShipping: 'https://cdn.sanity.io/images/m5ok1ygs/production/a03281aaa181c78cbd523507431944c06d80c203-2000x2000.svg',
+  urlOffer: 'https://cdn.sanity.io/images/m5ok1ygs/production/edb967fe55b44d86ca6cf7a26100438b19e56634-2000x2000.svg'
 };
 
 if (sanityData) {
@@ -196,11 +199,17 @@ if (sanityData) {
     sanity.decouvrir = sanityData[0].decouvrirFr;
     sanity.taille = sanityData[0].tailleFr;
     sanity.panier = sanityData[0].ajouterPanierFr;
+    sanity.chrissmass = sanityData[0].ChrismassFr;
+    sanity.urlShipping= 'https://cdn.sanity.io/images/m5ok1ygs/production/a03281aaa181c78cbd523507431944c06d80c203-2000x2000.svg';
+    sanity.urlOffer ='https://cdn.sanity.io/images/m5ok1ygs/production/edb967fe55b44d86ca6cf7a26100438b19e56634-2000x2000.svg';
   } else if (language === 'en') {
     sanity.body = sanityData[0].bodyEnglish;
     sanity.decouvrir = sanityData[0].decouvrirEn;
     sanity.taille = sanityData[0].tailleEn;
     sanity.panier = sanityData[0].ajouterPanierEn;
+    sanity.chrissmass = sanityData[0].ChrismassEn;
+    sanity.urlShipping= 'https://cdn.sanity.io/images/m5ok1ygs/production/652c25da7f971de616983f9310ac730a2cff1688-2000x2000.svg';
+    sanity.urlOffer ='https://cdn.sanity.io/images/m5ok1ygs/production/7ea747d53bca3aa4d5eb8b70eba63675454af483-2000x2000.svg';
   }
 }
   useEffect(() => {
@@ -285,7 +294,7 @@ function ProductMain({
             <img src={ticket1} alt="Ticket 1" className="ticket-svg" />
           </div>
           <div className="absolute -top-28  md:fixed md:top-4 right-28 w-24 customLeft ">
-            <img src={freeShiping} alt="Best Deal" className="best-deal-svg" />
+            <img src={sanity.urlShipping} alt="Best Deal" className="best-deal-svg" />
           </div>
         </>
       )}
@@ -295,7 +304,7 @@ function ProductMain({
                  <img src={ticket2} alt="Ticket 1" className="ticket-svg" />
                </div>
                <div className="absolute -top-28  md:fixed md:top-4 right-28 w-24 customLeft ">
-                 <img src={freeShiping} alt="Best Deal" className="best-deal-svg" />
+                 <img src={sanity.urlShipping} alt="Best Deal" className="best-deal-svg" />
                </div>
              </>
       )}
@@ -305,10 +314,10 @@ function ProductMain({
             <img src={ticket3} alt="Ticket 1" className="ticket-svg" />
           </div>
           <div className="absolute -top-28  md:fixed md:top-4 right-28 w-24 customLeft">
-            <img src={bestOffer} alt="Best Deal" className="best-deal-svg" />
+            <img src={sanity.urlOffer} alt="Best Deal" className="best-deal-svg" />
           </div>
           <div className="absolute -top-28  md:fixed md:top-4 right-52 w-24 customLeftPlus ">
-                 <img src={freeShiping} alt="Best Deal" className="best-deal-svg" />
+                 <img src={sanity.urlShipping} alt="Best Deal" className="best-deal-svg" />
                </div>
         </>
       )}
@@ -318,9 +327,9 @@ function ProductMain({
           <h3>{title}</h3>
           <ProductPrice selectedVariant={selectedVariant} />
         </div>
-        {/* <h4 className="green text-left md:pt-1 md:pb-4 pt-1">
-          La livraison est offerte !
-        </h4> */}
+        <h4 className="red text-left md:pt-1 md:pb-4 pt-1">
+       {sanity.chrissmass}
+        </h4>
 
         <h5></h5>
 
