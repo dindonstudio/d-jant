@@ -20,9 +20,9 @@ import {
   VariantSelector,
   getSelectedProductOptions,
   CartForm,
+  AnalyticsPageType
 } from '@shopify/hydrogen';
 import {getVariantUrl, makeid} from '~/utils';
-
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -150,7 +150,10 @@ export async function loader({params, request, context}) {
 
   referencedProduct = referencedProductResponse;
 
-  return defer({product, variants, referencedProduct, sanityData});
+  return defer({product, variants, referencedProduct, sanityData,  analytics: {
+    pageType: AnalyticsPageType.product,
+    products: [product],
+  } });
 }
 
 /**

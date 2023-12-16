@@ -25,7 +25,7 @@ import Etapes from '../components/Etapes';
 import Decouvertes from '../components/Decouverte';
 import CloseUp from '../components/CloseUp';
 import TicketBar from '../components/TicketBar';
-
+import { AnalyticsPageType } from '@shopify/hydrogen';
 import DragSlider from '~/components/DragSlider';
 import CustomButton from '~/components/CustomButton';
 import VideoPresentation from '~/components/VideoPresentation';
@@ -98,6 +98,9 @@ export async function loader({context}) {
     recommendedProducts,
     galleryData,
     galleryData2,
+    analytics: {
+      pageType: AnalyticsPageType.home
+    }
   });
 }
 

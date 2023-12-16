@@ -1,4 +1,4 @@
-import {useNonce} from '@shopify/hydrogen';
+import {ShopifySalesChannel} from '@shopify/hydrogen';
 import {defer} from '@shopify/remix-oxygen';
 import {
   Links,
@@ -22,7 +22,10 @@ import {Layout} from '~/components/Layout';
 import sanityClient, {createClient} from '@sanity/client';
 import {useState, useEffect, useRef, React} from 'react';
 import {useLocation} from '@remix-run/react';
-import {usePageAnalytics, makeid} from './utils';
+import {makeid} from './utils';
+import { useAnalytics } from './hooks/useAnalytics';
+import { usePageAnalytics } from './utils';
+import {useShopifyCookies} from '@shopify/hydrogen-react';
 // import { AnalyticsHead } from './lib/analytics.client';
 import { ClientOnly } from 'remix-utils/client-only';
 /**
@@ -91,7 +94,10 @@ const client = createClient({
 });
 export async function loader({context}) {
   const {storefront, session, cart} = context;
-  const customerAccessToken = await session.get('customerAccessToken');
+  const [customerAccessToken, layout] = await Promise.all([
+    context.session.get('customerAccessToken'),
+    getLayoutData(context),
+  ]);  
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN;
 
   // validate the customer access token is valid
@@ -124,12 +130,14 @@ export async function loader({context}) {
       cart: cartPromise,
       footer: footerPromise,
       header: await headerPromise,
+      locale: storefront.i18n,
+      analytics: {
+        shopifySalesChannel: ShopifySalesChannel.hydrogen,
+        shopId: layout.shop.id,
+      },
       isLoggedIn,
       publicStoreDomain,
-      sanityData,
-      analytics: {
-        pageType: 'product',
-      },
+      sanityData
     },
     {headers},
   );
@@ -140,7 +148,8 @@ export default function App() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
   const [language, setLanguage] = useState('fr');
-
+  const hasUserConsent = true;
+   useShopifyCookies({hasUserConsent: false});
   // Define a function to toggle language
   const toggleLanguage = () => {
     setLanguage((lang) => (lang === 'fr' ? 'en' : 'fr'));
@@ -183,7 +192,6 @@ export default function App() {
         pintrk('page');
 
   }, []);
-
   useEffect(() => {
     // Filter out useEffect running twice
     if (lastLocationKey.current === location.key) return;
@@ -203,6 +211,7 @@ export default function App() {
     //G-TAG
 
   }, [location, pageAnalytics]);
+  useAnalytics(hasUserConsent, data.locale)
 
   return (
     <html lang="en">
@@ -323,6 +332,34 @@ async function validateCustomerAccessToken(session, customerAccessToken) {
   }
 
   return {isLoggedIn, headers};
+}
+const LAYOUT_QUERY = `#graphql
+  query layoutMenus(
+    $language: LanguageCode
+  ) @inContext(language: $language) {
+    shop {
+      id
+      name
+      description
+      primaryDomain {
+        url
+      }
+    }
+ 
+  }
+`;
+async function getLayoutData({storefront}) {
+
+
+  const data = await storefront.query(LAYOUT_QUERY, {
+    variables: {
+      language: storefront.i18n.language,
+    },
+  });
+
+  
+
+  return {shop: data.shop};
 }
 
 const MENU_FRAGMENT = `#graphql
