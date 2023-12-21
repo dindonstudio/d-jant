@@ -139,7 +139,16 @@ export default function App() {
   // const nonce = useNonce();
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
-  const [language, setLanguage] = useState('fr');
+  const [language, setLanguage] = useState('fr'); // Set initial language to 'fr'
+
+  // Check if navigator.language starts with 'fr' and change language accordingly
+  useEffect(() => {
+    if (navigator.language.startsWith('fr')) {
+      setLanguage('fr');
+    } else {
+      setLanguage('en');
+    }
+  }, []);
 
   // Define a function to toggle language
   const toggleLanguage = () => {
