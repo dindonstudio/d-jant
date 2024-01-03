@@ -372,13 +372,7 @@ function RecommendedProducts({products, sanity}) {
         </Await>
       </Suspense>
       <br />
-      <div className='flex w-full justify-center md:pt-12 md:pb-0 px-8 md:px-0 pb-8 pt-4'>
-      <img
-                                src={sanity.imageChrismassUrl}
-                                alt="Best Deal"
-                                className="best-deal-svg md:w-1/2 w-full"
-                              />
-      </div>
+    
       <h3 className='green text-center md:pt-20 pt-1'>{sanity.livraison}</h3>
     </div>
   );

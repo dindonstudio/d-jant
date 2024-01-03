@@ -330,9 +330,7 @@ function ProductMain({
           <h3>{title}</h3>
           <ProductPrice selectedVariant={selectedVariant} />
         </div>
-        <h4 className="red text-left md:pt-1 md:pb-4 pt-1">
-       {sanity.chrissmass}
-        </h4>
+  
 
         <h5></h5>
 
