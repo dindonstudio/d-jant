@@ -23,6 +23,8 @@ import sanityClient, {createClient} from '@sanity/client';
 import {useState, useEffect, useRef, React} from 'react';
 import {useLocation} from '@remix-run/react';
 import {usePageAnalytics, makeid} from './utils';
+import { useAnalytics } from './hooks/useAnalytics';
+import { ShopifySalesChannel } from '@shopify/hydrogen';
 // import { AnalyticsHead } from './lib/analytics.client';
 import { ClientOnly } from 'remix-utils/client-only';
 /**
@@ -126,9 +128,12 @@ export async function loader({context}) {
       header: await headerPromise,
       isLoggedIn,
       publicStoreDomain,
+      selectedLocale: storefront.i18n,
       sanityData,
       analytics: {
-        pageType: 'product',
+        pageType: 'Home',
+        shopifySalesChannel: ShopifySalesChannel.hydrogen,
+        shopId: 'gid://shopify/Shop/78654177611'
       },
     },
     {headers},
@@ -139,9 +144,9 @@ export default function App() {
   // const nonce = useNonce();
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
- 
+  const locale = data.selectedLocale ?? '';
+  useAnalytics({hasUserConsent: true, locale})
   const [language, setLanguage] = useState('fr'); // Set initial language to 'fr'
-
   // Check if navigator.language starts with 'fr' and change language accordingly
   useEffect(() => {
     if (navigator.language.startsWith('fr')) {
@@ -157,7 +162,7 @@ export default function App() {
   };
   const lastLocationKey = useRef('');
   const location = useLocation();
-  const pageAnalytics = usePageAnalytics();
+  const pageAnalytics = usePageAnalytics({hasUserConsent});
 
   function AddTagManager(){
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -213,7 +218,6 @@ export default function App() {
     //G-TAG
 
   }, [location, pageAnalytics]);
-
   return (
     <html lang="en">
       <head>
@@ -334,6 +338,7 @@ async function validateCustomerAccessToken(session, customerAccessToken) {
 
   return {isLoggedIn, headers};
 }
+
 
 const MENU_FRAGMENT = `#graphql
   fragment MenuItem on MenuItem {

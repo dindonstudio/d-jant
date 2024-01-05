@@ -8,7 +8,7 @@ import {
 import {useEffect} from 'react';
 import {CartAction} from '../lib/type';
 
-export function useAnalytics(hasUserConsent, locale) {
+export function useAnalytics({hasUserConsent, locale}) {
   useShopifyCookies({hasUserConsent});
   const location = useLocation();
   const analyticsFromMatches = useDataFromMatches('analytics');
