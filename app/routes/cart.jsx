@@ -1,6 +1,6 @@
 import {Await} from '@remix-run/react';
 import {Suspense} from 'react';
-import {CartForm} from '@shopify/hydrogen';
+import {AnalyticsPageType, CartForm} from '@shopify/hydrogen';
 import {json} from '@shopify/remix-oxygen';
 import {CartMain} from '~/components/Cart';
 import {useRootLoaderData} from '~/root';
@@ -82,6 +82,7 @@ export async function action({request, context}) {
       errors,
       analytics: {
         cartId,
+        pageType: AnalyticsPageType.cart
       },
     },
     {status, headers},
